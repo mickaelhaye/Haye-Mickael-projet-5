@@ -6,10 +6,10 @@ import lombok.Data;
 public class Firestation {
 
 	private String address;
-	
-	private int station;
 
-	public Firestation(String address, int station) {
+	private String station;
+
+	public Firestation(String address, String station) {
 		super();
 		this.address = address;
 		this.station = station;
@@ -19,7 +19,5 @@ public class Firestation {
 	public String toString() {
 		return "Firestation [address=" + address + ", station=" + station + "]";
 	}
-	
-	
 
 }

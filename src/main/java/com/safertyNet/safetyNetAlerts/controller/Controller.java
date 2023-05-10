@@ -2,7 +2,6 @@ package com.safertyNet.safetyNetAlerts.controller;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
@@ -13,13 +12,14 @@ import service.JsonFileRecup;
 @Component
 public class Controller {
 
-	@Autowired
-	private JsonFileRecup jsonFileRecup;
+	/*
+	 * @Autowired private JsonFileRecup jsonFileRecup;
+	 */
+	private JsonFileRecup jsonFileRecup = new JsonFileRecup();
 
 	public void start() throws StreamReadException, DatabindException, IOException {
 
 		jsonFileRecup.recupFile();
-
 	}
 
 }

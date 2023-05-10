@@ -1,34 +1,36 @@
 package com.safertyNet.safetyNetAlerts.model;
 
-import lombok.Data;
 import java.util.ArrayList;
-import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class Medicalrecord {
 
 	private String firstName;
-	
-	private String lastName;
-	
-	List<String> medications = new ArrayList<String>();
-	
-	List<String> allergies = new ArrayList<String>();
 
-	public Medicalrecord(String firstName, String lastName, List<String> medications, List<String> allergies) {
+	private String lastName;
+
+	private String birthdate;
+
+	ArrayList<String> medications = new ArrayList<String>();
+
+	ArrayList<String> allergies = new ArrayList<String>();
+
+	public Medicalrecord(String firstName, String lastName, String birthdate, ArrayList<String> medications,
+			ArrayList<String> allergies) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.birthdate = birthdate;
 		this.medications = medications;
 		this.allergies = allergies;
 	}
 
 	@Override
 	public String toString() {
-		return "Medicalrecord [firstName=" + firstName + ", lastName=" + lastName + ", medications=" + medications
-				+ ", allergies=" + allergies + "]";
+		return "Medicalrecord [firstName=" + firstName + ", lastName=" + lastName + ", birthdate=" + birthdate
+				+ ", medications=" + medications + ", allergies=" + allergies + "]";
 	}
-	
-	
 
 }
