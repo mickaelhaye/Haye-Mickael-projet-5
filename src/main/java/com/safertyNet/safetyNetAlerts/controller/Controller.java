@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Component
 public class Controller {
 
 	public void start() throws StreamReadException, DatabindException, IOException {
