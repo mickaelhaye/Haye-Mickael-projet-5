@@ -10,13 +10,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-
 import lombok.Data;
 
 @Data
 @Service
-@JsonFilter("monFiltreDynamique")
 public class FileEntry {
 
 	Person person;
