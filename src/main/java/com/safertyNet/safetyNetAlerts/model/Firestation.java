@@ -1,8 +1,8 @@
 package com.safertyNet.safetyNetAlerts.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
-@Data
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Firestation {
 
 	private String address;
@@ -12,6 +12,22 @@ public class Firestation {
 	public Firestation(String address, String station) {
 		super();
 		this.address = address;
+		this.station = station;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getStation() {
+		return station;
+	}
+
+	public void setStation(String station) {
 		this.station = station;
 	}
 

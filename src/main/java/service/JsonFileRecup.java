@@ -18,7 +18,7 @@ public class JsonFileRecup {
 
 	private FileEntry file = new FileEntry();
 
-	public void recupFile() throws StreamReadException, DatabindException, IOException {
+	public FileEntry recupFile() throws StreamReadException, DatabindException, IOException {
 
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -47,6 +47,7 @@ public class JsonFileRecup {
 				System.out.println("bad value in the json file : " + entry);
 			}
 		}
+		return file;
 	}
 
 	public void recupPersons(ArrayList<Map<String, Object>> liste) {
