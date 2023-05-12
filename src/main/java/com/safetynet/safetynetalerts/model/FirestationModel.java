@@ -3,13 +3,13 @@ package com.safetynet.safetynetalerts.model;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class Firestation {
+public class FirestationModel {
 
 	private String address;
 
 	private String station;
 
-	public Firestation(String address, String station) {
+	public FirestationModel(String address, String station) {
 		super();
 		this.address = address;
 		this.station = station;

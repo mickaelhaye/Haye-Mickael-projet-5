@@ -13,16 +13,16 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetynetalerts.CustomProperties;
-import com.safetynet.safetynetalerts.model.FileEntry;
+import com.safetynet.safetynetalerts.model.FileEntryModel;
 
 @Service
-public class JsonFileRecup {
+public class JsonFileRecupService {
 
-	private FileEntry file = new FileEntry();
+	private FileEntryModel file = new FileEntryModel();
 	@Autowired
 	private CustomProperties prop;
 
-	public FileEntry recupFile() throws StreamReadException, DatabindException, IOException {
+	public FileEntryModel recupFile() throws StreamReadException, DatabindException, IOException {
 
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();

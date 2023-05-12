@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class Medicalrecord {
+public class MedicalrecordModel {
 
 	private String firstName;
 
@@ -17,7 +17,7 @@ public class Medicalrecord {
 
 	ArrayList<String> allergies = new ArrayList<String>();
 
-	public Medicalrecord(String firstName, String lastName, String birthdate, ArrayList<String> medications,
+	public MedicalrecordModel(String firstName, String lastName, String birthdate, ArrayList<String> medications,
 			ArrayList<String> allergies) {
 		super();
 		this.firstName = firstName;

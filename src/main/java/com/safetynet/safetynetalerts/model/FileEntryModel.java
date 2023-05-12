@@ -14,40 +14,40 @@ import lombok.Data;
 
 @Data
 @Service
-public class FileEntry {
+public class FileEntryModel {
 
-	Person person;
+	PersonModel person;
 
-	List<Person> listPersons = new ArrayList<Person>();
-	List<Firestation> listFirestations = new ArrayList<Firestation>();
-	List<Medicalrecord> listMedicalrecords = new ArrayList<Medicalrecord>();
+	List<PersonModel> listPersons = new ArrayList<PersonModel>();
+	List<FirestationModel> listFirestations = new ArrayList<FirestationModel>();
+	List<MedicalrecordModel> listMedicalrecords = new ArrayList<MedicalrecordModel>();
 
 	public void addPerson(String firstName, String lastName, String address, String city, String zip, String phone,
 			String email) {
-		Person person = new Person(firstName, lastName, address, city, zip, phone, email);
+		PersonModel person = new PersonModel(firstName, lastName, address, city, zip, phone, email);
 		listPersons.add(person);
 	}
 
 	public void addFirestation(String address, String station) {
-		Firestation firestation = new Firestation(address, station);
+		FirestationModel firestation = new FirestationModel(address, station);
 		listFirestations.add(firestation);
 	}
 
 	public void addMedicalrecord(String firstName, String lastName, String birthdate, ArrayList<String> medications,
 			ArrayList<String> allergies) {
-		Medicalrecord medicalrecord = new Medicalrecord(firstName, lastName, birthdate, medications, allergies);
+		MedicalrecordModel medicalrecord = new MedicalrecordModel(firstName, lastName, birthdate, medications, allergies);
 		listMedicalrecords.add(medicalrecord);
 	}
 
-	public List<Person> getListPersons() {
+	public List<PersonModel> getListPersons() {
 		return listPersons;
 	}
 
-	public List<Firestation> getListFirestations() {
+	public List<FirestationModel> getListFirestations() {
 		return listFirestations;
 	}
 
-	public List<Medicalrecord> getListMedicalrecords() {
+	public List<MedicalrecordModel> getListMedicalrecords() {
 		return listMedicalrecords;
 	}
 
@@ -55,17 +55,17 @@ public class FileEntry {
 	public List<Object> findByFirestationAListPersons(String station) {
 		// Liste des personnes dépendant d'un numéro de station
 		List<Object> listObjects = new ArrayList<Object>();
-		List<Person> listPersons2 = new ArrayList<Person>();
-		List<Firestation> listFirestations2 = new ArrayList<Firestation>();
-		List<Person> listPersonsPlus18 = new ArrayList<Person>();
-		List<Person> listPersons18EtMoins = new ArrayList<Person>();
-		for (Firestation firestation : listFirestations) {
+		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
+		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
+		List<PersonModel> listPersonsPlus18 = new ArrayList<PersonModel>();
+		List<PersonModel> listPersons18EtMoins = new ArrayList<PersonModel>();
+		for (FirestationModel firestation : listFirestations) {
 			if (firestation.getStation().equals(station)) {
 				listFirestations2.add(firestation);
 			}
 		}
-		for (Firestation firestation : listFirestations2) {
-			for (Person person : listPersons) {
+		for (FirestationModel firestation : listFirestations2) {
+			for (PersonModel person : listPersons) {
 				if (firestation.getAddress().equals(person.getAddress())) {
 					listPersons2.add(person);
 				}
@@ -73,8 +73,8 @@ public class FileEntry {
 		}
 		// Décompte du nombre d'adulte de plus de 18 ans et enfants (individu agé de 18
 		// ans ou moins)
-		for (Person person : listPersons2) {
-			for (Medicalrecord medicalrecords : listMedicalrecords) {
+		for (PersonModel person : listPersons2) {
+			for (MedicalrecordModel medicalrecords : listMedicalrecords) {
 				if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
 					int age = calculAge(medicalrecords.getBirthdate());

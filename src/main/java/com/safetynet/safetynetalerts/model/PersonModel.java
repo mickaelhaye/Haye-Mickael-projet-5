@@ -3,7 +3,7 @@ package com.safetynet.safetynetalerts.model;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class Person {
+public class PersonModel {
 
 	private String firstName;
 
@@ -19,7 +19,7 @@ public class Person {
 
 	private String email;
 
-	public Person(String firstName, String lastName, String address, String city, String zip, String phone,
+	public PersonModel(String firstName, String lastName, String address, String city, String zip, String phone,
 			String email) {
 		super();
 		this.firstName = firstName;

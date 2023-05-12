@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
-import com.safetynet.safetynetalerts.model.FileEntry;
-import com.safetynet.safetynetalerts.service.JsonFileRecup;
+import com.safetynet.safetynetalerts.model.FileEntryModel;
+import com.safetynet.safetynetalerts.service.JsonFileRecupService;
 
 @RestController
 public class Controller {
@@ -19,8 +19,8 @@ public class Controller {
 	 * @Autowired private JsonFileRecup jsonFileRecup;
 	 */
 
-	private JsonFileRecup jsonFileRecup = new JsonFileRecup();
-	private FileEntry file;
+	private JsonFileRecupService jsonFileRecup = new JsonFileRecupService();
+	private FileEntryModel file;
 
 	public void start() throws StreamReadException, DatabindException, IOException {
 
