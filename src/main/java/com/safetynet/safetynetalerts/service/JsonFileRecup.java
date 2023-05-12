@@ -5,24 +5,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.model.FileEntry;
 
 @Component
 public class JsonFileRecup {
 
 	private FileEntry file = new FileEntry();
+	@Autowired
+	private CustomProperties prop;
 
 	public FileEntry recupFile() throws StreamReadException, DatabindException, IOException {
 
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
-		String path = "src/main/resources/data/data.json";
+		String path = prop.getJsonFilePath();
 		Map<String, Object> map = objectMapper.readValue(new File(path), new TypeReference<Map<String, Object>>() {
 		});
 		System.out.println(map);
