@@ -5,30 +5,41 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.model.FileEntryModel;
 
 @Service
 public class JsonFileRecupService {
 
 	private FileEntryModel file = new FileEntryModel();
-	@Autowired
-	private CustomProperties prop;
+	/*
+	 * @Autowired private CustomProperties prop;
+	 */
 
-	public FileEntryModel recupFile() throws StreamReadException, DatabindException, IOException {
+	public FileEntryModel recupFile() {
 
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
 		String path = "src/main/resources/data/data.json";
-		Map<String, Object> map = objectMapper.readValue(new File(path), new TypeReference<Map<String, Object>>() {
-		});
+
+		try {
+			FileEntryModel test = objectMapper.readValue(new File(path), FileEntryModel.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Map<String, Object> map = null;
+		try {
+			map = objectMapper.readValue(new File(path), new TypeReference<Map<String, Object>>() {
+			});
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(map);
 
 		for (String entry : map.keySet()) {

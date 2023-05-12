@@ -16,39 +16,38 @@ import lombok.Data;
 @Service
 public class FileEntryModel {
 
-	PersonModel person;
-
-	List<PersonModel> listPersons = new ArrayList<PersonModel>();
-	List<FirestationModel> listFirestations = new ArrayList<FirestationModel>();
-	List<MedicalrecordModel> listMedicalrecords = new ArrayList<MedicalrecordModel>();
+	List<PersonModel> persons = new ArrayList<PersonModel>();
+	List<FirestationModel> firestations = new ArrayList<FirestationModel>();
+	List<MedicalrecordModel> medicalrecords = new ArrayList<MedicalrecordModel>();
 
 	public void addPerson(String firstName, String lastName, String address, String city, String zip, String phone,
 			String email) {
 		PersonModel person = new PersonModel(firstName, lastName, address, city, zip, phone, email);
-		listPersons.add(person);
+		persons.add(person);
 	}
 
 	public void addFirestation(String address, String station) {
 		FirestationModel firestation = new FirestationModel(address, station);
-		listFirestations.add(firestation);
+		firestations.add(firestation);
 	}
 
 	public void addMedicalrecord(String firstName, String lastName, String birthdate, ArrayList<String> medications,
 			ArrayList<String> allergies) {
-		MedicalrecordModel medicalrecord = new MedicalrecordModel(firstName, lastName, birthdate, medications, allergies);
-		listMedicalrecords.add(medicalrecord);
+		MedicalrecordModel medicalrecord = new MedicalrecordModel(firstName, lastName, birthdate, medications,
+				allergies);
+		medicalrecords.add(medicalrecord);
 	}
 
 	public List<PersonModel> getListPersons() {
-		return listPersons;
+		return persons;
 	}
 
 	public List<FirestationModel> getListFirestations() {
-		return listFirestations;
+		return firestations;
 	}
 
 	public List<MedicalrecordModel> getListMedicalrecords() {
-		return listMedicalrecords;
+		return medicalrecords;
 	}
 
 	// 1ere request
@@ -59,13 +58,13 @@ public class FileEntryModel {
 		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
 		List<PersonModel> listPersonsPlus18 = new ArrayList<PersonModel>();
 		List<PersonModel> listPersons18EtMoins = new ArrayList<PersonModel>();
-		for (FirestationModel firestation : listFirestations) {
+		for (FirestationModel firestation : firestations) {
 			if (firestation.getStation().equals(station)) {
 				listFirestations2.add(firestation);
 			}
 		}
 		for (FirestationModel firestation : listFirestations2) {
-			for (PersonModel person : listPersons) {
+			for (PersonModel person : persons) {
 				if (firestation.getAddress().equals(person.getAddress())) {
 					listPersons2.add(person);
 				}
@@ -74,7 +73,7 @@ public class FileEntryModel {
 		// Décompte du nombre d'adulte de plus de 18 ans et enfants (individu agé de 18
 		// ans ou moins)
 		for (PersonModel person : listPersons2) {
-			for (MedicalrecordModel medicalrecords : listMedicalrecords) {
+			for (MedicalrecordModel medicalrecords : medicalrecords) {
 				if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
 					int age = calculAge(medicalrecords.getBirthdate());
