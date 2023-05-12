@@ -1,4 +1,4 @@
-package com.safertynet.safetynetalerts.controller;
+package com.safetynet.safetynetalerts.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
-import com.safertynet.safetynetalerts.model.FileEntry;
-
-import service.JsonFileRecup;
+import com.safetynet.safetynetalerts.model.FileEntry;
+import com.safetynet.safetynetalerts.service.JsonFileRecup;
 
 @RestController
 public class Controller {

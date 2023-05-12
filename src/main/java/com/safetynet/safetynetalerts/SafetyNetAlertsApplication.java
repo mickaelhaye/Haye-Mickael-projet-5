@@ -5,7 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.safertynet.safetynetalerts.controller.Controller;
+import com.safetynet.safetynetalerts.controller.Controller;
 
 import lombok.Data;
 
