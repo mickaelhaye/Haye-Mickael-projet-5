@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.model.FileEntry;
 
-@Component
+@Service
 public class JsonFileRecup {
 
 	private FileEntry file = new FileEntry();
@@ -26,7 +26,7 @@ public class JsonFileRecup {
 
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
-		String path = prop.getJsonFilePath();
+		String path = "src/main/resources/data/data.json";
 		Map<String, Object> map = objectMapper.readValue(new File(path), new TypeReference<Map<String, Object>>() {
 		});
 		System.out.println(map);
