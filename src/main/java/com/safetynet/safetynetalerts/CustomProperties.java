@@ -10,12 +10,4 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "com.safetynet.safetynetalerts")
 public class CustomProperties {
 	private String jsonFilePath;
-
-	public String getJsonFilePath() {
-		return jsonFilePath;
-	}
-
-	public void setJsonFilePath(String jsonFilePath) {
-		this.jsonFilePath = jsonFilePath;
-	}
 }

@@ -2,6 +2,9 @@ package com.safetynet.safetynetalerts.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+import lombok.Data;
+
+@Data
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class FirestationModel {
 
@@ -13,27 +16,6 @@ public class FirestationModel {
 		super();
 		this.address = address;
 		this.station = station;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getStation() {
-		return station;
-	}
-
-	public void setStation(String station) {
-		this.station = station;
-	}
-
-	@Override
-	public String toString() {
-		return "Firestation [address=" + address + ", station=" + station + "]";
 	}
 
 }

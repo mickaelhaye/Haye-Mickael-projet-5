@@ -8,12 +8,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import lombok.Data;
 
 @Data
-@Service
 public class FileEntryModel {
 
 	List<PersonModel> persons = new ArrayList<PersonModel>();
@@ -36,18 +33,6 @@ public class FileEntryModel {
 		MedicalrecordModel medicalrecord = new MedicalrecordModel(firstName, lastName, birthdate, medications,
 				allergies);
 		medicalrecords.add(medicalrecord);
-	}
-
-	public List<PersonModel> getListPersons() {
-		return persons;
-	}
-
-	public List<FirestationModel> getListFirestations() {
-		return firestations;
-	}
-
-	public List<MedicalrecordModel> getListMedicalrecords() {
-		return medicalrecords;
 	}
 
 	// 1ere request
