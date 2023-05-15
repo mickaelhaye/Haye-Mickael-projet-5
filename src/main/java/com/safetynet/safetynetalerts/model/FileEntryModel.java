@@ -13,27 +13,9 @@ import lombok.Data;
 @Data
 public class FileEntryModel {
 
-	List<PersonModel> persons = new ArrayList<PersonModel>();
-	List<FirestationModel> firestations = new ArrayList<FirestationModel>();
-	List<MedicalrecordModel> medicalrecords = new ArrayList<MedicalrecordModel>();
-
-	public void addPerson(String firstName, String lastName, String address, String city, String zip, String phone,
-			String email) {
-		PersonModel person = new PersonModel(firstName, lastName, address, city, zip, phone, email);
-		persons.add(person);
-	}
-
-	public void addFirestation(String address, String station) {
-		FirestationModel firestation = new FirestationModel(address, station);
-		firestations.add(firestation);
-	}
-
-	public void addMedicalrecord(String firstName, String lastName, String birthdate, ArrayList<String> medications,
-			ArrayList<String> allergies) {
-		MedicalrecordModel medicalrecord = new MedicalrecordModel(firstName, lastName, birthdate, medications,
-				allergies);
-		medicalrecords.add(medicalrecord);
-	}
+	List<PersonModel> persons;
+	List<FirestationModel> firestations;
+	List<MedicalrecordModel> medicalrecords;
 
 	// 1ere request
 	public List<Object> findByFirestationAListPersons(String station) {

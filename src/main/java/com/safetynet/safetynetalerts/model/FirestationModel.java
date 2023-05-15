@@ -12,10 +12,4 @@ public class FirestationModel {
 
 	private String station;
 
-	public FirestationModel(String address, String station) {
-		super();
-		this.address = address;
-		this.station = station;
-	}
-
 }

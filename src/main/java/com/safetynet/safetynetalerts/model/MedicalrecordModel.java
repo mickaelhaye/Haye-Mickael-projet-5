@@ -20,13 +20,4 @@ public class MedicalrecordModel {
 
 	ArrayList<String> allergies = new ArrayList<String>();
 
-	public MedicalrecordModel(String firstName, String lastName, String birthdate, ArrayList<String> medications,
-			ArrayList<String> allergies) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.birthdate = birthdate;
-		this.medications = medications;
-		this.allergies = allergies;
-	}
 }
