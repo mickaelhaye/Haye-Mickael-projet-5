@@ -31,7 +31,7 @@ public class Controller {
 		file = jsonFileRecup.recupFile();
 	}
 
-	// Récupérer des personnes couvertes par une station
+	// Récupération des personnes couvertes par une station
 	@GetMapping(value = "/firestation/{station}")
 	public MappingJacksonValue afficherUneListePersonne(@PathVariable String station) {
 		List<Object> listPersons = file.findByFirestationAListPersons(station);
@@ -43,6 +43,20 @@ public class Controller {
 		listPersonsFiltre.setFilters(listDeNosFiltres);
 
 		return listPersonsFiltre;
+	}
+
+	// Récupération des enfants en fonction d'une adresse
+	@GetMapping(value = "/childAlert/{address}")
+	public MappingJacksonValue afficherUneListeEnfant(@PathVariable String address) {
+		List<Object> listChild = file.findByAddressAListChild(address);
+
+		SimpleBeanPropertyFilter monFiltre = SimpleBeanPropertyFilter.serializeAllExcept("city", "zip", "email");
+		FilterProvider listDeNosFiltres = new SimpleFilterProvider().addFilter("personModelFiltre_city_zip_email",
+				monFiltre);
+		MappingJacksonValue listChildFiltre = new MappingJacksonValue(listChild);
+		listChildFiltre.setFilters(listDeNosFiltres);
+
+		return listChildFiltre;
 	}
 
 }

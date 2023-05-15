@@ -7,6 +7,7 @@ import com.safetynet.safetynetalerts.model.FirestationModel;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.service.CalculAgeService;
+import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
 
 import lombok.Data;
 
@@ -59,6 +60,50 @@ public class FileEntryModelRepository {
 		listObjects.add("");
 		listObjects.add("le nombre d'enfants est de " + listPersons18EtMoins.size());
 
+		return listObjects;
+	}
+
+	public List<Object> findByAddressAListChild(String address) {
+		// Liste des personnes habitant à une adresse
+		List<Object> listObjects = new ArrayList<Object>();
+		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
+		List<PersonModel> listPersonsPlus18 = new ArrayList<PersonModel>();
+		List<PersonModel> listPersons18EtMoins = new ArrayList<PersonModel>();
+		List<ChildAlertByAddressService> listChildAlert = new ArrayList<ChildAlertByAddressService>();
+		for (PersonModel person : persons) {
+			if (person.getAddress().equals(address)) {
+				listPersons2.add(person);
+			}
+		}
+
+		// Décompte du nombre d'adulte de plus de 18 ans et enfants (individu agé de 18
+		// ans ou moins)
+		for (PersonModel person : listPersons2) {
+			for (MedicalrecordModel medicalrecords : medicalrecords) {
+				if ((person.getFirstName().equals(medicalrecords.getFirstName()))
+						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
+					CalculAgeService calcul = new CalculAgeService();
+					int age = calcul.calculAge(medicalrecords.getBirthdate());
+					if (age > 18) {
+					} else {
+						listChildAlert.add(
+								new ChildAlertByAddressService(person.getFirstName(), person.getLastName(), age, null));
+					}
+				}
+			}
+		}
+		// person dans le même foyer
+		for (ChildAlertByAddressService childAlerte : listChildAlert) {
+			ArrayList<String> personnDansMemeFoyer = new ArrayList<String>();
+			for (PersonModel person : listPersons2) {
+				if (!person.getFirstName().equals(childAlerte.getFirstName())) {
+					personnDansMemeFoyer.add(person.getFirstName() + " " + person.getLastName());
+				}
+
+			}
+			childAlerte.setPersonnDansMemeFoyer(personnDansMemeFoyer);
+		}
+		listObjects.add(listChildAlert);
 		return listObjects;
 	}
 
