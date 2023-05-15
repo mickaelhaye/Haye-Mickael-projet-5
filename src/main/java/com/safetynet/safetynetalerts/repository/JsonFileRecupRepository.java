@@ -1,23 +1,20 @@
-package com.safetynet.safetynetalerts.service;
+package com.safetynet.safetynetalerts.repository;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetynetalerts.model.FileEntryModel;
 
-@Service
-public class JsonFileRecupService {
+@Repository
+public class JsonFileRecupRepository {
 
 	private FileEntryModel file = new FileEntryModel();
-	/*
-	 * @Autowired private CustomProperties prop;
-	 */
 
 	public FileEntryModel recupFile() {
 
@@ -25,12 +22,11 @@ public class JsonFileRecupService {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String path = "src/main/resources/data/data.json";
 
-		try {
-			FileEntryModel test = objectMapper.readValue(new File(path), FileEntryModel.class);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		/*
+		 * try { FileEntryModel test = objectMapper.readValue(new File(path),
+		 * FileEntryModel.class); } catch (IOException e) { // TODO Auto-generated catch
+		 * block e.printStackTrace(); }
+		 */
 
 		Map<String, Object> map = null;
 		try {

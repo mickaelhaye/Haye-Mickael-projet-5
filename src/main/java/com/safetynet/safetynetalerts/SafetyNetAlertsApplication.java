@@ -16,9 +16,6 @@ public class SafetyNetAlertsApplication implements CommandLineRunner {
 	@Autowired
 	private Controller controller;
 
-	@Autowired
-	private CustomProperties prop;
-
 	public static void main(String[] args) {
 		SpringApplication.run(SafetyNetAlertsApplication.class, args);
 	}
