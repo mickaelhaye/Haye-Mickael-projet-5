@@ -5,22 +5,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.model.FileEntryModel;
 
 @Repository
 public class JsonFileRecupRepository {
 
 	private FileEntryModel file = new FileEntryModel();
+	@Autowired
+	private CustomProperties prop;
 
 	public FileEntryModel recupFile() {
 
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
-		String path = "src/main/resources/data/data.json";
+		String path = prop.getJsonFilePath();
 
 		/*
 		 * try { FileEntryModel test = objectMapper.readValue(new File(path),
