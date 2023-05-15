@@ -1,14 +1,17 @@
-package com.safetynet.safetynetalerts.model;
+package com.safetynet.safetynetalerts.repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.safetynet.safetynetalerts.model.FirestationModel;
+import com.safetynet.safetynetalerts.model.MedicalrecordModel;
+import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.service.CalculAgeService;
 
 import lombok.Data;
 
 @Data
-public class FileEntryModel {
+public class FileEntryModelRepository {
 
 	List<PersonModel> persons;
 	List<FirestationModel> firestations;
