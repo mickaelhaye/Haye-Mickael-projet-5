@@ -63,9 +63,8 @@ public class FileEntryModelRepository {
 		return listObjects;
 	}
 
-	public List<Object> findByAddressAListChild(String address) {
+	public List<ChildAlertByAddressService> findByAddressAListChild(String address) {
 		// Liste des personnes habitant à une adresse
-		List<Object> listObjects = new ArrayList<Object>();
 		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
 		List<PersonModel> listPersonsPlus18 = new ArrayList<PersonModel>();
 		List<PersonModel> listPersons18EtMoins = new ArrayList<PersonModel>();
@@ -103,8 +102,7 @@ public class FileEntryModelRepository {
 			}
 			childAlerte.setPersonnDansMemeFoyer(personnDansMemeFoyer);
 		}
-		listObjects.add(listChildAlert);
-		return listObjects;
+		return listChildAlert;
 	}
 
 }

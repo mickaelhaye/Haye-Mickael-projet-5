@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.safetynet.safetynetalerts.repository.FileEntryModelRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileRecupRepository;
+import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
 
 import jakarta.annotation.PostConstruct;
 
@@ -47,16 +48,9 @@ public class Controller {
 
 	// Récupération des enfants en fonction d'une adresse
 	@GetMapping(value = "/childAlert/{address}")
-	public MappingJacksonValue afficherUneListeEnfant(@PathVariable String address) {
-		List<Object> listChild = file.findByAddressAListChild(address);
-
-		SimpleBeanPropertyFilter monFiltre = SimpleBeanPropertyFilter.serializeAllExcept("city", "zip", "email");
-		FilterProvider listDeNosFiltres = new SimpleFilterProvider().addFilter("personModelFiltre_city_zip_email",
-				monFiltre);
-		MappingJacksonValue listChildFiltre = new MappingJacksonValue(listChild);
-		listChildFiltre.setFilters(listDeNosFiltres);
-
-		return listChildFiltre;
+	public List<ChildAlertByAddressService> afficherUneListeEnfant(@PathVariable String address) {
+		List<ChildAlertByAddressService> listChild = file.findByAddressAListChild(address);
+		return listChild;
 	}
 
 }
