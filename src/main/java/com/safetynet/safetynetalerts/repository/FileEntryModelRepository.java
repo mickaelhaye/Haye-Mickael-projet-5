@@ -105,4 +105,45 @@ public class FileEntryModelRepository {
 		return listChildAlert;
 	}
 
+	public String addPerson(PersonModel person) {
+		persons.add(person);
+		return person.getFirstName() + " " + person.getLastName() + " ajouté";
+	}
+
+	public String updatePerson(PersonModel person) {
+		boolean personneModifiee = false;
+		for (PersonModel personTest : persons) {
+			if ((personTest.getFirstName().equals(person.getFirstName()))
+					&& (personTest.getLastName().equals(person.getLastName()))) {
+				personTest.setAddress(person.getAddress());
+				personTest.setCity(person.getCity());
+				personTest.setZip(person.getZip());
+				personTest.setPhone(person.getPhone());
+				personTest.setEmail(person.getEmail());
+				personneModifiee = true;
+				break;
+			}
+		}
+		if (!personneModifiee) {
+			return person.getFirstName() + " " + person.getLastName() + " n'est pas référencé";
+		}
+		return person.getFirstName() + " " + person.getLastName() + " modifié";
+	}
+
+	public String deletePerson(String firstNameLastName) {
+		boolean personneSupprimee = false;
+		for (PersonModel personTest : persons) {
+			String firstNameLastNamePersonTest = personTest.getFirstName() + personTest.getLastName();
+			if (firstNameLastNamePersonTest.equals(firstNameLastName)) {
+				persons.remove(personTest);
+				personneSupprimee = true;
+				break;
+			}
+		}
+		if (!personneSupprimee) {
+			return firstNameLastName + " n'est pas référencé";
+		}
+		return firstNameLastName + " supprimé";
+	}
+
 }
