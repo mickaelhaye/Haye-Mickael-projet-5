@@ -8,6 +8,7 @@ import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.service.CalculAgeService;
 import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
+import com.safetynet.safetynetalerts.service.PersonbyFirestationService;
 
 import lombok.Data;
 
@@ -22,10 +23,11 @@ public class FileEntryModelRepository {
 	public List<Object> findByFirestationAListPersons(String station) {
 		// Liste des personnes dépendant d'un numéro de station
 		List<Object> listObjects = new ArrayList<Object>();
-		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
 		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
-		List<PersonModel> listPersonsPlus18 = new ArrayList<PersonModel>();
-		List<PersonModel> listPersons18EtMoins = new ArrayList<PersonModel>();
+		List<PersonbyFirestationService> listPersonByFirestation = new ArrayList<PersonbyFirestationService>();
+		List<PersonbyFirestationService> listPersonsPlus18 = new ArrayList<PersonbyFirestationService>();
+		List<PersonbyFirestationService> listPersons18EtMoins = new ArrayList<PersonbyFirestationService>();
+
 		for (FirestationModel firestation : firestations) {
 			if (firestation.getStation().equals(station)) {
 				listFirestations2.add(firestation);
@@ -34,13 +36,14 @@ public class FileEntryModelRepository {
 		for (FirestationModel firestation : listFirestations2) {
 			for (PersonModel person : persons) {
 				if (firestation.getAddress().equals(person.getAddress())) {
-					listPersons2.add(person);
+					listPersonByFirestation.add(new PersonbyFirestationService(person.getFirstName(),
+							person.getLastName(), person.getAddress(), person.getPhone()));
 				}
 			}
 		}
 		// Décompte du nombre d'adulte de plus de 18 ans et enfants (individu agé de 18
 		// ans ou moins)
-		for (PersonModel person : listPersons2) {
+		for (PersonbyFirestationService person : listPersonByFirestation) {
 			for (MedicalrecordModel medicalrecords : medicalrecords) {
 				if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
@@ -54,7 +57,7 @@ public class FileEntryModelRepository {
 				}
 			}
 		}
-		listObjects.add(listPersons2);
+		listObjects.add(listPersonByFirestation);
 		listObjects.add("");
 		listObjects.add("le nombre d'adultes est de " + listPersonsPlus18.size());
 		listObjects.add("");

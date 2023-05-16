@@ -1,6 +1,5 @@
 package com.safetynet.safetynetalerts.model;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
-@JsonFilter("personModelFiltre_city_zip_email")
 
 public class PersonModel {
 	private String firstName;

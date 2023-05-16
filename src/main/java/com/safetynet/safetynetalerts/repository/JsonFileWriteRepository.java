@@ -21,7 +21,7 @@ public class JsonFileWriteRepository {
 		FileEntryModelRepository file = null;
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
-		String path = "src/main/resources/data/data.json";
+		String path = prop.getJsonFilePath();
 
 		try {
 			objectMapper.writeValue(new File(path), file2);
