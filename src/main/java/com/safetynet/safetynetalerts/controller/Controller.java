@@ -57,6 +57,13 @@ public class Controller {
 		return listChild;
 	}
 
+	// Récupération des numéros de téléphone desservis par la caserne
+	@GetMapping(value = "/phoneAlert/{station}")
+	public List<String> afficherUneListeNumTelephone(@PathVariable String station) {
+		List<String> listPhone = file.findByFirestationAPhone(station);
+		return listPhone;
+	}
+
 	@PostMapping("/person")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String ajouterPerson(@RequestBody PersonModel person) {

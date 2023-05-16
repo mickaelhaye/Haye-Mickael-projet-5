@@ -66,6 +66,7 @@ public class FileEntryModelRepository {
 		return listObjects;
 	}
 
+	// 1eme request
 	public List<ChildAlertByAddressService> findByAddressAListChild(String address) {
 		// Liste des personnes habitant à une adresse
 		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
@@ -106,6 +107,30 @@ public class FileEntryModelRepository {
 			childAlerte.setPersonnDansMemeFoyer(personnDansMemeFoyer);
 		}
 		return listChildAlert;
+	}
+
+	// 3eme request
+	public List<String> findByFirestationAPhone(String station) {
+		// Liste des numéros de telephone dépendant d'un numéro de station
+		List<String> listPhone = new ArrayList<String>();
+		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
+
+		for (FirestationModel firestation : firestations) {
+			if (firestation.getStation().equals(station)) {
+				listFirestations2.add(firestation);
+			}
+		}
+		for (FirestationModel firestation : listFirestations2) {
+			for (PersonModel person : persons) {
+				if (firestation.getAddress().equals(person.getAddress())) {
+					if (!listPhone.contains(person.getPhone())) {
+						listPhone.add(person.getPhone());
+					}
+				}
+			}
+		}
+
+		return listPhone;
 	}
 
 	public String addPerson(PersonModel person) {
