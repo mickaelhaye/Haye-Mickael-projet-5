@@ -79,7 +79,9 @@ public class Controller {
 	@DeleteMapping("/person/{firstNameLastName}")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String mettreAJourPerson(@PathVariable String firstNameLastName) {
-		return file.deletePerson(firstNameLastName);
+		String sVal = file.deletePerson(firstNameLastName);
+		jsonFileWrite.writeFile(file);
+		return sVal;
 	}
 
 }
