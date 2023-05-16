@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.repository.FileEntryModelRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileRecupRepository;
+import com.safetynet.safetynetalerts.repository.JsonFileWriteRepository;
 import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
 
 import jakarta.annotation.PostConstruct;
@@ -29,6 +30,9 @@ public class Controller {
 
 	@Autowired
 	private JsonFileRecupRepository jsonFileRecup;
+
+	@Autowired
+	private JsonFileWriteRepository jsonFileWrite;
 
 	private FileEntryModelRepository file;
 
@@ -76,6 +80,7 @@ public class Controller {
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String mettreAJourPerson(@PathVariable String firstNameLastName) {
 		return file.deletePerson(firstNameLastName);
+
 	}
 
 }
