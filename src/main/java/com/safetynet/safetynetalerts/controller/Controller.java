@@ -80,7 +80,6 @@ public class Controller {
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String mettreAJourPerson(@PathVariable String firstNameLastName) {
 		return file.deletePerson(firstNameLastName);
-
 	}
 
 }
