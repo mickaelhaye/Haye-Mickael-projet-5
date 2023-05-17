@@ -78,6 +78,13 @@ public class Controller {
 		return listFoyer;
 	}
 
+	// Récupération des personnes en fonction d'un prénom
+	@GetMapping(value = "/personInfo/{firstName}")
+	public List<String> afficherUneListePersonneParPrenom(@PathVariable String firstName) {
+		List<String> listPersonne = file.findByFirstNameAPerson(firstName);
+		return listPersonne;
+	}
+
 	@PostMapping("/person")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String ajouterPerson(@RequestBody PersonModel person) {

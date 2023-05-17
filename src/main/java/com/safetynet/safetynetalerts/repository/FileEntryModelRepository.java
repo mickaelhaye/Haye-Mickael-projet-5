@@ -241,6 +241,29 @@ public class FileEntryModelRepository {
 		return listObjects;
 	}
 
+	// 6eme request
+	public List<String> findByFirstNameAPerson(String firstName) {
+		// Liste des personnes en fonction d'un prénom
+		List<String> listPerson = new ArrayList<String>();
+
+		for (PersonModel person : persons) {
+			if (person.getFirstName().equals(firstName)) {
+				for (MedicalrecordModel medicalrecords : medicalrecords) {
+					if ((person.getFirstName().equals(medicalrecords.getFirstName()))
+							&& (person.getLastName().equals(medicalrecords.getLastName()))) {
+						CalculAgeService calcul = new CalculAgeService();
+						int age = calcul.calculAge(medicalrecords.getBirthdate());
+						listPerson.add(person.getLastName() + " , " + person.getAddress() + " , " + age + " , "
+								+ person.getEmail() + " , " + medicalrecords.getMedications() + " , "
+								+ medicalrecords.getAllergies());
+
+					}
+				}
+			}
+		}
+		return listPerson;
+	}
+
 	public String addPerson(PersonModel person) {
 		persons.add(person);
 		return person.getFirstName() + " " + person.getLastName() + " ajouté";
