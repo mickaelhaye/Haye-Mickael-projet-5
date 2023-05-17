@@ -85,6 +85,13 @@ public class Controller {
 		return listPersonne;
 	}
 
+	// Récupération des adresses mail en fonction d'une ville
+	@GetMapping(value = "/communityEmail/{city}")
+	public List<String> afficherEmailParCity(@PathVariable String city) {
+		List<String> listEmail = file.findByCityAEmail(city);
+		return listEmail;
+	}
+
 	@PostMapping("/person")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String ajouterPerson(@RequestBody PersonModel person) {

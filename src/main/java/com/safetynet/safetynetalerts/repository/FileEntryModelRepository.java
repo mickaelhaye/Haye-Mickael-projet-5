@@ -264,6 +264,19 @@ public class FileEntryModelRepository {
 		return listPerson;
 	}
 
+	// 6eme request
+	public List<String> findByCityAEmail(String city) {
+		// Liste des personnes en fonction d'un prénom
+		List<String> listEmail = new ArrayList<String>();
+
+		for (PersonModel person : persons) {
+			if (person.getCity().equals(city)) {
+				listEmail.add(person.getEmail());
+			}
+		}
+		return listEmail;
+	}
+
 	public String addPerson(PersonModel person) {
 		persons.add(person);
 		return person.getFirstName() + " " + person.getLastName() + " ajouté";
