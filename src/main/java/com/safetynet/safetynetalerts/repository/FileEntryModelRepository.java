@@ -8,7 +8,9 @@ import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.service.CalculAgeService;
 import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
+import com.safetynet.safetynetalerts.service.FoyerbyFirestationService;
 import com.safetynet.safetynetalerts.service.PersonByAddressService;
+import com.safetynet.safetynetalerts.service.PersonByFoyerService;
 import com.safetynet.safetynetalerts.service.PersonbyFirestationService;
 
 import lombok.Data;
@@ -180,6 +182,63 @@ public class FileEntryModelRepository {
 
 		return listObjects;
 
+	}
+
+	// 5eme request
+	public List<Object> findByFirestationAFoyer(String station) {
+		// Liste des foyer dépendant d'un numéro de station
+		List<Object> listObjects = new ArrayList<Object>();
+		List<String> listFoyer = new ArrayList<String>();
+		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
+		List<FoyerbyFirestationService> listFoyerbyFirestation = new ArrayList<FoyerbyFirestationService>();
+
+		for (FirestationModel firestation : firestations) {
+			if (firestation.getStation().equals(station)) {
+				listFirestations2.add(firestation);
+			}
+		}
+		for (FirestationModel firestation : listFirestations2) {
+			for (PersonModel person : persons) {
+				if (firestation.getAddress().equals(person.getAddress())) {
+					if (!listFoyer.contains(person.getAddress())) {
+						listFoyer.add((person.getAddress()));
+					}
+				}
+			}
+		}
+		for (String foyer : listFoyer) {
+			ArrayList<PersonByFoyerService> listPersonByFoyer = new ArrayList<PersonByFoyerService>();
+			boolean personFind = false;
+			for (PersonModel person : persons) {
+				if (foyer.equals(person.getAddress())) {
+					if (!personFind) {
+						listFoyerbyFirestation.add(new FoyerbyFirestationService(foyer, null));
+						personFind = true;
+					}
+
+					for (MedicalrecordModel medicalrecords : medicalrecords) {
+						if ((person.getFirstName().equals(medicalrecords.getFirstName()))
+								&& (person.getLastName().equals(medicalrecords.getLastName()))) {
+							CalculAgeService calcul = new CalculAgeService();
+							int age = calcul.calculAge(medicalrecords.getBirthdate());
+							String sVal = person.getLastName() + " medications:" + medicalrecords.getMedications()
+									+ " allergies:" + medicalrecords.getAllergies();
+							listPersonByFoyer
+									.add(new PersonByFoyerService(person.getFirstName(), sVal, person.getPhone(), age));
+						}
+					}
+				}
+
+			}
+			FoyerbyFirestationService Foyer = listFoyerbyFirestation.get(listFoyerbyFirestation.size() - 1);
+			Foyer.setListPersonByFoyer(listPersonByFoyer);
+		}
+
+		for (FoyerbyFirestationService foyer : listFoyerbyFirestation) {
+			listObjects.add(foyer);
+		}
+
+		return listObjects;
 	}
 
 	public String addPerson(PersonModel person) {

@@ -71,6 +71,13 @@ public class Controller {
 		return listPerson;
 	}
 
+	// Récupération des personnes en fonction d'une adresse
+	@GetMapping(value = "/flood/stations/{station}")
+	public List<Object> afficherUneListeFoyerParFirestation(@PathVariable String station) {
+		List<Object> listFoyer = file.findByFirestationAFoyer(station);
+		return listFoyer;
+	}
+
 	@PostMapping("/person")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String ajouterPerson(@RequestBody PersonModel person) {
