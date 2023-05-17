@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetynetalerts.CustomProperties;
 
 @Repository
-public class JsonFileRecupRepository {
+public class JsonFileReadRepository {
 
 	private FileEntryRepository file = new FileEntryRepository();
 	@Autowired

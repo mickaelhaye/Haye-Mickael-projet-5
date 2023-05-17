@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetynetalerts.repository.FileEntryRepository;
-import com.safetynet.safetynetalerts.repository.JsonFileRecupRepository;
+import com.safetynet.safetynetalerts.repository.JsonFileReadRepository;
 import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
 
 import jakarta.annotation.PostConstruct;
@@ -19,7 +19,7 @@ import lombok.Data;
 public class Controller {
 
 	@Autowired
-	private JsonFileRecupRepository jsonFileRecup;
+	private JsonFileReadRepository jsonFileRecup;
 
 	private FileEntryRepository file;
 
