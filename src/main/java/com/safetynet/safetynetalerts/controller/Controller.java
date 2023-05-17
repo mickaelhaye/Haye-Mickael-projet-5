@@ -64,6 +64,13 @@ public class Controller {
 		return listPhone;
 	}
 
+	// Récupération des personnes en fonction d'une adresse
+	@GetMapping(value = "/fire/{address}")
+	public List<Object> afficherUneListePersonneParAddresse(@PathVariable String address) {
+		List<Object> listPerson = file.findByAddressAPerson(address);
+		return listPerson;
+	}
+
 	@PostMapping("/person")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String ajouterPerson(@RequestBody PersonModel person) {

@@ -8,6 +8,7 @@ import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.service.CalculAgeService;
 import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
+import com.safetynet.safetynetalerts.service.PersonByAddressService;
 import com.safetynet.safetynetalerts.service.PersonbyFirestationService;
 
 import lombok.Data;
@@ -57,7 +58,9 @@ public class FileEntryModelRepository {
 				}
 			}
 		}
-		listObjects.add(listPersonByFirestation);
+		for (PersonbyFirestationService personByFirestation : listPersonByFirestation) {
+			listObjects.add(personByFirestation);
+		}
 		listObjects.add("");
 		listObjects.add("le nombre d'adultes est de " + listPersonsPlus18.size());
 		listObjects.add("");
@@ -66,7 +69,7 @@ public class FileEntryModelRepository {
 		return listObjects;
 	}
 
-	// 1eme request
+	// 2eme request
 	public List<ChildAlertByAddressService> findByAddressAListChild(String address) {
 		// Liste des personnes habitant à une adresse
 		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
@@ -131,6 +134,52 @@ public class FileEntryModelRepository {
 		}
 
 		return listPhone;
+	}
+
+	// 4eme request
+	public List<Object> findByAddressAPerson(String address) {
+		// Liste des personnes habitant à une adresse
+		List<Object> listObjects = new ArrayList<Object>();
+		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
+		List<PersonModel> listPersonsPlus18 = new ArrayList<PersonModel>();
+		List<PersonModel> listPersons18EtMoins = new ArrayList<PersonModel>();
+		List<PersonByAddressService> listPersonByAddress = new ArrayList<PersonByAddressService>();
+		for (PersonModel person : persons) {
+			if (person.getAddress().equals(address)) {
+				listPersons2.add(person);
+			}
+		}
+
+		// recherche dans medicalrecors
+		for (PersonModel person : listPersons2) {
+			for (MedicalrecordModel medicalrecords : medicalrecords) {
+				if ((person.getFirstName().equals(medicalrecords.getFirstName()))
+						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
+					CalculAgeService calcul = new CalculAgeService();
+					int age = calcul.calculAge(medicalrecords.getBirthdate());
+					listPersonByAddress.add(new PersonByAddressService(person.getFirstName(), person.getLastName(),
+							person.getPhone(), age, medicalrecords.getMedications(), medicalrecords.getAllergies()));
+				}
+			}
+		}
+
+		// recherche numéro de station desservant l'adresse
+		String numStation = "";
+		for (FirestationModel firestation : firestations) {
+			if (firestation.getAddress().equals(address)) {
+				numStation = firestation.getStation();
+			}
+		}
+
+		for (PersonByAddressService personByAdresss : listPersonByAddress) {
+			listObjects.add(personByAdresss);
+		}
+
+		listObjects.add("");
+		listObjects.add("L'adresse " + address + " : est desservie par la station : " + numStation);
+
+		return listObjects;
+
 	}
 
 	public String addPerson(PersonModel person) {
