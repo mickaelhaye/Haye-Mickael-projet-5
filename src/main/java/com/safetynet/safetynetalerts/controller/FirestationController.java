@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.safetynet.safetynetalerts.model.FirestationModel;
 import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileWriteRepository;
+import com.safetynet.safetynetalerts.service.FirestationService;
 
 @RestController
 public class FirestationController {
@@ -26,19 +27,22 @@ public class FirestationController {
 	@Autowired
 	private JsonFileWriteRepository jsonFileWrite;
 
+	@Autowired
+	private FirestationService firestationService;
+
 	private FileEntryRepository file;
 
 	@GetMapping(value = "/firestation")
 	public List<FirestationModel> afficherListeFirestation() {
-		file = controller.getFile();// à valider
+		majPointeur();
 		return file.getFirestations();
 	}
 
 	@PostMapping("/firestation")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String ajouterFirestation(@RequestBody FirestationModel firestation) {
-		file = controller.getFile();// à valider
-		String sVal = file.addFirestation(firestation);
+		majPointeur();
+		String sVal = firestationService.addFirestation(firestation);
 		jsonFileWrite.writeFile(file);
 		return sVal;
 	}
@@ -46,8 +50,8 @@ public class FirestationController {
 	@PatchMapping("/firestation")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String mettreAJourPerson(@RequestBody FirestationModel firestation) {
-		file = controller.getFile();// à valider
-		String sVal = file.updateFirestation(firestation);
+		majPointeur();
+		String sVal = firestationService.updateFirestation(firestation);
 		jsonFileWrite.writeFile(file);
 		return sVal;
 	}
@@ -55,10 +59,15 @@ public class FirestationController {
 	@DeleteMapping("/firestation/{stationOrAddress}")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String mettreAJourFirestation(@PathVariable String stationOrAddress) {
-		file = controller.getFile();// à valider
-		String sVal = file.deleteFirestation(stationOrAddress);
+		majPointeur();
+		String sVal = firestationService.deleteFirestation(stationOrAddress);
 		jsonFileWrite.writeFile(file);
 		return sVal;
+	}
+
+	void majPointeur() {
+		file = controller.getFile();// à valider
+		firestationService.setFirestations(file.getFirestations()); // à valider
 	}
 
 }

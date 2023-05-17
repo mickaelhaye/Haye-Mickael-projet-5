@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileWriteRepository;
+import com.safetynet.safetynetalerts.service.MedicalRecordService;
 
 @RestController
 public class MedicalrecordController {
@@ -26,19 +27,22 @@ public class MedicalrecordController {
 	@Autowired
 	private JsonFileWriteRepository jsonFileWrite;
 
+	@Autowired
+	private MedicalRecordService medicalrecordService;
+
 	private FileEntryRepository file;
 
 	@GetMapping(value = "/medicalrecord")
 	public List<MedicalrecordModel> afficherListeMedicalrecord() {
-		file = controller.getFile();// à valider
+		majPointeur();
 		return file.getMedicalrecords();
 	}
 
 	@PostMapping("/medicalRecord")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
-		file = controller.getFile();// à valider
-		String sVal = file.addMedicalRecord(medicalrecord);
+		majPointeur();
+		String sVal = medicalrecordService.addMedicalRecord(medicalrecord);
 		jsonFileWrite.writeFile(file);
 		return sVal;
 	}
@@ -46,8 +50,8 @@ public class MedicalrecordController {
 	@PatchMapping("/medicalRecord")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
-		file = controller.getFile();// à valider
-		String sVal = file.updateMedicalRecord(medicalrecord);
+		majPointeur();
+		String sVal = medicalrecordService.updateMedicalRecord(medicalrecord);
 		jsonFileWrite.writeFile(file);
 		return sVal;
 	}
@@ -55,10 +59,15 @@ public class MedicalrecordController {
 	@DeleteMapping("/medicalRecord/{firstNameLastName}")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String mettreAJourMedicalRecord(@PathVariable String firstNameLastName) {
-		file = controller.getFile();// à valider
-		String sVal = file.deleteMedicalRecord(firstNameLastName);
+		majPointeur();
+		String sVal = medicalrecordService.deleteMedicalRecord(firstNameLastName);
 		jsonFileWrite.writeFile(file);
 		return sVal;
+	}
+
+	void majPointeur() {
+		file = controller.getFile();// à valider
+		medicalrecordService.setMedicalrecords(file.getMedicalrecords()); // à valider
 	}
 
 }
