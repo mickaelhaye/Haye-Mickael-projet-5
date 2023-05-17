@@ -25,12 +25,12 @@ public class CalculAgeService {
 
 		Calendar calStr1 = Calendar.getInstance();
 		Calendar calStr2 = Calendar.getInstance();
-		Calendar calStr0 = Calendar.getInstance();
+		// Calendar calStr0 = Calendar.getInstance();
 		Date date1 = null;
 		Date date2 = null;
 		int nbMois = 0;
 		int nbAnnees = 0;
-		long nbJours = 0;
+		// long nbJours = 0;
 
 		try {
 			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(birthdate);

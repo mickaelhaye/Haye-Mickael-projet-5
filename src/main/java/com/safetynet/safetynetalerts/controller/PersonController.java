@@ -114,7 +114,7 @@ public class PersonController {
 
 	@DeleteMapping("/person/{firstNameLastName}")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public String mettreAJourPerson(@PathVariable String firstNameLastName) {
+	public String supprimerPerson(@PathVariable String firstNameLastName) {
 		majPointeur();
 		String sVal = personService.deletePerson(firstNameLastName);
 		jsonFileWrite.writeFile(file);

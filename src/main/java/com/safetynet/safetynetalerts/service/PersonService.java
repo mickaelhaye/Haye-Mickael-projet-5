@@ -18,7 +18,11 @@ public class PersonService {
 	private List<FirestationModel> firestations;
 	private List<MedicalrecordModel> medicalrecords;
 
-	// 1ere request
+	/*
+	 * Récupération des personnes couvertes par une station
+	 * 
+	 * @GetMapping(value = "/firestation/{station}")
+	 */
 	public List<Object> findByFirestationAListPersons(String station) {
 		// Liste des personnes dépendant d'un numéro de station
 		List<Object> listObjects = new ArrayList<Object>();
@@ -67,12 +71,14 @@ public class PersonService {
 		return listObjects;
 	}
 
-	// 2eme request
+	/*
+	 * Récupération des enfants en fonction d'une adresse
+	 * 
+	 * @GetMapping(value = "/childAlert/{address}")
+	 */
 	public List<ChildAlertByAddressService> findByAddressAListChild(String address) {
 		// Liste des personnes habitant à une adresse
 		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
-		List<PersonModel> listPersonsPlus18 = new ArrayList<PersonModel>();
-		List<PersonModel> listPersons18EtMoins = new ArrayList<PersonModel>();
 		List<ChildAlertByAddressService> listChildAlert = new ArrayList<ChildAlertByAddressService>();
 		for (PersonModel person : persons) {
 			if (person.getAddress().equals(address)) {
@@ -110,7 +116,11 @@ public class PersonService {
 		return listChildAlert;
 	}
 
-	// 3eme request
+	/*
+	 * Récupération des numéros de téléphone desservis par la caserne
+	 * 
+	 * @GetMapping(value = "/phoneAlert/{station}")
+	 */
 	public List<String> findByFirestationAPhone(String station) {
 		// Liste des numéros de telephone dépendant d'un numéro de station
 		List<String> listPhone = new ArrayList<String>();
@@ -134,13 +144,15 @@ public class PersonService {
 		return listPhone;
 	}
 
-	// 4eme request
+	/*
+	 * Récupération des personnes en fonction d'une adresse
+	 * 
+	 * @GetMapping(value = "/fire/{address}")
+	 */
 	public List<Object> findByAddressAPerson(String address) {
 		// Liste des personnes habitant à une adresse
 		List<Object> listObjects = new ArrayList<Object>();
 		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
-		List<PersonModel> listPersonsPlus18 = new ArrayList<PersonModel>();
-		List<PersonModel> listPersons18EtMoins = new ArrayList<PersonModel>();
 		List<PersonByAddressService> listPersonByAddress = new ArrayList<PersonByAddressService>();
 		for (PersonModel person : persons) {
 			if (person.getAddress().equals(address)) {
@@ -180,7 +192,11 @@ public class PersonService {
 
 	}
 
-	// 5eme request
+	/*
+	 * Récupération des personnes en fonction d'une adresse
+	 * 
+	 * @GetMapping(value = "/flood/stations/{station}")
+	 */
 	public List<Object> findByFirestationAFoyer(String station) {
 		// Liste des foyer dépendant d'un numéro de station
 		List<Object> listObjects = new ArrayList<Object>();
@@ -237,7 +253,11 @@ public class PersonService {
 		return listObjects;
 	}
 
-	// 6eme request
+	/*
+	 * Récupération des personnes en fonction d'un prénom
+	 * 
+	 * @GetMapping(value = "/personInfo/{firstName}")
+	 */
 	public List<String> findByFirstNameAPerson(String firstName) {
 		// Liste des personnes en fonction d'un prénom
 		List<String> listPerson = new ArrayList<String>();
@@ -260,7 +280,11 @@ public class PersonService {
 		return listPerson;
 	}
 
-	// 6eme request
+	/*
+	 * Récupération des adresses mail en fonction d'une ville
+	 * 
+	 * @GetMapping(value = "/communityEmail/{city}")
+	 */
 	public List<String> findByCityAEmail(String city) {
 		// Liste des personnes en fonction d'un prénom
 		List<String> listEmail = new ArrayList<String>();
@@ -273,11 +297,13 @@ public class PersonService {
 		return listEmail;
 	}
 
+	// @PostMapping("/person")
 	public String addPerson(PersonModel person) {
 		persons.add(person);
 		return person.getFirstName() + " " + person.getLastName() + " ajouté";
 	}
 
+	// @PatchMapping("/person")
 	public String updatePerson(PersonModel person) {
 		boolean personneModifiee = false;
 		for (PersonModel personTest : persons) {
@@ -298,6 +324,7 @@ public class PersonService {
 		return person.getFirstName() + " " + person.getLastName() + " modifié";
 	}
 
+	// @DeleteMapping("/person/{firstNameLastName}")
 	public String deletePerson(String firstNameLastName) {
 		boolean personneSupprimee = false;
 		for (PersonModel personTest : persons) {

@@ -49,7 +49,7 @@ public class FirestationController {
 
 	@PatchMapping("/firestation")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public String mettreAJourPerson(@RequestBody FirestationModel firestation) {
+	public String mettreAJourFirestation(@RequestBody FirestationModel firestation) {
 		majPointeur();
 		String sVal = firestationService.updateFirestation(firestation);
 		jsonFileWrite.writeFile(file);
@@ -58,7 +58,7 @@ public class FirestationController {
 
 	@DeleteMapping("/firestation/{stationOrAddress}")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public String mettreAJourFirestation(@PathVariable String stationOrAddress) {
+	public String supprimerFirestation(@PathVariable String stationOrAddress) {
 		majPointeur();
 		String sVal = firestationService.deleteFirestation(stationOrAddress);
 		jsonFileWrite.writeFile(file);

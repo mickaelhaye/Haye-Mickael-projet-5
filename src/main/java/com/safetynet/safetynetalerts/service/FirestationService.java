@@ -13,11 +13,13 @@ import lombok.Data;
 public class FirestationService {
 	List<FirestationModel> firestations;
 
+	// @PostMapping("/firestation")
 	public String addFirestation(FirestationModel firestation) {
 		firestations.add(firestation);
 		return "la firestation " + firestation.getAddress() + " Station:" + firestation.getStation() + " a été ajoutée";
 	}
 
+	// @PatchMapping("/firestation")
 	public String updateFirestation(FirestationModel firestation) {
 		boolean firestationModifiee = false;
 		for (FirestationModel firestationTest : firestations) {
@@ -33,6 +35,7 @@ public class FirestationService {
 		return "la firestation " + firestation.getAddress() + " a été modifiée";
 	}
 
+	// @DeleteMapping("/firestation/{stationOrAddress}")
 	public String deleteFirestation(String stationOrAddress) {
 		boolean firestationSupprimeebyStation = false;
 		boolean firestationSupprimeebyAddress = false;

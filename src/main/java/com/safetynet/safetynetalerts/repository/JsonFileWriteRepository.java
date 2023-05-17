@@ -12,7 +12,6 @@ import com.safetynet.safetynetalerts.CustomProperties;
 @Repository
 public class JsonFileWriteRepository {
 
-	private FileEntryRepository file = new FileEntryRepository();
 	@Autowired
 	private CustomProperties prop;
 

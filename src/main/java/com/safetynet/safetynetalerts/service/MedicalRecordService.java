@@ -13,11 +13,13 @@ import lombok.Data;
 public class MedicalRecordService {
 	List<MedicalrecordModel> medicalrecords;
 
+	// @PostMapping("/medicalRecord")
 	public String addMedicalRecord(MedicalrecordModel medicalRecord) {
 		medicalrecords.add(medicalRecord);
 		return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " ajouté";
 	}
 
+	// @PatchMapping("/medicalRecord")
 	public String updateMedicalRecord(MedicalrecordModel medicalRecord) {
 		boolean medicalRecordModifiee = false;
 		for (MedicalrecordModel medicalRecordTest : medicalrecords) {
@@ -36,6 +38,7 @@ public class MedicalRecordService {
 		return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " modifié";
 	}
 
+	// @DeleteMapping("/medicalRecord/{firstNameLastName}")
 	public String deleteMedicalRecord(String firstNameLastName) {
 		boolean medicalRecordSupprimee = false;
 		for (MedicalrecordModel medicalRecordTest : medicalrecords) {

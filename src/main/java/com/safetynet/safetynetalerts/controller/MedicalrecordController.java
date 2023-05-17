@@ -58,7 +58,7 @@ public class MedicalrecordController {
 
 	@DeleteMapping("/medicalRecord/{firstNameLastName}")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public String mettreAJourMedicalRecord(@PathVariable String firstNameLastName) {
+	public String supprimerMedicalRecord(@PathVariable String firstNameLastName) {
 		majPointeur();
 		String sVal = medicalrecordService.deleteMedicalRecord(firstNameLastName);
 		jsonFileWrite.writeFile(file);
