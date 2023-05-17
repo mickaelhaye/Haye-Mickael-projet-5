@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.safetynetalerts.model.FirestationModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.repository.FileEntryModelRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileRecupRepository;
@@ -42,6 +43,11 @@ public class Controller {
 	@GetMapping(value = "/person")
 	public List<PersonModel> afficherListePersonne() {
 		return file.getPersons();
+	}
+
+	@GetMapping(value = "/firestation")
+	public List<FirestationModel> afficherListeFirestation() {
+		return file.getFirestations();
 	}
 
 	// Récupération des personnes couvertes par une station
@@ -112,6 +118,30 @@ public class Controller {
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String mettreAJourPerson(@PathVariable String firstNameLastName) {
 		String sVal = file.deletePerson(firstNameLastName);
+		jsonFileWrite.writeFile(file);
+		return sVal;
+	}
+
+	@PostMapping("/firestation")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public String ajouterFirestation(@RequestBody FirestationModel firestation) {
+		String sVal = file.addFirestation(firestation);
+		jsonFileWrite.writeFile(file);
+		return sVal;
+	}
+
+	@PatchMapping("/firestation")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public String mettreAJourPerson(@RequestBody FirestationModel firestation) {
+		String sVal = file.updateFirestation(firestation);
+		jsonFileWrite.writeFile(file);
+		return sVal;
+	}
+
+	@DeleteMapping("/firestation/{stationOrAddress}")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public String mettreAJourFirestation(@PathVariable String stationOrAddress) {
+		String sVal = file.deleteFirestation(stationOrAddress);
 		jsonFileWrite.writeFile(file);
 		return sVal;
 	}
