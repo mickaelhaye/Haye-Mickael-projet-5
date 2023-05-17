@@ -3,34 +3,23 @@ package com.safetynet.safetynetalerts.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.safetynetalerts.model.FirestationModel;
-import com.safetynet.safetynetalerts.model.MedicalrecordModel;
-import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.repository.FileEntryModelRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileRecupRepository;
-import com.safetynet.safetynetalerts.repository.JsonFileWriteRepository;
 import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
 
 import jakarta.annotation.PostConstruct;
+import lombok.Data;
 
 @RestController
+@Data
 public class Controller {
 
 	@Autowired
 	private JsonFileRecupRepository jsonFileRecup;
-
-	@Autowired
-	private JsonFileWriteRepository jsonFileWrite;
 
 	private FileEntryModelRepository file;
 
@@ -39,21 +28,6 @@ public class Controller {
 	public void init() {
 
 		file = jsonFileRecup.recupFile();
-	}
-
-	@GetMapping(value = "/person")
-	public List<PersonModel> afficherListePersonne() {
-		return file.getPersons();
-	}
-
-	@GetMapping(value = "/firestation")
-	public List<FirestationModel> afficherListeFirestation() {
-		return file.getFirestations();
-	}
-
-	@GetMapping(value = "/medicalrecord")
-	public List<MedicalrecordModel> afficherListeMedicalrecord() {
-		return file.getMedicalrecords();
 	}
 
 	// Récupération des personnes couvertes par une station
@@ -102,78 +76,6 @@ public class Controller {
 	public List<String> afficherEmailParCity(@PathVariable String city) {
 		List<String> listEmail = file.findByCityAEmail(city);
 		return listEmail;
-	}
-
-	@PostMapping("/person")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public String ajouterPerson(@RequestBody PersonModel person) {
-		String sVal = file.addPerson(person);
-		jsonFileWrite.writeFile(file);
-		return sVal;
-	}
-
-	@PatchMapping("/person")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public String mettreAJourPerson(@RequestBody PersonModel person) {
-		String sVal = file.updatePerson(person);
-		jsonFileWrite.writeFile(file);
-		return sVal;
-	}
-
-	@DeleteMapping("/person/{firstNameLastName}")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public String mettreAJourPerson(@PathVariable String firstNameLastName) {
-		String sVal = file.deletePerson(firstNameLastName);
-		jsonFileWrite.writeFile(file);
-		return sVal;
-	}
-
-	@PostMapping("/firestation")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public String ajouterFirestation(@RequestBody FirestationModel firestation) {
-		String sVal = file.addFirestation(firestation);
-		jsonFileWrite.writeFile(file);
-		return sVal;
-	}
-
-	@PatchMapping("/firestation")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public String mettreAJourPerson(@RequestBody FirestationModel firestation) {
-		String sVal = file.updateFirestation(firestation);
-		jsonFileWrite.writeFile(file);
-		return sVal;
-	}
-
-	@DeleteMapping("/firestation/{stationOrAddress}")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public String mettreAJourFirestation(@PathVariable String stationOrAddress) {
-		String sVal = file.deleteFirestation(stationOrAddress);
-		jsonFileWrite.writeFile(file);
-		return sVal;
-	}
-
-	@PostMapping("/medicalRecord")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public String ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
-		String sVal = file.addMedicalRecord(medicalrecord);
-		jsonFileWrite.writeFile(file);
-		return sVal;
-	}
-
-	@PatchMapping("/medicalRecord")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public String mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
-		String sVal = file.updateMedicalRecord(medicalrecord);
-		jsonFileWrite.writeFile(file);
-		return sVal;
-	}
-
-	@DeleteMapping("/medicalRecord/{firstNameLastName}")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public String mettreAJourMedicalRecord(@PathVariable String firstNameLastName) {
-		String sVal = file.deleteMedicalRecord(firstNameLastName);
-		jsonFileWrite.writeFile(file);
-		return sVal;
 	}
 
 }
