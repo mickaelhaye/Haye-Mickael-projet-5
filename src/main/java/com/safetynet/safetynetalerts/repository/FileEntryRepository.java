@@ -16,7 +16,7 @@ import com.safetynet.safetynetalerts.service.PersonbyFirestationService;
 import lombok.Data;
 
 @Data
-public class FileEntryModelRepository {
+public class FileEntryRepository {
 
 	List<PersonModel> persons;
 	List<FirestationModel> firestations;

@@ -12,13 +12,13 @@ import com.safetynet.safetynetalerts.CustomProperties;
 @Repository
 public class JsonFileWriteRepository {
 
-	private FileEntryModelRepository file = new FileEntryModelRepository();
+	private FileEntryRepository file = new FileEntryRepository();
 	@Autowired
 	private CustomProperties prop;
 
-	public FileEntryModelRepository writeFile(FileEntryModelRepository file2) {
+	public FileEntryRepository writeFile(FileEntryRepository file2) {
 
-		FileEntryModelRepository file = null;
+		FileEntryRepository file = null;
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
 		String path = prop.getJsonFilePath();

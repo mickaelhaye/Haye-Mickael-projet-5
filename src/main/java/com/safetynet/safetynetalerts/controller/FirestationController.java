@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetynetalerts.model.FirestationModel;
-import com.safetynet.safetynetalerts.repository.FileEntryModelRepository;
+import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileWriteRepository;
 
 @RestController
@@ -26,7 +26,7 @@ public class FirestationController {
 	@Autowired
 	private JsonFileWriteRepository jsonFileWrite;
 
-	private FileEntryModelRepository file;
+	private FileEntryRepository file;
 
 	@GetMapping(value = "/firestation")
 	public List<FirestationModel> afficherListeFirestation() {

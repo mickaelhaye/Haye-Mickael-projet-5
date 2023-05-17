@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.safetynetalerts.repository.FileEntryModelRepository;
+import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileRecupRepository;
 import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
 
@@ -21,7 +21,7 @@ public class Controller {
 	@Autowired
 	private JsonFileRecupRepository jsonFileRecup;
 
-	private FileEntryModelRepository file;
+	private FileEntryRepository file;
 
 	@PostConstruct
 	// Recupération du fichier json

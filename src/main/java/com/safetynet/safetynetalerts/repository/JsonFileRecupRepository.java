@@ -12,20 +12,20 @@ import com.safetynet.safetynetalerts.CustomProperties;
 @Repository
 public class JsonFileRecupRepository {
 
-	private FileEntryModelRepository file = new FileEntryModelRepository();
+	private FileEntryRepository file = new FileEntryRepository();
 	@Autowired
 	private CustomProperties prop;
 
-	public FileEntryModelRepository recupFile() {
+	public FileEntryRepository recupFile() {
 
-		FileEntryModelRepository file = null;
+		FileEntryRepository file = null;
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
 		String path = prop.getJsonFilePath();
 
 		try {
 
-			file = objectMapper.readValue(new File(path), FileEntryModelRepository.class);
+			file = objectMapper.readValue(new File(path), FileEntryRepository.class);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
