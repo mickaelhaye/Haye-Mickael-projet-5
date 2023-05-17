@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetynetalerts.model.FirestationModel;
+import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.repository.FileEntryModelRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileRecupRepository;
@@ -48,6 +49,11 @@ public class Controller {
 	@GetMapping(value = "/firestation")
 	public List<FirestationModel> afficherListeFirestation() {
 		return file.getFirestations();
+	}
+
+	@GetMapping(value = "/medicalrecord")
+	public List<MedicalrecordModel> afficherListeMedicalrecord() {
+		return file.getMedicalrecords();
 	}
 
 	// Récupération des personnes couvertes par une station
@@ -142,6 +148,30 @@ public class Controller {
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String mettreAJourFirestation(@PathVariable String stationOrAddress) {
 		String sVal = file.deleteFirestation(stationOrAddress);
+		jsonFileWrite.writeFile(file);
+		return sVal;
+	}
+
+	@PostMapping("/medicalRecord")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public String ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
+		String sVal = file.addMedicalRecord(medicalrecord);
+		jsonFileWrite.writeFile(file);
+		return sVal;
+	}
+
+	@PatchMapping("/medicalRecord")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public String mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
+		String sVal = file.updateMedicalRecord(medicalrecord);
+		jsonFileWrite.writeFile(file);
+		return sVal;
+	}
+
+	@DeleteMapping("/medicalRecord/{firstNameLastName}")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public String mettreAJourMedicalRecord(@PathVariable String firstNameLastName) {
+		String sVal = file.deleteMedicalRecord(firstNameLastName);
 		jsonFileWrite.writeFile(file);
 		return sVal;
 	}
