@@ -3,14 +3,12 @@ package com.safetynet.safetynetalerts.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
@@ -39,7 +37,6 @@ public class MedicalrecordController {
 	}
 
 	@PostMapping("/medicalRecord")
-	@ResponseStatus(code = HttpStatus.CREATED)
 	public String ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
 		majPointeur();
 		String sVal = medicalrecordService.addMedicalRecord(medicalrecord);
@@ -48,7 +45,6 @@ public class MedicalrecordController {
 	}
 
 	@PatchMapping("/medicalRecord")
-	@ResponseStatus(code = HttpStatus.CREATED)
 	public String mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
 		majPointeur();
 		String sVal = medicalrecordService.updateMedicalRecord(medicalrecord);
@@ -57,7 +53,6 @@ public class MedicalrecordController {
 	}
 
 	@DeleteMapping("/medicalRecord/{firstNameLastName}")
-	@ResponseStatus(code = HttpStatus.CREATED)
 	public String supprimerMedicalRecord(@PathVariable String firstNameLastName) {
 		majPointeur();
 		String sVal = medicalrecordService.deleteMedicalRecord(firstNameLastName);
