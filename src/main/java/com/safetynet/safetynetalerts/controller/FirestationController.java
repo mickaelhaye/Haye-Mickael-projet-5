@@ -2,6 +2,8 @@ package com.safetynet.safetynetalerts.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,8 @@ import com.safetynet.safetynetalerts.service.FirestationService;
 @RestController
 public class FirestationController {
 
+	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
+
 	@Autowired
 	private Controller controller;
 
@@ -33,31 +37,35 @@ public class FirestationController {
 	@GetMapping(value = "/firestation")
 	public List<FirestationModel> afficherListeFirestation() {
 		majPointeur();
+		logger.info("@GetMapping(value = \"/firestation\")");
 		return file.getFirestations();
 	}
 
 	@PostMapping("/firestation")
-	public String ajouterFirestation(@RequestBody FirestationModel firestation) {
+	public void ajouterFirestation(@RequestBody FirestationModel firestation) {
 		majPointeur();
 		String sVal = firestationService.addFirestation(firestation);
 		jsonFileWrite.writeFile(file);
-		return sVal;
+		logger.info("@PostMapping(\"/firestation\")" + sVal);
 	}
 
 	@PatchMapping("/firestation")
-	public String mettreAJourFirestation(@RequestBody FirestationModel firestation) {
+	public void mettreAJourFirestation(@RequestBody FirestationModel firestation) {
+
 		majPointeur();
 		String sVal = firestationService.updateFirestation(firestation);
 		jsonFileWrite.writeFile(file);
-		return sVal;
+		logger.info("@PatchMapping(\"/firestation\")", sVal);
+
 	}
 
 	@DeleteMapping("/firestation/{stationOrAddress}")
-	public String supprimerFirestation(@PathVariable String stationOrAddress) {
+	public void supprimerFirestation(@PathVariable String stationOrAddress) {
 		majPointeur();
 		String sVal = firestationService.deleteFirestation(stationOrAddress);
 		jsonFileWrite.writeFile(file);
-		return sVal;
+		logger.info("@DeleteMapping(\"/firestation/{stationOrAddress}\")", sVal);
+
 	}
 
 	void majPointeur() {

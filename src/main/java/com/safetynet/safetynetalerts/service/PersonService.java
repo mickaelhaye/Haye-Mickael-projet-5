@@ -3,8 +3,11 @@ package com.safetynet.safetynetalerts.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.safetynet.safetynetalerts.controller.FirestationController;
 import com.safetynet.safetynetalerts.model.FirestationModel;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
@@ -14,6 +17,7 @@ import lombok.Data;
 @Data
 @Service
 public class PersonService {
+	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 	private List<PersonModel> persons;
 	private List<FirestationModel> firestations;
 	private List<MedicalrecordModel> medicalrecords;
@@ -24,6 +28,7 @@ public class PersonService {
 	 * @GetMapping(value = "/firestation/{station}")
 	 */
 	public List<Object> findByFirestationAListPersons(String station) {
+		logger.debug("findByFirestationAListPersons " + station);
 		// Liste des personnes dépendant d'un numéro de station
 		List<Object> listObjects = new ArrayList<Object>();
 		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
@@ -77,6 +82,7 @@ public class PersonService {
 	 * @GetMapping(value = "/childAlert/{address}")
 	 */
 	public List<ChildAlertByAddressService> findByAddressAListChild(String address) {
+		logger.debug("findByAddressAListChild " + address);
 		// Liste des personnes habitant à une adresse
 		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
 		List<ChildAlertByAddressService> listChildAlert = new ArrayList<ChildAlertByAddressService>();
@@ -122,6 +128,7 @@ public class PersonService {
 	 * @GetMapping(value = "/phoneAlert/{station}")
 	 */
 	public List<String> findByFirestationAPhone(String station) {
+		logger.debug("findByFirestationAPhone " + station);
 		// Liste des numéros de telephone dépendant d'un numéro de station
 		List<String> listPhone = new ArrayList<String>();
 		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
@@ -150,6 +157,7 @@ public class PersonService {
 	 * @GetMapping(value = "/fire/{address}")
 	 */
 	public List<Object> findByAddressAPerson(String address) {
+		logger.debug("findByAddressAPerson " + address);
 		// Liste des personnes habitant à une adresse
 		List<Object> listObjects = new ArrayList<Object>();
 		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
@@ -198,6 +206,7 @@ public class PersonService {
 	 * @GetMapping(value = "/flood/stations/{station}")
 	 */
 	public List<Object> findByFirestationAFoyer(String station) {
+		logger.debug("findByFirestationAFoyer " + station);
 		// Liste des foyer dépendant d'un numéro de station
 		List<Object> listObjects = new ArrayList<Object>();
 		List<String> listFoyer = new ArrayList<String>();
@@ -259,6 +268,7 @@ public class PersonService {
 	 * @GetMapping(value = "/personInfo/{firstName}")
 	 */
 	public List<String> findByFirstNameAPerson(String firstName) {
+		logger.debug("findByFirstNameAPerson " + firstName);
 		// Liste des personnes en fonction d'un prénom
 		List<String> listPerson = new ArrayList<String>();
 
@@ -286,6 +296,7 @@ public class PersonService {
 	 * @GetMapping(value = "/communityEmail/{city}")
 	 */
 	public List<String> findByCityAEmail(String city) {
+		logger.debug("findByCityAEmail " + city);
 		// Liste des personnes en fonction d'un prénom
 		List<String> listEmail = new ArrayList<String>();
 
@@ -299,12 +310,14 @@ public class PersonService {
 
 	// @PostMapping("/person")
 	public String addPerson(PersonModel person) {
+		logger.debug("addPerson " + person);
 		persons.add(person);
 		return person.getFirstName() + " " + person.getLastName() + " ajouté";
 	}
 
 	// @PatchMapping("/person")
 	public String updatePerson(PersonModel person) {
+		logger.debug("updatePerson " + person);
 		boolean personneModifiee = false;
 		for (PersonModel personTest : persons) {
 			if ((personTest.getFirstName().equals(person.getFirstName()))
@@ -326,6 +339,7 @@ public class PersonService {
 
 	// @DeleteMapping("/person/{firstNameLastName}")
 	public String deletePerson(String firstNameLastName) {
+		logger.debug("deletePerson " + firstNameLastName);
 		boolean personneSupprimee = false;
 		for (PersonModel personTest : persons) {
 			String firstNameLastNamePersonTest = personTest.getFirstName() + personTest.getLastName();

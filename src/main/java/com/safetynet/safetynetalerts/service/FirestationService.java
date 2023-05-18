@@ -2,8 +2,11 @@ package com.safetynet.safetynetalerts.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.safetynet.safetynetalerts.controller.FirestationController;
 import com.safetynet.safetynetalerts.model.FirestationModel;
 
 import lombok.Data;
@@ -11,16 +14,19 @@ import lombok.Data;
 @Data
 @Service
 public class FirestationService {
+	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 	List<FirestationModel> firestations;
 
 	// @PostMapping("/firestation")
 	public String addFirestation(FirestationModel firestation) {
+		logger.debug("addFirestation " + firestation);
 		firestations.add(firestation);
 		return "la firestation " + firestation.getAddress() + " Station:" + firestation.getStation() + " a été ajoutée";
 	}
 
 	// @PatchMapping("/firestation")
 	public String updateFirestation(FirestationModel firestation) {
+		logger.debug("updateFirestation " + firestation);
 		boolean firestationModifiee = false;
 		for (FirestationModel firestationTest : firestations) {
 			if (firestationTest.getAddress().equals(firestation.getAddress())) {
@@ -37,6 +43,7 @@ public class FirestationService {
 
 	// @DeleteMapping("/firestation/{stationOrAddress}")
 	public String deleteFirestation(String stationOrAddress) {
+		logger.debug("deleteFirestation " + stationOrAddress);
 		boolean firestationSupprimeebyStation = false;
 		boolean firestationSupprimeebyAddress = false;
 		for (int i = 0; i < firestations.size(); i++) {

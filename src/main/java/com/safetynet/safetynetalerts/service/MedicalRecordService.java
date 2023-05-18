@@ -2,8 +2,11 @@ package com.safetynet.safetynetalerts.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.safetynet.safetynetalerts.controller.FirestationController;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 
 import lombok.Data;
@@ -11,16 +14,19 @@ import lombok.Data;
 @Data
 @Service
 public class MedicalRecordService {
+	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 	List<MedicalrecordModel> medicalrecords;
 
 	// @PostMapping("/medicalRecord")
 	public String addMedicalRecord(MedicalrecordModel medicalRecord) {
+		logger.debug("addMedicalRecord " + medicalRecord);
 		medicalrecords.add(medicalRecord);
 		return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " ajouté";
 	}
 
 	// @PatchMapping("/medicalRecord")
 	public String updateMedicalRecord(MedicalrecordModel medicalRecord) {
+		logger.debug("updateMedicalRecord " + medicalRecord);
 		boolean medicalRecordModifiee = false;
 		for (MedicalrecordModel medicalRecordTest : medicalrecords) {
 			if ((medicalRecordTest.getFirstName().equals(medicalRecord.getFirstName()))
@@ -40,6 +46,7 @@ public class MedicalRecordService {
 
 	// @DeleteMapping("/medicalRecord/{firstNameLastName}")
 	public String deleteMedicalRecord(String firstNameLastName) {
+		logger.debug("deleteMedicalRecord " + firstNameLastName);
 		boolean medicalRecordSupprimee = false;
 		for (MedicalrecordModel medicalRecordTest : medicalrecords) {
 			String firstNameLastNamePersonTest = medicalRecordTest.getFirstName() + medicalRecordTest.getLastName();

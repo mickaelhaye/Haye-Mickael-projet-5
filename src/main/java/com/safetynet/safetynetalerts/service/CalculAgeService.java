@@ -6,7 +6,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import com.safetynet.safetynetalerts.controller.FirestationController;
 
 import lombok.Data;
 
@@ -14,7 +18,10 @@ import lombok.Data;
 @Service
 public class CalculAgeService {
 
+	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
+
 	public int calculAge(String birthdate) {
+		logger.debug("Calcul Age");
 		// calcul de l'age
 		// récupération date actuelle
 		Calendar calendar = new GregorianCalendar();
@@ -37,12 +44,14 @@ public class CalculAgeService {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.error("Calcul Age Error" + e);
 		}
 		try {
 			date2 = new SimpleDateFormat("dd/MM/yyyy").parse(dateActuelle);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.error("Calcul Age Error" + e);
 		}
 		calStr1.setTime(date1);
 		calStr2.setTime(date2);
@@ -67,6 +76,7 @@ public class CalculAgeService {
 		 * System.out.print("Nb Mois : "+nbMois+"\n");
 		 * System.out.print("Nb Jours : "+nbJours+"\n");
 		 */
+		logger.debug("Calcul Age OK = " + nbAnnees);
 		return nbAnnees;
 	}
 

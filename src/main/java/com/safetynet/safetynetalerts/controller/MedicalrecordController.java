@@ -2,6 +2,8 @@ package com.safetynet.safetynetalerts.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,8 @@ import com.safetynet.safetynetalerts.service.MedicalRecordService;
 @RestController
 public class MedicalrecordController {
 
+	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
+
 	@Autowired
 	private Controller controller;
 
@@ -33,31 +37,33 @@ public class MedicalrecordController {
 	@GetMapping(value = "/medicalrecord")
 	public List<MedicalrecordModel> afficherListeMedicalrecord() {
 		majPointeur();
+		logger.info("@GetMapping(value = \"/medicalrecord\")");
 		return file.getMedicalrecords();
 	}
 
 	@PostMapping("/medicalRecord")
-	public String ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
+	public void ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
 		majPointeur();
 		String sVal = medicalrecordService.addMedicalRecord(medicalrecord);
 		jsonFileWrite.writeFile(file);
-		return sVal;
+		logger.info("@PostMapping(\"/medicalRecord\")" + sVal);
 	}
 
 	@PatchMapping("/medicalRecord")
-	public String mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
+	public void mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
 		majPointeur();
 		String sVal = medicalrecordService.updateMedicalRecord(medicalrecord);
 		jsonFileWrite.writeFile(file);
-		return sVal;
+		logger.info("@PatchMapping(\"/medicalRecord\")", sVal);
 	}
 
 	@DeleteMapping("/medicalRecord/{firstNameLastName}")
-	public String supprimerMedicalRecord(@PathVariable String firstNameLastName) {
+	public void supprimerMedicalRecord(@PathVariable String firstNameLastName) {
 		majPointeur();
 		String sVal = medicalrecordService.deleteMedicalRecord(firstNameLastName);
 		jsonFileWrite.writeFile(file);
-		return sVal;
+		logger.info("@DeleteMapping(\"/medicalRecord/{firstNameLastName}\")", sVal);
+
 	}
 
 	void majPointeur() {
