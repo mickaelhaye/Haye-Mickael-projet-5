@@ -14,6 +14,12 @@ import com.safetynet.safetynetalerts.model.PersonModel;
 
 import lombok.Data;
 
+/**
+ * Cette classe permet de traiter les API concernant Person
+ * 
+ * @author Mickael Hayé
+ *
+ */
 @Data
 @Service
 public class PersonService {
@@ -22,10 +28,13 @@ public class PersonService {
 	private List<FirestationModel> firestations;
 	private List<MedicalrecordModel> medicalrecords;
 
-	/*
-	 * Récupération des personnes couvertes par une station
+	/**
+	 * traitement de l'API //@GetMapping(value = "/firestation/{station}"),
+	 * récupération des personnes couvertes par une station
 	 * 
-	 * @GetMapping(value = "/firestation/{station}")
+	 * @param station (station d'entrée)
+	 * @return une liste d'Objets (liste de persons + décompte adultes +décompte
+	 *         enfants
 	 */
 	public List<Object> findByFirestationAListPersons(String station) {
 		logger.debug("findByFirestationAListPersons " + station);
@@ -76,10 +85,12 @@ public class PersonService {
 		return listObjects;
 	}
 
-	/*
-	 * Récupération des enfants en fonction d'une adresse
+	/**
+	 * traitement de l'API //@GetMapping(value = "/childAlert/{address}"),
+	 * récupération des enfants en fonction d'une adresse
 	 * 
-	 * @GetMapping(value = "/childAlert/{address}")
+	 * @param address (address d'entrée)
+	 * @return une liste d'enfants
 	 */
 	public List<ChildAlertByAddressService> findByAddressAListChild(String address) {
 		logger.debug("findByAddressAListChild " + address);
@@ -122,10 +133,12 @@ public class PersonService {
 		return listChildAlert;
 	}
 
-	/*
+	/**
+	 * traitement de l'API //@GetMapping(value = "/phoneAlert/{station}"),
 	 * Récupération des numéros de téléphone desservis par la caserne
 	 * 
-	 * @GetMapping(value = "/phoneAlert/{station}")
+	 * @param station (station d'entrée)
+	 * @return une liste de numéros de téléphone
 	 */
 	public List<String> findByFirestationAPhone(String station) {
 		logger.debug("findByFirestationAPhone " + station);
@@ -151,10 +164,12 @@ public class PersonService {
 		return listPhone;
 	}
 
-	/*
-	 * Récupération des personnes en fonction d'une adresse
+	/**
+	 * traitement de l'API //@GetMapping(value = "/fire/{address}"), récupération
+	 * des personnes en fonction d'une adresse
 	 * 
-	 * @GetMapping(value = "/fire/{address}")
+	 * @param address (adress d'entrée)
+	 * @return une liste d'objets (Liste de persons + numéro de station)
 	 */
 	public List<Object> findByAddressAPerson(String address) {
 		logger.debug("findByAddressAPerson " + address);
@@ -200,6 +215,13 @@ public class PersonService {
 
 	}
 
+	/**
+	 * Traitement de l'API //@GetMapping(value = "/flood/stations/{station}",
+	 * récupération des personnes en fonction d'une adresse
+	 * 
+	 * @param station (station d'entrée)
+	 * @return une liste d'objets (Liste de foyers)
+	 */
 	/*
 	 * Récupération des personnes en fonction d'une adresse
 	 * 
@@ -262,6 +284,13 @@ public class PersonService {
 		return listObjects;
 	}
 
+	/**
+	 * Traitement de l'API //@GetMapping(value = "/personInfo/{firstName}"),
+	 * récupération des personnes en fonction d'un prénom
+	 * 
+	 * @param firstName (prénom d'entrée)
+	 * @return une liste de persons
+	 */
 	/*
 	 * Récupération des personnes en fonction d'un prénom
 	 * 
@@ -290,6 +319,13 @@ public class PersonService {
 		return listPerson;
 	}
 
+	/**
+	 * Traitement de l''API //@GetMapping(value = "/communityEmail/{city}"),
+	 * récupération des adresses mail en fonction d'une ville
+	 * 
+	 * @param city (city d'entrée)
+	 * @return une liste d'emails
+	 */
 	/*
 	 * Récupération des adresses mail en fonction d'une ville
 	 * 
@@ -308,14 +344,24 @@ public class PersonService {
 		return listEmail;
 	}
 
-	// @PostMapping("/person")
+	/**
+	 * //@PostMapping("/person")
+	 * 
+	 * @param person
+	 * @return un String contenant le résultat du rajout d'une person
+	 */
 	public String addPerson(PersonModel person) {
 		logger.debug("addPerson " + person);
 		persons.add(person);
 		return person.getFirstName() + " " + person.getLastName() + " ajouté";
 	}
 
-	// @PatchMapping("/person")
+	/**
+	 * //@PatchMapping("/person")
+	 * 
+	 * @param person
+	 * @return un String contenant le résultat de la modification d'une person
+	 */
 	public String updatePerson(PersonModel person) {
 		logger.debug("updatePerson " + person);
 		boolean personneModifiee = false;
@@ -337,7 +383,12 @@ public class PersonService {
 		return person.getFirstName() + " " + person.getLastName() + " modifié";
 	}
 
-	// @DeleteMapping("/person/{firstNameLastName}")
+	/**
+	 * //@DeleteMapping("/person")
+	 * 
+	 * @param firstNameLastName
+	 * @return un String contenant le résultat de la suppression d'une person
+	 */
 	public String deletePerson(String firstNameLastName) {
 		logger.debug("deletePerson " + firstNameLastName);
 		boolean personneSupprimee = false;

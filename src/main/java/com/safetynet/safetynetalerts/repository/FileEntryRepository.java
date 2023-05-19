@@ -10,6 +10,12 @@ import com.safetynet.safetynetalerts.model.PersonModel;
 
 import lombok.Data;
 
+/**
+ * Classe permettant le stockage des données du fichier d'entrée Data.json
+ * 
+ * @author mickael
+ *
+ */
 @Data
 @Repository
 public class FileEntryRepository {

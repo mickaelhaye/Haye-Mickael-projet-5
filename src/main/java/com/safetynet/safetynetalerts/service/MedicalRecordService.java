@@ -11,20 +11,37 @@ import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 
 import lombok.Data;
 
+/**
+ * Cette classe permet de traiter les API concernant Medicalrecord
+ * 
+ * @author Mickael Hayé
+ *
+ */
 @Data
 @Service
 public class MedicalRecordService {
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 	List<MedicalrecordModel> medicalrecords;
 
-	// @PostMapping("/medicalRecord")
+	/**
+	 * //@PostMapping("/medicalRecord")
+	 * 
+	 * @param medicalRecord
+	 * @return un String contenant le résultat du rajout d'une medicalrecord
+	 */
 	public String addMedicalRecord(MedicalrecordModel medicalRecord) {
 		logger.debug("addMedicalRecord " + medicalRecord);
 		medicalrecords.add(medicalRecord);
 		return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " ajouté";
 	}
 
-	// @PatchMapping("/medicalRecord")
+	/**
+	 * //@PatchMapping("/medicalRecord")
+	 * 
+	 * @param medicalRecord
+	 * @return un String contenant le résultat de la modification d'une
+	 *         medicalrecord
+	 */
 	public String updateMedicalRecord(MedicalrecordModel medicalRecord) {
 		logger.debug("updateMedicalRecord " + medicalRecord);
 		boolean medicalRecordModifiee = false;
@@ -44,7 +61,12 @@ public class MedicalRecordService {
 		return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " modifié";
 	}
 
-	// @DeleteMapping("/medicalRecord/{firstNameLastName}")
+	/**
+	 * //@DeleteMapping("/firstNameLastName")
+	 * 
+	 * @param firstNameLastName
+	 * @return un String contenant le résultat de la suppression d'une medicalrecord
+	 */
 	public String deleteMedicalRecord(String firstNameLastName) {
 		logger.debug("deleteMedicalRecord " + firstNameLastName);
 		boolean medicalRecordSupprimee = false;

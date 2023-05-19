@@ -12,6 +12,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.controller.FirestationController;
 
+/**
+ * Classe qui permet de réécrire le fichier Json
+ * 
+ * @author Mickael Hayé
+ *
+ */
 @Repository
 public class JsonFileWriteRepository {
 
@@ -20,9 +26,13 @@ public class JsonFileWriteRepository {
 	@Autowired
 	private CustomProperties prop;
 
+	/**
+	 * 
+	 * @param file2
+	 * @return
+	 */
 	public FileEntryRepository writeFile(FileEntryRepository file2) {
 
-		FileEntryRepository file = null;
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
 		String path = prop.getJsonFilePath();
@@ -36,7 +46,7 @@ public class JsonFileWriteRepository {
 			logger.error("Ecriture du fichier Json ECHEC" + e);
 		}
 
-		return file;
+		return file2;
 	}
 
 }

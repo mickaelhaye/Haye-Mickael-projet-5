@@ -14,12 +14,25 @@ import com.safetynet.safetynetalerts.controller.FirestationController;
 
 import lombok.Data;
 
+/**
+ * Classe pour calculer un age
+ * 
+ * @author Mickael Hayé
+ *
+ */
 @Data
 @Service
 public class CalculAgeService {
 
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
+	/**
+	 * métgode qui calcul un age en fonction d'une date de naissance et de la date
+	 * du jour
+	 * 
+	 * @param birthdate
+	 * @return age
+	 */
 	public int calculAge(String birthdate) {
 		logger.debug("Calcul Age");
 		// calcul de l'age

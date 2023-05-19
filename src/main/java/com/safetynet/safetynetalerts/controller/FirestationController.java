@@ -18,6 +18,11 @@ import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileWriteRepository;
 import com.safetynet.safetynetalerts.service.FirestationService;
 
+/**
+ * Cette classe gère les API au niveau de Firestation
+ * 
+ * @author Mickael Hayé
+ */
 @RestController
 public class FirestationController {
 
@@ -34,6 +39,11 @@ public class FirestationController {
 
 	private FileEntryRepository file;
 
+	/**
+	 * API pour récupérer la liste des firestations
+	 * 
+	 * @return la liste des firestations
+	 */
 	@GetMapping(value = "/firestation")
 	public List<FirestationModel> afficherListeFirestation() {
 		majPointeur();
@@ -41,6 +51,11 @@ public class FirestationController {
 		return file.getFirestations();
 	}
 
+	/**
+	 * API pour rajouter un firestation
+	 * 
+	 * @param firestation
+	 */
 	@PostMapping("/firestation")
 	public void ajouterFirestation(@RequestBody FirestationModel firestation) {
 		majPointeur();
@@ -49,6 +64,11 @@ public class FirestationController {
 		logger.info("@PostMapping(\"/firestation\")" + sVal);
 	}
 
+	/**
+	 * API pour modifier un firestation
+	 * 
+	 * @param firestation
+	 */
 	@PatchMapping("/firestation")
 	public void mettreAJourFirestation(@RequestBody FirestationModel firestation) {
 
@@ -59,6 +79,11 @@ public class FirestationController {
 
 	}
 
+	/**
+	 * API pour supprimer un firestation
+	 * 
+	 * @param stationOrAddress
+	 */
 	@DeleteMapping("/firestation/{stationOrAddress}")
 	public void supprimerFirestation(@PathVariable String stationOrAddress) {
 		majPointeur();
@@ -68,6 +93,9 @@ public class FirestationController {
 
 	}
 
+	/**
+	 * récupération des données, récupération de la liste des firestations
+	 */
 	void majPointeur() {
 		file = controller.getFile();// à valider
 		firestationService.setFirestations(file.getFirestations()); // à valider

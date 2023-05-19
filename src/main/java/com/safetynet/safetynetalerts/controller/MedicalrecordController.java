@@ -18,6 +18,11 @@ import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileWriteRepository;
 import com.safetynet.safetynetalerts.service.MedicalRecordService;
 
+/**
+ * Cette classe gère les API au niveau de Medicalrecord
+ * 
+ * @author Mickael Hayé
+ */
 @RestController
 public class MedicalrecordController {
 
@@ -34,6 +39,11 @@ public class MedicalrecordController {
 
 	private FileEntryRepository file;
 
+	/**
+	 * API pour récupérer la liste des medicalrecords
+	 * 
+	 * @return la liste des medicalrecords
+	 */
 	@GetMapping(value = "/medicalrecord")
 	public List<MedicalrecordModel> afficherListeMedicalrecord() {
 		majPointeur();
@@ -41,6 +51,11 @@ public class MedicalrecordController {
 		return file.getMedicalrecords();
 	}
 
+	/**
+	 * API pour rajouter un medicalrecord
+	 * 
+	 * @param medicalrecord
+	 */
 	@PostMapping("/medicalRecord")
 	public void ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
 		majPointeur();
@@ -49,6 +64,11 @@ public class MedicalrecordController {
 		logger.info("@PostMapping(\"/medicalRecord\")" + sVal);
 	}
 
+	/**
+	 * API pour modifier un medicalrecord
+	 * 
+	 * @param medicalrecord
+	 */
 	@PatchMapping("/medicalRecord")
 	public void mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
 		majPointeur();
@@ -57,6 +77,11 @@ public class MedicalrecordController {
 		logger.info("@PatchMapping(\"/medicalRecord\")", sVal);
 	}
 
+	/**
+	 * API pour supprimer un medicalrecord
+	 * 
+	 * @param firstNameLastName
+	 */
 	@DeleteMapping("/medicalRecord/{firstNameLastName}")
 	public void supprimerMedicalRecord(@PathVariable String firstNameLastName) {
 		majPointeur();
@@ -66,6 +91,9 @@ public class MedicalrecordController {
 
 	}
 
+	/**
+	 * Récupération des données, Récupération de la liste des medicalrecord
+	 */
 	void majPointeur() {
 		file = controller.getFile();// à valider
 		medicalrecordService.setMedicalrecords(file.getMedicalrecords()); // à valider

@@ -19,6 +19,11 @@ import com.safetynet.safetynetalerts.repository.JsonFileWriteRepository;
 import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
 import com.safetynet.safetynetalerts.service.PersonService;
 
+/**
+ * Cette classe gère les API au niveau de Person
+ * 
+ * @author Mickael Hayé
+ */
 @RestController
 public class PersonController {
 
@@ -35,6 +40,11 @@ public class PersonController {
 
 	private FileEntryRepository file;
 
+	/**
+	 * API pour récupérer la liste des persons
+	 * 
+	 * @return la liste des persons
+	 */
 	@GetMapping(value = "/person")
 	public List<PersonModel> afficherListePersonne() {
 		majPointeur();
@@ -42,7 +52,13 @@ public class PersonController {
 		return file.getPersons();
 	}
 
-	// Récupération des personnes couvertes par une station
+	/**
+	 * API pour récupérer des personnes couvertes par une station
+	 * 
+	 * @param station (station d'entrée)
+	 * @return une liste d'Objets (liste de persons + décompte adultes +décompte
+	 *         enfants
+	 */
 	@GetMapping(value = "/firestation/{station}")
 	public List<Object> afficherUneListePersonne(@PathVariable String station) {
 		majPointeur();
@@ -50,7 +66,12 @@ public class PersonController {
 		return personService.findByFirestationAListPersons(station);
 	}
 
-	// Récupération des enfants en fonction d'une adresse
+	/**
+	 * API pour récupérer des enfants en fonction d'une adresse
+	 * 
+	 * @param address (address d'entrée)
+	 * @return une liste d'enfants
+	 */
 	@GetMapping(value = "/childAlert/{address}")
 	public List<ChildAlertByAddressService> afficherUneListeEnfant(@PathVariable String address) {
 		majPointeur();
@@ -58,7 +79,12 @@ public class PersonController {
 		return personService.findByAddressAListChild(address);
 	}
 
-	// Récupération des numéros de téléphone desservis par la caserne
+	/**
+	 * Pour récupérer des numéros de téléphone desservis par la caserne
+	 * 
+	 * @param station (station d'entrée)
+	 * @return une liste de numéros de téléphone
+	 */
 	@GetMapping(value = "/phoneAlert/{station}")
 	public List<String> afficherUneListeNumTelephone(@PathVariable String station) {
 		majPointeur();
@@ -66,7 +92,12 @@ public class PersonController {
 		return personService.findByFirestationAPhone(station);
 	}
 
-	// Récupération des personnes en fonction d'une adresse
+	/**
+	 * Pour récupérer des personnes en fonction d'une adresse
+	 * 
+	 * @param address (adress d'entrée)
+	 * @return une liste d'objets (Liste de persons + numéro de station)
+	 */
 	@GetMapping(value = "/fire/{address}")
 	public List<Object> afficherUneListePersonneParAddresse(@PathVariable String address) {
 		majPointeur();
@@ -74,7 +105,12 @@ public class PersonController {
 		return personService.findByAddressAPerson(address);
 	}
 
-	// Récupération des personnes en fonction d'une adresse
+	/**
+	 * Pour récupérer des personnes en fonction d'une adresse
+	 * 
+	 * @param station (station d'entrée)
+	 * @return une liste d'objets (Liste de foyers)
+	 */
 	@GetMapping(value = "/flood/stations/{station}")
 	public List<Object> afficherUneListeFoyerParFirestation(@PathVariable String station) {
 		majPointeur();
@@ -82,7 +118,12 @@ public class PersonController {
 		return personService.findByFirestationAFoyer(station);
 	}
 
-	// Récupération des personnes en fonction d'un prénom
+	/**
+	 * Pour récupérer des personnes en fonction d'un prénom
+	 * 
+	 * @param firstName (prénom d'entrée)
+	 * @return une liste de persons
+	 */
 	@GetMapping(value = "/personInfo/{firstName}")
 	public List<String> afficherUneListePersonneParPrenom(@PathVariable String firstName) {
 		majPointeur();
@@ -90,6 +131,12 @@ public class PersonController {
 		return personService.findByFirstNameAPerson(firstName);
 	}
 
+	/**
+	 * Pour récupérer des adresses mail en fonction d'une ville
+	 * 
+	 * @param city (city d'entrée)
+	 * @return une liste d'emails
+	 */
 	// Récupération des adresses mail en fonction d'une ville
 	@GetMapping(value = "/communityEmail/{city}")
 	public List<String> afficherEmailParCity(@PathVariable String city) {
@@ -98,6 +145,11 @@ public class PersonController {
 		return personService.findByCityAEmail(city);
 	}
 
+	/**
+	 * API pour rajouter une person
+	 * 
+	 * @param person
+	 */
 	@PostMapping("/person")
 	public void ajouterPerson(@RequestBody PersonModel person) {
 		majPointeur();
@@ -107,6 +159,11 @@ public class PersonController {
 
 	}
 
+	/**
+	 * API pour modifier une person
+	 * 
+	 * @param person
+	 */
 	@PatchMapping("/person")
 	public void mettreAJourPerson(@RequestBody PersonModel person) {
 		majPointeur();
@@ -115,6 +172,11 @@ public class PersonController {
 		logger.info("@PatchMapping(\"/person\")", sVal);
 	}
 
+	/**
+	 * API pour supprimer une person
+	 * 
+	 * @param firstNameLastName
+	 */
 	@DeleteMapping("/person/{firstNameLastName}")
 	public void supprimerPerson(@PathVariable String firstNameLastName) {
 		majPointeur();
@@ -123,6 +185,9 @@ public class PersonController {
 		logger.info("@DeleteMapping(\"/person/{firstNameLastName}\")", sVal);
 	}
 
+	/**
+	 * récupération des données, récupération des 3 listes
+	 */
 	void majPointeur() {
 		file = controller.getFile();// à valider
 		personService.setPersons(file.getPersons()); // à valider

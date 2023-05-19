@@ -5,6 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Classe Model Person
+ * 
+ * @author Mickael Hayé
+ *
+ */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
@@ -24,6 +30,17 @@ public class PersonModel {
 
 	private String email;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param firstName
+	 * @param lastName
+	 * @param address
+	 * @param city
+	 * @param zip
+	 * @param phone
+	 * @param email
+	 */
 	public PersonModel(String firstName, String lastName, String address, String city, String zip, String phone,
 			String email) {
 		super();

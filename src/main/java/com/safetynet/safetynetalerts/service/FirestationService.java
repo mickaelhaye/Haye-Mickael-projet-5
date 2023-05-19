@@ -11,20 +11,37 @@ import com.safetynet.safetynetalerts.model.FirestationModel;
 
 import lombok.Data;
 
+/**
+ * Cette classe permet de traiter les API concernant Firestation
+ * 
+ * @author Mickael Hayé
+ *
+ */
 @Data
 @Service
 public class FirestationService {
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 	List<FirestationModel> firestations;
 
-	// @PostMapping("/firestation")
+	/**
+	 * //@PostMapping("/firestation")
+	 * 
+	 * @param firestation
+	 * @return un String contenant le résultat du rajout d'une Firestation
+	 */
 	public String addFirestation(FirestationModel firestation) {
 		logger.debug("addFirestation " + firestation);
 		firestations.add(firestation);
 		return "la firestation " + firestation.getAddress() + " Station:" + firestation.getStation() + " a été ajoutée";
 	}
 
-	// @PatchMapping("/firestation")
+	/**
+	 * //@PatchMapping("/firestation")
+	 * 
+	 * @param firestation
+	 * @return un String contenant le résultat de la modification d'une Firestation
+	 */
+
 	public String updateFirestation(FirestationModel firestation) {
 		logger.debug("updateFirestation " + firestation);
 		boolean firestationModifiee = false;
@@ -41,7 +58,12 @@ public class FirestationService {
 		return "la firestation " + firestation.getAddress() + " a été modifiée";
 	}
 
-	// @DeleteMapping("/firestation/{stationOrAddress}")
+	/**
+	 * //@DeleteMapping("/firestation/{stationOrAddress}")
+	 * 
+	 * @param stationOrAddress
+	 * @return un String contenant le résultat de la suppression d'une Firestation
+	 */
 	public String deleteFirestation(String stationOrAddress) {
 		logger.debug("deleteFirestation " + stationOrAddress);
 		boolean firestationSupprimeebyStation = false;

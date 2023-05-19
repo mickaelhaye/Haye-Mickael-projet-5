@@ -4,6 +4,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
+/**
+ * Cette classe est pour configurer les log au niveau des échanges http
+ * 
+ * @author Mickael Hayé
+ */
 @Configuration
 public class RequestLoggingFilterConfig {
 

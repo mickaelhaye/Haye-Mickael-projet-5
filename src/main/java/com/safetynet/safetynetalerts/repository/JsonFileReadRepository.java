@@ -12,6 +12,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.controller.FirestationController;
 
+/**
+ * Classe qui permet de récupérer les données dans le fichier d'entrée et de les
+ * mettre en forme dans des listes
+ * 
+ * @author Mickael Hayé
+ *
+ */
 @Repository
 public class JsonFileReadRepository {
 
@@ -20,6 +27,10 @@ public class JsonFileReadRepository {
 	@Autowired
 	private CustomProperties prop;
 
+	/**
+	 * 
+	 * @return une classe avec des listes contenant les données du fichier
+	 */
 	public FileEntryRepository recupFile() {
 
 		FileEntryRepository file = null;

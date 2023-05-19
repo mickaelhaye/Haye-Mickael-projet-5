@@ -11,6 +11,12 @@ import com.safetynet.safetynetalerts.repository.JsonFileReadRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 
+/**
+ * Cette classe permet de récupérer le fichier .Json
+ * 
+ * @author Mickael Hayé
+ */
+
 @RestController
 @Data
 public class Controller {
@@ -22,6 +28,10 @@ public class Controller {
 
 	private FileEntryRepository file;
 
+	/**
+	 * Cette méthode permet de récupérer le fichier json au lancement de
+	 * l'application avec l'annotation PostConstruct
+	 */
 	@PostConstruct
 	// Recupération du fichier json
 	public void init() {
