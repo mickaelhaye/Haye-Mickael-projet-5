@@ -28,8 +28,7 @@ public class JsonFileWriteRepository {
 
 	/**
 	 * 
-	 * @param file2
-	 * @return
+	 * @param file
 	 */
 	public void writeFile(FileEntryRepository file) {
 
