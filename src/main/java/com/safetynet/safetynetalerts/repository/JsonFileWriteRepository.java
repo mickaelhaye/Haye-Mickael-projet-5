@@ -31,22 +31,20 @@ public class JsonFileWriteRepository {
 	 * @param file2
 	 * @return
 	 */
-	public FileEntryRepository writeFile(FileEntryRepository file2) {
+	public void writeFile(FileEntryRepository file) {
 
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
 		String path = prop.getJsonFilePath();
 
 		try {
-			objectMapper.writeValue(new File(path), file2);
+			objectMapper.writeValue(new File(path), file);
 			logger.debug("Ecriture du fichier Json OK");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			logger.error("Ecriture du fichier Json ECHEC" + e);
 		}
-
-		return file2;
 	}
 
 }
