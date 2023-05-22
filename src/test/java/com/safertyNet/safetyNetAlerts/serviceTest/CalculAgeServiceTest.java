@@ -11,13 +11,14 @@ import org.junit.jupiter.api.Test;
 
 import com.safetynet.safetynetalerts.service.CalculAgeService;
 
+//pose problème @SpringBootTest
 class CalculAgeServiceTest {
 
 	/**
 	 * Cas où le calcul de l'age est correct
 	 */
 	@Test
-	void testAge() {
+	void calculAge() {
 		// récupération de la date actuelle
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(new Date());
@@ -43,7 +44,7 @@ class CalculAgeServiceTest {
 	 */
 
 	@Test
-	void testAgeValeurDateErronee() {
+	void calculAgeValeurDateErronee() {
 		CalculAgeService calculAgeService = new CalculAgeService();
 		assertEquals(-999, calculAgeService.calculAge("hjiugiugu"));
 	}
