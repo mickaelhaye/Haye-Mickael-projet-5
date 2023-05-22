@@ -11,8 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import com.safetynet.safetynetalerts.service.CalculAgeService;
 
-class CalculAgeSericeTest {
+class CalculAgeServiceTest {
 
+	/**
+	 * Cas où le calcul de l'age est correct
+	 */
 	@Test
 	void testAge() {
 		// récupération de la date actuelle
@@ -33,6 +36,16 @@ class CalculAgeSericeTest {
 		// autowired ne fonctionne pas
 		CalculAgeService calculAgeService = new CalculAgeService();
 		assertEquals(18, calculAgeService.calculAge(dateActuelleMoins18ans));
+	}
+
+	/**
+	 * Cas où le calcul e l'age renvoit -999 car une date est érronée
+	 */
+
+	@Test
+	void testAgeValeurDateErronee() {
+		CalculAgeService calculAgeService = new CalculAgeService();
+		assertEquals(-999, calculAgeService.calculAge("hjiugiugu"));
 	}
 
 }

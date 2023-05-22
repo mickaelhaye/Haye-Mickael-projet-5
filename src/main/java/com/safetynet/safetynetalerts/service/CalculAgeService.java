@@ -55,16 +55,14 @@ public class CalculAgeService {
 		try {
 			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(birthdate);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			logger.error("Calcul Age Error" + e);
+			return -999;
 		}
 		try {
 			date2 = new SimpleDateFormat("dd/MM/yyyy").parse(dateActuelle);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			logger.error("Calcul Age Error" + e);
+			return -999;
 		}
 		calStr1.setTime(date1);
 		calStr2.setTime(date2);
