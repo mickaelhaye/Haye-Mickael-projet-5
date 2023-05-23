@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,8 +23,8 @@ public class JsonFileReadRepository {
 
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
-	@Autowired
-	private CustomProperties prop;
+	// @Autowired ??????
+	// private CustomProperties prop;
 
 	/**
 	 * 
@@ -36,7 +35,9 @@ public class JsonFileReadRepository {
 		FileEntryRepository file = null;
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
-		String path = prop.getJsonFilePath();
+		CustomProperties prop = new CustomProperties();
+		// String path = prop.getJsonFilePath();
+		String path = "src/main/resources/datatest/dataTest.json";// remettre correctement
 
 		try {
 
@@ -44,8 +45,8 @@ public class JsonFileReadRepository {
 			logger.debug("Lecture du fichier Json OK");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 			logger.error("Lecture du fichier Json ECHEC" + e);
+			return null;// à valider
 		}
 
 		return file;

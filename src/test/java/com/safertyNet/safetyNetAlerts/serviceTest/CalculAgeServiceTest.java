@@ -8,10 +8,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.safetynetalerts.service.CalculAgeService;
 
-//pose problème @SpringBootTest
+@SpringBootTest
 class CalculAgeServiceTest {
 
 	/**
