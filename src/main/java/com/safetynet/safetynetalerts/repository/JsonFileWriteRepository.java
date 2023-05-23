@@ -34,14 +34,15 @@ public class JsonFileWriteRepository {
 
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
-		String path = prop.getJsonFilePath();
+		// String path = prop.getJsonFilePath(); à remettre
+		String path = "src/main/resources/datatest/dataTestWrite.json";
 
 		try {
 			objectMapper.writeValue(new File(path), file);
 			logger.debug("Ecriture du fichier Json OK");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// e.printStackTrace();//à valider
 			logger.error("Ecriture du fichier Json ECHEC" + e);
 		}
 	}

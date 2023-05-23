@@ -31,13 +31,14 @@ class JsonFileReadRepositoryTest {
 		assertNotNull(file);
 	}
 
-	void recupFileMauvaisPath() {
+	@Test
+	void recupFileBadPath() {
 		when(prop.getJsonFilePath()).thenReturn("");
-		JsonFileReadRepository JsonFileReadRepository = new JsonFileReadRepository(); //autowired
+		JsonFileReadRepository jsonFileReadRepository = new JsonFileReadRepository(); //autowired
 		
 		
 		FileEntryRepository file = null;
-		file = JsonFileReadRepository.recupFile();
+		file = jsonFileReadRepository.recupFile();
 		
 		//verify(prop, Mockito.times(1)).getJsonFilePath(); remettre 
 		assertNull(file);
