@@ -25,7 +25,9 @@ public class FoyerbyFirestationService {
 	public FoyerbyFirestationService(String address, ArrayList<PersonByFoyerService> listPersonnByFoyer) {
 		super();
 		this.address = address;
-		this.listPersonByFoyer = listPersonByFoyer;
+		for (PersonByFoyerService Person : listPersonnByFoyer) {
+			this.listPersonByFoyer.add(Person);
+		}
 	}
 
 }
