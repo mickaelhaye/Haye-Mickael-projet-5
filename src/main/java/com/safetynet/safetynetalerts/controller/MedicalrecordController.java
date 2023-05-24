@@ -48,7 +48,7 @@ public class MedicalrecordController {
 	 * 
 	 * @return la liste des medicalrecords
 	 */
-	@GetMapping(value = "/medicalrecord")
+	@GetMapping(value = "/medicalRecord")
 	public List<MedicalrecordModel> afficherListeMedicalrecord() {
 		majPointeur();
 		logger.info("@GetMapping(value = \"/medicalrecord\")");
