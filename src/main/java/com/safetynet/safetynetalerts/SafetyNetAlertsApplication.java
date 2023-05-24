@@ -14,6 +14,7 @@ public class SafetyNetAlertsApplication {
 	/**
 	 * main method.
 	 */
+
 	public static void main(String[] args) {
 		SpringApplication.run(SafetyNetAlertsApplication.class, args);
 	}

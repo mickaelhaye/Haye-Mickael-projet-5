@@ -17,7 +17,7 @@ import com.safetynet.safetynetalerts.service.CalculAgeService;
 class CalculAgeServiceTest {
 
 	@Autowired
-	CalculAgeService calculAgeService;
+	private CalculAgeService calculAgeService;
 
 	/**
 	 * Cas où le calcul de l'age est correct

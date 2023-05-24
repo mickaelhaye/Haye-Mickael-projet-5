@@ -1,4 +1,4 @@
-package com.safetynet.safetynetalerts.ControllerTest;
+package com.safetynet.safetynetalerts.controllerTest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -16,33 +16,33 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class FirestationControllerTest {
+class MedicalrecordControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Test
-	void getFirestations() throws Exception {
-		mockMvc.perform(get("/firestation")).andDo(print()).andExpect(status().isOk());
+	void getMedicalrecords() throws Exception {
+		mockMvc.perform(get("/medicalRecord")).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
-	void postFirestations() throws Exception {
-		mockMvc.perform(post("/firestation").contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content("{ \"address\":\"29 15th St\", \"station\":\"2\" }").accept(MediaType.APPLICATION_JSON_VALUE))
-				.andDo(print()).andExpect(status().isOk());
-	}
-
-	@Test
-	void patchFirestations() throws Exception {
-		mockMvc.perform(patch("/firestation").contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content("{ \"address\":\"90 15th St\", \"station\":\"500\" }")
+	void postMedicalrecords() throws Exception {
+		mockMvc.perform(post("/medicalRecord").contentType(MediaType.APPLICATION_JSON_VALUE).content(
+				"{ \"firstName\":\"John\", \"lastName\":\"Boyd\", \"birthdate\":\"03/06/1984\", \"medications\":[\"aznol:350mg\", \"hydrapermazol:100mg\"], \"allergies\":[\"nillacilan\"] }")
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
-	void deleteFirestations() throws Exception {
-		mockMvc.perform(delete("/firestation/3").accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print())
+	void patchMedicalrecords() throws Exception {
+		mockMvc.perform(patch("/medicalRecord").contentType(MediaType.APPLICATION_JSON_VALUE).content(
+				"{ \"firstName\":\"John\", \"lastName\":\"Boyd\", \"birthdate\":\"03/06/1984\", \"medications\":[\"aznol:350mg\", \"hydrapermazol:100mg\"], \"allergies\":[\"nillacilan\"] }")
+				.accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk());
+	}
+
+	@Test
+	void deleteMedicalrecords() throws Exception {
+		mockMvc.perform(delete("/medicalRecord/JohnBoyd").accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print())
 				.andExpect(status().isOk());
 	}
 
