@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.model.FirestationModel;
 import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileWriteRepository;
@@ -30,6 +31,9 @@ public class FirestationController {
 
 	@Autowired
 	private Controller controller;
+
+	@Autowired
+	private CustomProperties prop;
 
 	@Autowired
 	private JsonFileWriteRepository jsonFileWrite;
@@ -60,7 +64,7 @@ public class FirestationController {
 	public void ajouterFirestation(@RequestBody FirestationModel firestation) {
 		majPointeur();
 		String sVal = firestationService.addFirestation(firestation);
-		jsonFileWrite.writeFile(file);
+		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@PostMapping(\"/firestation\")" + sVal);
 	}
 
@@ -74,7 +78,7 @@ public class FirestationController {
 
 		majPointeur();
 		String sVal = firestationService.updateFirestation(firestation);
-		jsonFileWrite.writeFile(file);
+		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@PatchMapping(\"/firestation\")", sVal);
 
 	}
@@ -88,7 +92,7 @@ public class FirestationController {
 	public void supprimerFirestation(@PathVariable String stationOrAddress) {
 		majPointeur();
 		String sVal = firestationService.deleteFirestation(stationOrAddress);
-		jsonFileWrite.writeFile(file);
+		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@DeleteMapping(\"/firestation/{stationOrAddress}\")", sVal);
 
 	}

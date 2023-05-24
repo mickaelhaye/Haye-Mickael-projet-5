@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.controller.FirestationController;
 
 /**
@@ -23,21 +22,15 @@ public class JsonFileReadRepository {
 
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
-	// @Autowired ??????
-	// private CustomProperties prop;
-
 	/**
 	 * 
 	 * @return une classe avec des listes contenant les données du fichier
 	 */
-	public FileEntryRepository recupFile() {
+	public FileEntryRepository recupFile(String path) {
 
 		FileEntryRepository file = null;
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
-		CustomProperties prop = new CustomProperties();
-		// String path = prop.getJsonFilePath();
-		String path = "src/main/resources/datatest/dataTest.json";// remettre correctement
 
 		try {
 

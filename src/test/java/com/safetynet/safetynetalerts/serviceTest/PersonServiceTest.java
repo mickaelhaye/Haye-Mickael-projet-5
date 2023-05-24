@@ -2,14 +2,13 @@ package com.safetynet.safetynetalerts.serviceTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.mockito.Mockito.when;
 
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.model.PersonModel;
@@ -22,19 +21,19 @@ import com.safetynet.safetynetalerts.service.PersonService;
 @SpringBootTest
 class PersonServiceTest {
 
-	@MockBean // Mock
-	private static CustomProperties prop;
+	@Autowired
+	private CustomProperties prop;
+
+	@Autowired
+	private JsonFileReadRepository JsonFileReadRepository;
 
 	private static PersonService personService = new PersonService();
 
 	@BeforeEach
 	void setUpPerTest() {
 		// chargement d'un fichierJson
-		
-		when(prop.getJsonFilePath()).thenReturn("src/main/resources/datatest/dataTest.json");
-		JsonFileReadRepository JsonFileReadRepository = new JsonFileReadRepository(); // autowired
-		FileEntryRepository file = null;
-		file = JsonFileReadRepository.recupFile();
+
+		FileEntryRepository file = JsonFileReadRepository.recupFile(prop.getJsonFileTestPath());
 		personService.setPersons(file.getPersons()); // à valider
 		personService.setMedicalrecords(file.getMedicalrecords()); // à valider
 		personService.setFirestations(file.getFirestations()); // à valider

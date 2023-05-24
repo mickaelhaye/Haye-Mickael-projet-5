@@ -16,4 +16,6 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "com.safetynet.safetynetalerts")
 public class CustomProperties {
 	private String jsonFilePath;
+	private String jsonFileTestPath;
+	private String jsonFileTestWritePath;
 }
