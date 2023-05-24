@@ -3,22 +3,17 @@ package com.safetynet.safetynetalerts.repositoryTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.safetynetalerts.CustomProperties;
-import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileWriteRepository;
 
 @SpringBootTest
 public class JsonFileWriteRepositoryTest {
-
-	private List<PersonModel> persons = new ArrayList<PersonModel>();
 
 	@Autowired
 	private CustomProperties prop;
