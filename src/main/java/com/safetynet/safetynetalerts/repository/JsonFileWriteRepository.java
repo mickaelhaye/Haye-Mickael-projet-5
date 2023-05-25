@@ -25,7 +25,7 @@ public class JsonFileWriteRepository {
 	 * 
 	 * @param file
 	 */
-	public void writeFile(FileEntryRepository file, String path) {
+	public void writeFile(FileEntryRepository file, String path) throws Exception {
 
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -35,7 +35,7 @@ public class JsonFileWriteRepository {
 			logger.debug("Ecriture du fichier Json OK");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			// e.printStackTrace();//à valider
+			e.printStackTrace();
 			logger.error("Ecriture du fichier Json ECHEC" + e);
 		}
 	}

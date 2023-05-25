@@ -18,7 +18,6 @@ class FileEntryRepositoryTest {
 
 	@Test
 	void toStringTest() {
-		String toto = fileEntryRepository.toString();
 		assertEquals(
 
 				"FileEntryRepository(persons=null, firestations=null, medicalrecords=null)",

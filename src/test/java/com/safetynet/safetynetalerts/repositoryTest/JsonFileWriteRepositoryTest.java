@@ -30,8 +30,13 @@ public class JsonFileWriteRepositoryTest {
 
 		// Ecriture d'un fichier test
 		FileEntryRepository file = new FileEntryRepository();
-		JsonFilewriteRepository.writeFile(file, prop.getJsonFileTestWritePath());
-		assertEquals(true, fileTest.exists());
+		try {
+			JsonFilewriteRepository.writeFile(file, prop.getJsonFileTestWritePath());
+			assertEquals(true, fileTest.exists());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -44,8 +49,13 @@ public class JsonFileWriteRepositoryTest {
 
 		// Ecriture d'un fichier test
 		FileEntryRepository file = new FileEntryRepository();
-		JsonFilewriteRepository.writeFile(file, "");
-		assertEquals(false, fileTest.exists());
+		try {
+			JsonFilewriteRepository.writeFile(file, "");
+			assertEquals(false, fileTest.exists());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 }

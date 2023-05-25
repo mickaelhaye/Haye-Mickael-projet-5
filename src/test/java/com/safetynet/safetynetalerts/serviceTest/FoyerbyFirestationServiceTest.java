@@ -17,7 +17,6 @@ class FoyerbyFirestationServiceTest {
 
 	@Test
 	void toStringTest() {
-		String toto = foyerbyFirestationService.toString();
 		assertEquals("FoyerbyFirestationService(address=1509 Culver St, listPersonByFoyer=null)",
 				foyerbyFirestationService.toString());
 	}

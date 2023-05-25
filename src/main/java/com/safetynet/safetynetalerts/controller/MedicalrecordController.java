@@ -59,9 +59,10 @@ public class MedicalrecordController {
 	 * API pour rajouter un medicalrecord
 	 * 
 	 * @param medicalrecord
+	 * @throws Exception
 	 */
 	@PostMapping("/medicalRecord")
-	public void ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
+	public void ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
 		majPointeur();
 		String sVal = medicalrecordService.addMedicalRecord(medicalrecord);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
@@ -72,9 +73,10 @@ public class MedicalrecordController {
 	 * API pour modifier un medicalrecord
 	 * 
 	 * @param medicalrecord
+	 * @throws Exception
 	 */
 	@PatchMapping("/medicalRecord")
-	public void mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) {
+	public void mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
 		majPointeur();
 		String sVal = medicalrecordService.updateMedicalRecord(medicalrecord);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
@@ -85,9 +87,10 @@ public class MedicalrecordController {
 	 * API pour supprimer un medicalrecord
 	 * 
 	 * @param firstNameLastName
+	 * @throws Exception
 	 */
 	@DeleteMapping("/medicalRecord/{firstNameLastName}")
-	public void supprimerMedicalRecord(@PathVariable String firstNameLastName) {
+	public void supprimerMedicalRecord(@PathVariable String firstNameLastName) throws Exception {
 		majPointeur();
 		String sVal = medicalrecordService.deleteMedicalRecord(firstNameLastName);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());

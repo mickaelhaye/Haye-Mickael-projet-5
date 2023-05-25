@@ -62,9 +62,10 @@ public class PersonController {
 	 * @param station (station d'entrée)
 	 * @return une liste d'Objets (liste de persons + décompte adultes +décompte
 	 *         enfants
+	 * @throws Exception
 	 */
 	@GetMapping(value = "/firestation/{station}")
-	public List<Object> afficherUneListePersonne(@PathVariable String station) {
+	public List<Object> afficherUneListePersonne(@PathVariable String station) throws Exception {
 		majPointeur();
 		logger.info("@GetMapping(value = \"/firestation/{station}\")");
 		return personService.findByFirestationAListPersons(station);
@@ -75,9 +76,10 @@ public class PersonController {
 	 * 
 	 * @param address (address d'entrée)
 	 * @return une liste d'enfants
+	 * @throws Exception
 	 */
 	@GetMapping(value = "/childAlert/{address}")
-	public List<ChildAlertByAddressService> afficherUneListeEnfant(@PathVariable String address) {
+	public List<ChildAlertByAddressService> afficherUneListeEnfant(@PathVariable String address) throws Exception {
 		majPointeur();
 		logger.info("@GetMapping(value = \"/childAlert/{address}\")");
 		return personService.findByAddressAListChild(address);
@@ -88,9 +90,10 @@ public class PersonController {
 	 * 
 	 * @param station (station d'entrée)
 	 * @return une liste de numéros de téléphone
+	 * @throws Exception
 	 */
 	@GetMapping(value = "/phoneAlert/{station}")
-	public List<String> afficherUneListeNumTelephone(@PathVariable String station) {
+	public List<String> afficherUneListeNumTelephone(@PathVariable String station) throws Exception {
 		majPointeur();
 		logger.info("@GetMapping(value = \"/phoneAlert/{station}\")");
 		return personService.findByFirestationAPhone(station);
@@ -101,9 +104,10 @@ public class PersonController {
 	 * 
 	 * @param address (adress d'entrée)
 	 * @return une liste d'objets (Liste de persons + numéro de station)
+	 * @throws Exception
 	 */
 	@GetMapping(value = "/fire/{address}")
-	public List<Object> afficherUneListePersonneParAddresse(@PathVariable String address) {
+	public List<Object> afficherUneListePersonneParAddresse(@PathVariable String address) throws Exception {
 		majPointeur();
 		logger.info("@GetMapping(value = \"/fire/{address}\")");
 		return personService.findByAddressAPerson(address);
@@ -114,9 +118,10 @@ public class PersonController {
 	 * 
 	 * @param station (station d'entrée)
 	 * @return une liste d'objets (Liste de foyers)
+	 * @throws Exception
 	 */
 	@GetMapping(value = "/flood/stations/{station}")
-	public List<Object> afficherUneListeFoyerParFirestation(@PathVariable String station) {
+	public List<Object> afficherUneListeFoyerParFirestation(@PathVariable String station) throws Exception {
 		majPointeur();
 		logger.info("@GetMapping(value = \"/flood/stations/{station}\")");
 		return personService.findByFirestationAFoyer(station);
@@ -127,9 +132,10 @@ public class PersonController {
 	 * 
 	 * @param firstName (prénom d'entrée)
 	 * @return une liste de persons
+	 * @throws Exception
 	 */
 	@GetMapping(value = "/personInfo/{firstName}")
-	public List<String> afficherUneListePersonneParPrenom(@PathVariable String firstName) {
+	public List<String> afficherUneListePersonneParPrenom(@PathVariable String firstName) throws Exception {
 		majPointeur();
 		logger.info("@GetMapping(value = \"/personInfo/{firstName}\")");
 		return personService.findByFirstNameAPerson(firstName);
@@ -140,10 +146,11 @@ public class PersonController {
 	 * 
 	 * @param city (city d'entrée)
 	 * @return une liste d'emails
+	 * @throws Exception
 	 */
 	// Récupération des adresses mail en fonction d'une ville
 	@GetMapping(value = "/communityEmail/{city}")
-	public List<String> afficherEmailParCity(@PathVariable String city) {
+	public List<String> afficherEmailParCity(@PathVariable String city) throws Exception {
 		majPointeur();
 		logger.info("@GetMapping(value = \"/communityEmail/{city}\")");
 		return personService.findByCityAEmail(city);
@@ -153,9 +160,10 @@ public class PersonController {
 	 * API pour rajouter une person
 	 * 
 	 * @param person
+	 * @throws Exception
 	 */
 	@PostMapping("/person")
-	public void ajouterPerson(@RequestBody PersonModel person) {
+	public void ajouterPerson(@RequestBody PersonModel person) throws Exception {
 		majPointeur();
 		String sVal = personService.addPerson(person);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
@@ -167,9 +175,10 @@ public class PersonController {
 	 * API pour modifier une person
 	 * 
 	 * @param person
+	 * @throws Exception
 	 */
 	@PatchMapping("/person")
-	public void mettreAJourPerson(@RequestBody PersonModel person) {
+	public void mettreAJourPerson(@RequestBody PersonModel person) throws Exception {
 		majPointeur();
 		String sVal = personService.updatePerson(person);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
@@ -180,9 +189,10 @@ public class PersonController {
 	 * API pour supprimer une person
 	 * 
 	 * @param firstNameLastName
+	 * @throws Exception
 	 */
 	@DeleteMapping("/person/{firstNameLastName}")
-	public void supprimerPerson(@PathVariable String firstNameLastName) {
+	public void supprimerPerson(@PathVariable String firstNameLastName) throws Exception {
 		majPointeur();
 		String sVal = personService.deletePerson(firstNameLastName);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());

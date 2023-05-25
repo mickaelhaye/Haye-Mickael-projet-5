@@ -26,7 +26,7 @@ public class JsonFileReadRepository {
 	 * 
 	 * @return une classe avec des listes contenant les données du fichier
 	 */
-	public FileEntryRepository recupFile(String path) {
+	public FileEntryRepository recupFile(String path) throws Exception {
 
 		FileEntryRepository file = null;
 		// Recupération des données dans le fichier json
@@ -38,8 +38,8 @@ public class JsonFileReadRepository {
 			logger.debug("Lecture du fichier Json OK");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			logger.error("Lecture du fichier Json ECHEC" + e);
-			return null;// à valider
 		}
 
 		return file;

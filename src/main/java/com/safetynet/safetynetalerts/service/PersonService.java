@@ -36,7 +36,7 @@ public class PersonService {
 	 * @return une liste d'Objets (liste de persons + décompte adultes +décompte
 	 *         enfants
 	 */
-	public List<Object> findByFirestationAListPersons(String station) {
+	public List<Object> findByFirestationAListPersons(String station) throws Exception {
 		logger.debug("findByFirestationAListPersons " + station);
 		// Liste des personnes dépendant d'un numéro de station
 		List<Object> listObjects = new ArrayList<Object>();
@@ -92,7 +92,7 @@ public class PersonService {
 	 * @param address (address d'entrée)
 	 * @return une liste d'enfants
 	 */
-	public List<ChildAlertByAddressService> findByAddressAListChild(String address) {
+	public List<ChildAlertByAddressService> findByAddressAListChild(String address) throws Exception {
 		logger.debug("findByAddressAListChild " + address);
 		// Liste des personnes habitant à une adresse
 		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
@@ -140,7 +140,7 @@ public class PersonService {
 	 * @param station (station d'entrée)
 	 * @return une liste de numéros de téléphone
 	 */
-	public List<String> findByFirestationAPhone(String station) {
+	public List<String> findByFirestationAPhone(String station) throws Exception {
 		logger.debug("findByFirestationAPhone " + station);
 		// Liste des numéros de telephone dépendant d'un numéro de station
 		List<String> listPhone = new ArrayList<String>();
@@ -171,7 +171,7 @@ public class PersonService {
 	 * @param address (adress d'entrée)
 	 * @return une liste d'objets (Liste de persons + numéro de station)
 	 */
-	public List<Object> findByAddressAPerson(String address) {
+	public List<Object> findByAddressAPerson(String address) throws Exception {
 		logger.debug("findByAddressAPerson " + address);
 		// Liste des personnes habitant à une adresse
 		List<Object> listObjects = new ArrayList<Object>();
@@ -227,7 +227,7 @@ public class PersonService {
 	 * 
 	 * @GetMapping(value = "/flood/stations/{station}")
 	 */
-	public List<Object> findByFirestationAFoyer(String station) {
+	public List<Object> findByFirestationAFoyer(String station) throws Exception {
 		logger.debug("findByFirestationAFoyer " + station);
 		// Liste des foyer dépendant d'un numéro de station
 		List<Object> listObjects = new ArrayList<Object>();
@@ -296,7 +296,7 @@ public class PersonService {
 	 * 
 	 * @GetMapping(value = "/personInfo/{firstName}")
 	 */
-	public List<String> findByFirstNameAPerson(String firstName) {
+	public List<String> findByFirstNameAPerson(String firstName) throws Exception {
 		logger.debug("findByFirstNameAPerson " + firstName);
 		// Liste des personnes en fonction d'un prénom
 		List<String> listPerson = new ArrayList<String>();
@@ -331,7 +331,7 @@ public class PersonService {
 	 * 
 	 * @GetMapping(value = "/communityEmail/{city}")
 	 */
-	public List<String> findByCityAEmail(String city) {
+	public List<String> findByCityAEmail(String city) throws Exception {
 		logger.debug("findByCityAEmail " + city);
 		// Liste des personnes en fonction d'un prénom
 		List<String> listEmail = new ArrayList<String>();

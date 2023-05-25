@@ -40,7 +40,12 @@ public class Controller {
 	// Recupération du fichier json
 	public void init() {
 		logger.debug("récupération diu fichier .json");
-		file = jsonFileRecup.recupFile(prop.getJsonFilePath());
+		try {
+			file = jsonFileRecup.recupFile(prop.getJsonFilePath());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

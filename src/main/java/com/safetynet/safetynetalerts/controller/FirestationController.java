@@ -59,9 +59,10 @@ public class FirestationController {
 	 * API pour rajouter un firestation
 	 * 
 	 * @param firestation
+	 * @throws Exception
 	 */
 	@PostMapping("/firestation")
-	public void ajouterFirestation(@RequestBody FirestationModel firestation) {
+	public void ajouterFirestation(@RequestBody FirestationModel firestation) throws Exception {
 		majPointeur();
 		String sVal = firestationService.addFirestation(firestation);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
@@ -72,9 +73,10 @@ public class FirestationController {
 	 * API pour modifier un firestation
 	 * 
 	 * @param firestation
+	 * @throws Exception
 	 */
 	@PatchMapping("/firestation")
-	public void mettreAJourFirestation(@RequestBody FirestationModel firestation) {
+	public void mettreAJourFirestation(@RequestBody FirestationModel firestation) throws Exception {
 
 		majPointeur();
 		String sVal = firestationService.updateFirestation(firestation);
@@ -87,9 +89,10 @@ public class FirestationController {
 	 * API pour supprimer un firestation
 	 * 
 	 * @param stationOrAddress
+	 * @throws Exception
 	 */
 	@DeleteMapping("/firestation/{stationOrAddress}")
-	public void supprimerFirestation(@PathVariable String stationOrAddress) {
+	public void supprimerFirestation(@PathVariable String stationOrAddress) throws Exception {
 		majPointeur();
 		String sVal = firestationService.deleteFirestation(stationOrAddress);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
