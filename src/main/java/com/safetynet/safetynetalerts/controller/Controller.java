@@ -45,6 +45,7 @@ public class Controller {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.error("Lecture du fichier Json ECHEC" + e);
 		}
 	}
 

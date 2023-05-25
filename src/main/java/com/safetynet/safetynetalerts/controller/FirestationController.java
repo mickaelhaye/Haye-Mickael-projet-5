@@ -59,7 +59,7 @@ public class FirestationController {
 	 * API pour rajouter un firestation
 	 * 
 	 * @param firestation
-	 * @throws Exception
+	 * @throws Exception écriture fichier érroné
 	 */
 	@PostMapping("/firestation")
 	public void ajouterFirestation(@RequestBody FirestationModel firestation) throws Exception {
@@ -73,7 +73,7 @@ public class FirestationController {
 	 * API pour modifier un firestation
 	 * 
 	 * @param firestation
-	 * @throws Exception
+	 * @throws Exception écriture fichier érroné
 	 */
 	@PatchMapping("/firestation")
 	public void mettreAJourFirestation(@RequestBody FirestationModel firestation) throws Exception {
@@ -89,7 +89,7 @@ public class FirestationController {
 	 * API pour supprimer un firestation
 	 * 
 	 * @param stationOrAddress
-	 * @throws Exception
+	 * @throws Exception écriture fichier érroné
 	 */
 	@DeleteMapping("/firestation/{stationOrAddress}")
 	public void supprimerFirestation(@PathVariable String stationOrAddress) throws Exception {

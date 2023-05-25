@@ -62,7 +62,7 @@ public class PersonController {
 	 * @param station (station d'entrée)
 	 * @return une liste d'Objets (liste de persons + décompte adultes +décompte
 	 *         enfants
-	 * @throws Exception
+	 * @throws Exception mauvais retour personService.findByFirestationAListPersons
 	 */
 	@GetMapping(value = "/firestation/{station}")
 	public List<Object> afficherUneListePersonne(@PathVariable String station) throws Exception {
@@ -76,7 +76,8 @@ public class PersonController {
 	 * 
 	 * @param address (address d'entrée)
 	 * @return une liste d'enfants
-	 * @throws Exception
+	 * @throws Exception mauvais retour
+	 *                   personService.findByAddressAListChild(address)
 	 */
 	@GetMapping(value = "/childAlert/{address}")
 	public List<ChildAlertByAddressService> afficherUneListeEnfant(@PathVariable String address) throws Exception {
@@ -90,7 +91,8 @@ public class PersonController {
 	 * 
 	 * @param station (station d'entrée)
 	 * @return une liste de numéros de téléphone
-	 * @throws Exception
+	 * @throws Exception mauvais retour
+	 *                   personService.findByFirestationAPhone(station)
 	 */
 	@GetMapping(value = "/phoneAlert/{station}")
 	public List<String> afficherUneListeNumTelephone(@PathVariable String station) throws Exception {
@@ -104,7 +106,7 @@ public class PersonController {
 	 * 
 	 * @param address (adress d'entrée)
 	 * @return une liste d'objets (Liste de persons + numéro de station)
-	 * @throws Exception
+	 * @throws Exception mauvais retour personService.findByAddressAPerson(address)
 	 */
 	@GetMapping(value = "/fire/{address}")
 	public List<Object> afficherUneListePersonneParAddresse(@PathVariable String address) throws Exception {
@@ -118,7 +120,8 @@ public class PersonController {
 	 * 
 	 * @param station (station d'entrée)
 	 * @return une liste d'objets (Liste de foyers)
-	 * @throws Exception
+	 * @throws Exception mauvais retour
+	 *                   personService.findByFirestationAFoyer(station)
 	 */
 	@GetMapping(value = "/flood/stations/{station}")
 	public List<Object> afficherUneListeFoyerParFirestation(@PathVariable String station) throws Exception {
@@ -132,7 +135,8 @@ public class PersonController {
 	 * 
 	 * @param firstName (prénom d'entrée)
 	 * @return une liste de persons
-	 * @throws Exception
+	 * @throws Exception mauvais retour
+	 *                   personService.findByFirstNameAPerson(firstName)
 	 */
 	@GetMapping(value = "/personInfo/{firstName}")
 	public List<String> afficherUneListePersonneParPrenom(@PathVariable String firstName) throws Exception {
@@ -146,7 +150,7 @@ public class PersonController {
 	 * 
 	 * @param city (city d'entrée)
 	 * @return une liste d'emails
-	 * @throws Exception
+	 * @throws Exception mauvais retour personService.findByCityAEmail(city)
 	 */
 	// Récupération des adresses mail en fonction d'une ville
 	@GetMapping(value = "/communityEmail/{city}")
@@ -160,7 +164,7 @@ public class PersonController {
 	 * API pour rajouter une person
 	 * 
 	 * @param person
-	 * @throws Exception
+	 * @throws Exception écriture fichier érroné
 	 */
 	@PostMapping("/person")
 	public void ajouterPerson(@RequestBody PersonModel person) throws Exception {
@@ -175,7 +179,7 @@ public class PersonController {
 	 * API pour modifier une person
 	 * 
 	 * @param person
-	 * @throws Exception
+	 * @throws Exception écriture fichier érroné
 	 */
 	@PatchMapping("/person")
 	public void mettreAJourPerson(@RequestBody PersonModel person) throws Exception {
@@ -189,7 +193,7 @@ public class PersonController {
 	 * API pour supprimer une person
 	 * 
 	 * @param firstNameLastName
-	 * @throws Exception
+	 * @throws Exception écriture fichier érroné
 	 */
 	@DeleteMapping("/person/{firstNameLastName}")
 	public void supprimerPerson(@PathVariable String firstNameLastName) throws Exception {

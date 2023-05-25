@@ -59,7 +59,7 @@ public class MedicalrecordController {
 	 * API pour rajouter un medicalrecord
 	 * 
 	 * @param medicalrecord
-	 * @throws Exception
+	 * @throws Exception écriture fichier érroné
 	 */
 	@PostMapping("/medicalRecord")
 	public void ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
@@ -73,7 +73,7 @@ public class MedicalrecordController {
 	 * API pour modifier un medicalrecord
 	 * 
 	 * @param medicalrecord
-	 * @throws Exception
+	 * @throws Exception écriture fichier érroné
 	 */
 	@PatchMapping("/medicalRecord")
 	public void mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
@@ -87,7 +87,7 @@ public class MedicalrecordController {
 	 * API pour supprimer un medicalrecord
 	 * 
 	 * @param firstNameLastName
-	 * @throws Exception
+	 * @throws Exception écriture fichier érroné
 	 */
 	@DeleteMapping("/medicalRecord/{firstNameLastName}")
 	public void supprimerMedicalRecord(@PathVariable String firstNameLastName) throws Exception {
