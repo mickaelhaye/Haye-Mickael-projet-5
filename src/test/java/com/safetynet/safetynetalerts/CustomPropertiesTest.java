@@ -13,19 +13,19 @@ class CustomPropertiesTest {
 	private CustomProperties prop;
 
 	@Test
-	void setGetJsonFilePath() {
+	void setGetJsonFilePathTest() {
 		prop.setJsonFilePath("test");
 		assertEquals("test", prop.getJsonFilePath());
 	}
 
 	@Test
-	void setGetJsonFileTestPath() {
+	void setGetJsonFileTestPathTest() {
 		prop.setJsonFileTestPath("test");
 		assertEquals("test", prop.getJsonFileTestPath());
 	}
 
 	@Test
-	void setGetJsonFileTestWritePath() {
+	void setGetJsonFileTestWritePathTest() {
 		prop.setJsonFileTestWritePath("test");
 		assertEquals("test", prop.getJsonFileTestWritePath());
 	}

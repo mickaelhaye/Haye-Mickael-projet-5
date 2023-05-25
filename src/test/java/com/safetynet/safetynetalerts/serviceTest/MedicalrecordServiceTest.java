@@ -44,7 +44,7 @@ class MedicalrecordServiceTest {
 	}
 
 	@Test
-	void addMedicalRecord() {
+	void addMedicalRecordTest() {
 
 		List<MedicalrecordModel> medicalrecords = medicalRecordService.getMedicalrecords();
 		if (medicalrecords != null) {
@@ -56,7 +56,7 @@ class MedicalrecordServiceTest {
 	}
 
 	@Test
-	void updateMedicalRecord() {
+	void updateMedicalRecordTest() {
 
 		List<MedicalrecordModel> medicalrecords = medicalRecordService.getMedicalrecords();
 		if (medicalrecords != null) {
@@ -77,7 +77,7 @@ class MedicalrecordServiceTest {
 	}
 
 	@Test
-	void updateMedicalRecordBadMedicalRecord() {
+	void updateMedicalRecordBadMedicalRecordTest() {
 
 		List<MedicalrecordModel> medicalrecords = medicalRecordService.getMedicalrecords();
 		if (medicalrecords != null) {
@@ -98,7 +98,7 @@ class MedicalrecordServiceTest {
 	}
 
 	@Test
-	void deleteMedicalRecord() {
+	void deleteMedicalRecordTest() {
 		List<MedicalrecordModel> medicalrecords = medicalRecordService.getMedicalrecords();
 		if (medicalrecords != null) {
 			int nbrMedicalrecorOld = medicalrecords.size();
@@ -110,7 +110,7 @@ class MedicalrecordServiceTest {
 	}
 
 	@Test
-	void deletePersonBadPerson() {
+	void deletePersonBadPersonTest() {
 		List<MedicalrecordModel> medicalrecords = medicalRecordService.getMedicalrecords();
 		if (medicalrecords != null) {
 			int nbrMedicalrecorOld = medicalrecords.size();

@@ -33,18 +33,18 @@ class MedicalrecordModelTest {
 	}
 
 	@Test
-	void equalsTestSameObjet() {
+	void equalsSameObjetTest() {
 		assertTrue(medicalrecordModel.equals(medicalrecordModel));
 	}
 
 	@Test
-	void equalsTestNullObjet() {
+	void equalsNullObjetTest() {
 		MedicalrecordModel medicalrecordModelNull = null;
 		assertFalse(medicalrecordModel.equals(medicalrecordModelNull));
 	}
 
 	@Test
-	void equalsTestDifferentObjet() {
+	void equalsDifferentObjetTest() {
 		Object objetDifferent = new Object();
 		assertFalse(medicalrecordModel.equals(objetDifferent));
 	}

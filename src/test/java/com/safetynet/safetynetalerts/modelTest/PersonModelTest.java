@@ -35,18 +35,18 @@ class PersonModelTest {
 	}
 
 	@Test
-	void equalsTestSameObjet() {
+	void equalsSameObjetTest() {
 		assertTrue(personModel.equals(personModel));
 	}
 
 	@Test
-	void equalsTestNullObjet() {
+	void equalsNullObjetTest() {
 		PersonModel personModelNull = null;
 		assertFalse(personModel.equals(personModelNull));
 	}
 
 	@Test
-	void equalsTestDifferentObjet() {
+	void equalsDifferentObjetTest() {
 		Object objetDifferent = new Object();
 		assertFalse(personModel.equals(objetDifferent));
 	}

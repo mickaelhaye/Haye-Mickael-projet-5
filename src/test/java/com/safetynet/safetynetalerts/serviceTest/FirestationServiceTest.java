@@ -42,7 +42,7 @@ class FirestationServiceTest {
 	}
 
 	@Test
-	void addFirestation() {
+	void addFirestationTest() {
 
 		List<FirestationModel> firestations = firestationService.getFirestations();
 		if (firestations != null) {
@@ -55,7 +55,7 @@ class FirestationServiceTest {
 	}
 
 	@Test
-	void updateFirestation() {
+	void updateFirestationTest() {
 
 		List<FirestationModel> firestations = firestationService.getFirestations();
 		if (firestations != null) {
@@ -72,7 +72,7 @@ class FirestationServiceTest {
 	}
 
 	@Test
-	void updateFirestationBadFirestation() {
+	void updateFirestationBadFirestationTest() {
 
 		List<FirestationModel> firestations = firestationService.getFirestations();
 		if (firestations != null) {
@@ -89,7 +89,7 @@ class FirestationServiceTest {
 	}
 
 	@Test
-	void deleteFirestationByStation() {
+	void deleteFirestationByStationTest() {
 		List<FirestationModel> firestations = firestationService.getFirestations();
 		if (firestations != null) {
 			int nbrFirestationOld = firestations.size();
@@ -102,7 +102,7 @@ class FirestationServiceTest {
 	}
 
 	@Test
-	void deleteFirestationByStationBadFirestation() {
+	void deleteFirestationByStationBadFirestationTest() {
 		List<FirestationModel> firestations = firestationService.getFirestations();
 		if (firestations != null) {
 			int nbrFirestationOld = firestations.size();
@@ -115,7 +115,7 @@ class FirestationServiceTest {
 	}
 
 	@Test
-	void deleteFirestationByAddress() {
+	void deleteFirestationByAddressTest() {
 		List<FirestationModel> firestations = firestationService.getFirestations();
 		if (firestations != null) {
 			int nbrFirestationOld = firestations.size();
@@ -128,7 +128,7 @@ class FirestationServiceTest {
 	}
 
 	@Test
-	void deleteFirestationByAddressBadFirestation() {
+	void deleteFirestationByAddressBadFirestationTest() {
 		List<FirestationModel> firestations = firestationService.getFirestations();
 		if (firestations != null) {
 			int nbrFirestationOld = firestations.size();

@@ -21,7 +21,7 @@ class JsonFileReadRepositoryTest {
 	private JsonFileReadRepository JsonFileReadRepository;
 
 	@Test
-	void recupFile() {
+	void recupFileTest() {
 		FileEntryRepository file;
 		try {
 			file = JsonFileReadRepository.recupFile(prop.getJsonFileTestPath());
@@ -35,7 +35,7 @@ class JsonFileReadRepositoryTest {
 	}
 
 	@Test
-	void recupFileBadPath() {
+	void recupFileBadPathTest() {
 		FileEntryRepository file;
 		try {
 			file = JsonFileReadRepository.recupFile("");

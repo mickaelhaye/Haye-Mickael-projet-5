@@ -30,18 +30,18 @@ class FirestationModelTest {
 	}
 
 	@Test
-	void equalsTestSameObjet() {
+	void equalsSameObjetTest() {
 		assertTrue(firestationModel.equals(firestationModel));
 	}
 
 	@Test
-	void equalsTestNullObjet() {
+	void equalsNullObjetTest() {
 		FirestationModel firestationModelNull = null;
 		assertFalse(firestationModel.equals(firestationModelNull));
 	}
 
 	@Test
-	void equalsTestDifferentObjet() {
+	void equalsDifferentObjetTest() {
 		Object objetDifferent = new Object();
 		assertFalse(firestationModel.equals(objetDifferent));
 	}

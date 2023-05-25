@@ -32,18 +32,18 @@ class PersonByFoyerServiceTest {
 	}
 
 	@Test
-	void equalsTestSameObjet() {
+	void equalsSameObjetTest() {
 		assertTrue(personByFoyerService.equals(personByFoyerService));
 	}
 
 	@Test
-	void equalsTestNullObjet() {
+	void equalsNullObjetTest() {
 		PersonByFoyerService personByFoyerServiceNull = null;
 		assertFalse(personByFoyerService.equals(personByFoyerServiceNull));
 	}
 
 	@Test
-	void equalsTestDifferentObjet() {
+	void equalsDifferentObjetTest() {
 		Object objetDifferent = new Object();
 		assertFalse(personByFoyerService.equals(objetDifferent));
 	}

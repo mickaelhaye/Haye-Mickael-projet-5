@@ -22,26 +22,26 @@ class MedicalrecordControllerTest {
 	private MockMvc mockMvc;
 
 	@Test
-	void getMedicalrecords() throws Exception {
+	void getMedicalrecordsTest() throws Exception {
 		mockMvc.perform(get("/medicalRecord")).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
-	void postMedicalrecords() throws Exception {
+	void postMedicalrecordsTest() throws Exception {
 		mockMvc.perform(post("/medicalRecord").contentType(MediaType.APPLICATION_JSON_VALUE).content(
 				"{ \"firstName\":\"John\", \"lastName\":\"Boyd\", \"birthdate\":\"03/06/1984\", \"medications\":[\"aznol:350mg\", \"hydrapermazol:100mg\"], \"allergies\":[\"nillacilan\"] }")
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
-	void patchMedicalrecords() throws Exception {
+	void patchMedicalrecordsTest() throws Exception {
 		mockMvc.perform(patch("/medicalRecord").contentType(MediaType.APPLICATION_JSON_VALUE).content(
 				"{ \"firstName\":\"John\", \"lastName\":\"Boyd\", \"birthdate\":\"03/06/1984\", \"medications\":[\"aznol:350mg\", \"hydrapermazol:100mg\"], \"allergies\":[\"nillacilan\"] }")
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
-	void deleteMedicalrecords() throws Exception {
+	void deleteMedicalrecordsTest() throws Exception {
 		mockMvc.perform(delete("/medicalRecord/JohnBoyd").accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print())
 				.andExpect(status().isOk());
 	}

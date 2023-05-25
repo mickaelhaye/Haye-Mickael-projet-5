@@ -22,26 +22,26 @@ class FirestationControllerTest {
 	private MockMvc mockMvc;
 
 	@Test
-	void getFirestations() throws Exception {
+	void getFirestationsTest() throws Exception {
 		mockMvc.perform(get("/firestation")).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
-	void postFirestations() throws Exception {
+	void postFirestationsTest() throws Exception {
 		mockMvc.perform(post("/firestation").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content("{ \"address\":\"29 15th St\", \"station\":\"2\" }").accept(MediaType.APPLICATION_JSON_VALUE))
 				.andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
-	void patchFirestations() throws Exception {
+	void patchFirestationsTest() throws Exception {
 		mockMvc.perform(patch("/firestation").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content("{ \"address\":\"90 15th St\", \"station\":\"500\" }")
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
-	void deleteFirestations() throws Exception {
+	void deleteFirestationsTest() throws Exception {
 		mockMvc.perform(delete("/firestation/3").accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print())
 				.andExpect(status().isOk());
 	}

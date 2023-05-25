@@ -23,7 +23,7 @@ class CalculAgeServiceTest {
 	 * Cas où le calcul de l'age est correct
 	 */
 	@Test
-	void calculAge() {
+	void calculAgeTest() {
 		// récupération de la date actuelle
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(new Date());
@@ -44,7 +44,7 @@ class CalculAgeServiceTest {
 	 */
 
 	@Test
-	void calculAgeValeurDateErronee() {
+	void calculAgeValeurDateErroneetest() {
 		assertEquals(-999, calculAgeService.calculAge("hjiugiugu"));
 	}
 

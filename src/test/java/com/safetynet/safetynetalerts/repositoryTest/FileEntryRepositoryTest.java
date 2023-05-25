@@ -30,18 +30,18 @@ class FileEntryRepositoryTest {
 	}
 
 	@Test
-	void equalsTestSameObjet() {
+	void equalsSameObjetTest() {
 		assertTrue(fileEntryRepository.equals(fileEntryRepository));
 	}
 
 	@Test
-	void equalsTestNullObjet() {
+	void equalsNullObjetTest() {
 		PersonByAddressService fileEntryRepositoryNull = null;
 		assertFalse(fileEntryRepository.equals(fileEntryRepositoryNull));
 	}
 
 	@Test
-	void equalsTestDifferentObjet() {
+	void equalsDifferentObjetTest() {
 		Object objetDifferent = new Object();
 		assertFalse(fileEntryRepository.equals(objetDifferent));
 	}

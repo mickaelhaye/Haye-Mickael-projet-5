@@ -47,7 +47,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void findByFirestationAListPersons() {
+	void findByFirestationAListPersonsTest() {
 
 		List<Object> listObjet;
 		try {
@@ -62,7 +62,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void findByAddressAListChild() {
+	void findByAddressAListChildTest() {
 
 		List<ChildAlertByAddressService> listObjet;
 		try {
@@ -77,7 +77,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void findByFirestationAPhone() {
+	void findByFirestationAPhoneTest() {
 
 		List<String> listPhone;
 		try {
@@ -92,7 +92,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void findByAddressAPerson() {
+	void findByAddressAPersonTest() {
 
 		List<Object> listObjet;
 		try {
@@ -107,7 +107,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void findByFirestationAFoyer() {
+	void findByFirestationAFoyerTest() {
 
 		List<Object> listObjet;
 		try {
@@ -122,7 +122,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void findByFirstNameAPerson() {
+	void findByFirstNameAPersonTest() {
 
 		List<String> listPerson;
 		try {
@@ -138,7 +138,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void findByCityAEmail() {
+	void findByCityAEmailTest() {
 
 		List<String> listEmail;
 		try {
@@ -152,7 +152,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void addPerson() {
+	void addPersonTest() {
 
 		List<PersonModel> persons = personService.getPersons();
 		if (persons != null) {
@@ -165,7 +165,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void updatePerson() {
+	void updatePersonTest() {
 
 		List<PersonModel> persons = personService.getPersons();
 		if (persons != null) {
@@ -182,7 +182,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void updatePersonBadPerson() {
+	void updatePersonBadPersonTest() {
 
 		List<PersonModel> persons = personService.getPersons();
 		if (persons != null) {
@@ -199,7 +199,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void deletePerson() {
+	void deletePersonTest() {
 		List<PersonModel> persons = personService.getPersons();
 		if (persons != null) {
 			int nbrPersonneOld = persons.size();
@@ -211,7 +211,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void deletePersonBadPerson() {
+	void deletePersonBadPersonTest() {
 		List<PersonModel> persons = personService.getPersons();
 		if (persons != null) {
 			int nbrPersonneOld = persons.size();

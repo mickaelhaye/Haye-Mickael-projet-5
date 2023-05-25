@@ -34,7 +34,7 @@ class PersonbyFirestationServiceTest {
 	}
 
 	@Test
-	void equalsTestSameObjet() {
+	void equalsSameObjetTest() {
 		assertTrue(personbyFirestationService.equals(personbyFirestationService));
 	}
 
@@ -45,7 +45,7 @@ class PersonbyFirestationServiceTest {
 	}
 
 	@Test
-	void equalsTestDifferentObjet() {
+	void equalsDifferentObjetTest() {
 		Object objetDifferent = new Object();
 		assertFalse(personbyFirestationService.equals(objetDifferent));
 	}

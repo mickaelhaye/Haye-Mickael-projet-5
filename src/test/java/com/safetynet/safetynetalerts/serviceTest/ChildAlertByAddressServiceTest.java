@@ -33,18 +33,18 @@ class ChildAlertByAddressServiceTest {
 	}
 
 	@Test
-	void equalsTestSameObjet() {
+	void equalsSameObjetTest() {
 		assertTrue(childAlertByAddressService.equals(childAlertByAddressService));
 	}
 
 	@Test
-	void equalsTestNullObjet() {
+	void equalsNullObjetTest() {
 		ChildAlertByAddressService childAlertByAddressServiceNull = null;
 		assertFalse(childAlertByAddressService.equals(childAlertByAddressServiceNull));
 	}
 
 	@Test
-	void equalsTestDifferentObjet() {
+	void equalsDifferentObjetTest() {
 		Object objetDifferent = new Object();
 		assertFalse(childAlertByAddressService.equals(objetDifferent));
 	}

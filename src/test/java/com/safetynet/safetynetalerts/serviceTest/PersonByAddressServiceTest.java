@@ -34,18 +34,18 @@ class PersonByAddressServiceTest {
 	}
 
 	@Test
-	void equalsTestSameObjet() {
+	void equalsSameObjetTest() {
 		assertTrue(personByAddressService.equals(personByAddressService));
 	}
 
 	@Test
-	void equalsTestNullObjet() {
+	void equalsNullObjetTest() {
 		PersonByAddressService personByAddressServiceNull = null;
 		assertFalse(personByAddressService.equals(personByAddressServiceNull));
 	}
 
 	@Test
-	void equalsTestDifferentObjet() {
+	void equalsDifferentObjetTest() {
 		Object objetDifferent = new Object();
 		assertFalse(personByAddressService.equals(objetDifferent));
 	}

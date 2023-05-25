@@ -22,7 +22,7 @@ public class JsonFileWriteRepositoryTest {
 	private JsonFileWriteRepository JsonFilewriteRepository;
 
 	@Test
-	public void writeFile() {
+	public void writeFileTest() {
 
 		File fileTest = new File(prop.getJsonFileTestWritePath());
 		fileTest.delete();
@@ -41,7 +41,7 @@ public class JsonFileWriteRepositoryTest {
 	}
 
 	@Test
-	public void writeFileBadPath() {
+	public void writeFileBadPathTest() {
 
 		File fileTest = new File(prop.getJsonFileTestWritePath());
 		fileTest.delete();

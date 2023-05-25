@@ -32,18 +32,18 @@ class FoyerbyFirestationServiceTest {
 	}
 
 	@Test
-	void equalsTestSameObjet() {
+	void equalsSameObjetTest() {
 		assertTrue(foyerbyFirestationService.equals(foyerbyFirestationService));
 	}
 
 	@Test
-	void equalsTestNullObjet() {
+	void equalsNullObjetTest() {
 		FoyerbyFirestationService foyerbyFirestationServiceNull = null;
 		assertFalse(foyerbyFirestationService.equals(foyerbyFirestationServiceNull));
 	}
 
 	@Test
-	void equalsTestDifferentObjet() {
+	void equalsDifferentObjetTest() {
 		Object objetDifferent = new Object();
 		assertFalse(foyerbyFirestationService.equals(objetDifferent));
 	}
