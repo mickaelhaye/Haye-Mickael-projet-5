@@ -1,7 +1,9 @@
 package com.safetynet.safetynetalerts.serviceTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -221,4 +223,29 @@ class PersonServiceTest {
 			assertEquals(nbrPersonneOld, nbrPersonneNew);
 		}
 	}
+
+	@Test
+	void equalsTest() {
+		PersonService personService2 = new PersonService();
+		PersonService personService3 = new PersonService();
+		assertTrue(personService2.equals(personService3));
+	}
+
+	@Test
+	void equalsSameObjetTest() {
+		assertTrue(personService.equals(personService));
+	}
+
+	@Test
+	void equalsNullObjetTest() {
+		PersonService personServiceNull = null;
+		assertFalse(personService.equals(personServiceNull));
+	}
+
+	@Test
+	void equalsDifferentObjetTest() {
+		Object objetDifferent = new Object();
+		assertFalse(personService.equals(objetDifferent));
+	}
+
 }

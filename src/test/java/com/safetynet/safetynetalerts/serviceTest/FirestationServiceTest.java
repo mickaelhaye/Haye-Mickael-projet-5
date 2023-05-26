@@ -1,7 +1,9 @@
 package com.safetynet.safetynetalerts.serviceTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -138,6 +140,30 @@ class FirestationServiceTest {
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld, nbrFirestationNew);
 		}
+	}
+
+	@Test
+	void equalsTest() {
+		FirestationService firestationService2 = new FirestationService();
+		FirestationService firestationService3 = new FirestationService();
+		assertTrue(firestationService2.equals(firestationService3));
+	}
+
+	@Test
+	void equalsSameObjetTest() {
+		assertTrue(firestationService.equals(firestationService));
+	}
+
+	@Test
+	void equalsNullObjetTest() {
+		FirestationService firestationServiceNull = null;
+		assertFalse(firestationService.equals(firestationServiceNull));
+	}
+
+	@Test
+	void equalsDifferentObjetTest() {
+		Object objetDifferent = new Object();
+		assertFalse(firestationService.equals(objetDifferent));
 	}
 
 }
