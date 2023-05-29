@@ -1,0 +1,12 @@
+2023-05-29 14:47:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PERSONMODEL" not found (this database is empty); SQL statement:
+insert into personmodel (id, address, city, email, first_name, last_name, phone, zip) values (default, ?, ?, ?, ?, ?, ?, ?) [42104-214]
+2023-05-29 14:47:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PERSONMODEL" not found (this database is empty); SQL statement:
+insert into personmodel (id, address, city, email, first_name, last_name, phone, zip) values (default, ?, ?, ?, ?, ?, ?, ?) [42104-214]
+2023-05-29 16:31:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PERSONMODEL" not found (this database is empty); SQL statement:
+insert into personmodel (id, address, city, email, first_name, last_name, phone, zip) values (default, ?, ?, ?, ?, ?, ?, ?) [42104-214]
+2023-05-29 16:32:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PERSONMODEL" not found (this database is empty); SQL statement:
+insert into personmodel (id, address, city, email, first_name, last_name, phone, zip) values (default, ?, ?, ?, ?, ?, ?, ?) [42104-214]

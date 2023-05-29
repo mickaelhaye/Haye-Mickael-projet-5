@@ -167,11 +167,13 @@ public class PersonController {
 	 * @throws Exception écriture fichier érroné
 	 */
 	@PostMapping("/person")
-	public void ajouterPerson(@RequestBody PersonModel person) throws Exception {
+	public String ajouterPerson(@RequestBody PersonModel person) throws Exception {
 		majPointeur();
+
 		String sVal = personService.addPerson(person);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@PostMapping(\"/person\")" + sVal);
+		return sVal;
 
 	}
 

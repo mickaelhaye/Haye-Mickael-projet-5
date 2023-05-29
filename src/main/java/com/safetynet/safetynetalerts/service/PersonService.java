@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.safetynetalerts.controller.FirestationController;
 import com.safetynet.safetynetalerts.model.FirestationModel;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
+import com.safetynet.safetynetalerts.repository.PersonModelRepository;
 
 import lombok.Data;
 
@@ -23,6 +25,10 @@ import lombok.Data;
 @Data
 @Service
 public class PersonService {
+
+	@Autowired
+	PersonModelRepository personModelRepository;
+
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 	private List<PersonModel> persons;
 	private List<FirestationModel> firestations;
@@ -353,6 +359,7 @@ public class PersonService {
 	public String addPerson(PersonModel person) {
 		logger.debug("addPerson " + person);
 		persons.add(person);
+		personModelRepository.save(person);
 		return person.getFirstName() + " " + person.getLastName() + " ajouté";
 	}
 

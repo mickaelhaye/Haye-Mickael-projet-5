@@ -2,6 +2,12 @@ package com.safetynet.safetynetalerts.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,12 +18,21 @@ import lombok.NoArgsConstructor;
  *
  */
 @Data
+@Entity
+@Table(name = "personmodel")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
 
 public class PersonModel {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+
+	@Column(name = "first_name")
 	private String firstName;
 
+	@Column(name = "last_name")
 	private String lastName;
 
 	private String address;
@@ -41,9 +56,11 @@ public class PersonModel {
 	 * @param phone
 	 * @param email
 	 */
-	public PersonModel(String firstName, String lastName, String address, String city, String zip, String phone,
-			String email) {
+
+	public PersonModel(long id, String firstName, String lastName, String address, String city, String zip,
+			String phone, String email) {
 		super();
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
