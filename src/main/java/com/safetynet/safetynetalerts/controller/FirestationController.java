@@ -62,11 +62,12 @@ public class FirestationController {
 	 * @throws Exception écriture fichier érroné
 	 */
 	@PostMapping("/firestation")
-	public void ajouterFirestation(@RequestBody FirestationModel firestation) throws Exception {
+	public String ajouterFirestation(@RequestBody FirestationModel firestation) throws Exception {
 		majPointeur();
 		String sVal = firestationService.addFirestation(firestation);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@PostMapping(\"/firestation\")" + sVal);
+		return sVal;
 	}
 
 	/**
@@ -76,12 +77,13 @@ public class FirestationController {
 	 * @throws Exception écriture fichier érroné
 	 */
 	@PatchMapping("/firestation")
-	public void mettreAJourFirestation(@RequestBody FirestationModel firestation) throws Exception {
+	public String mettreAJourFirestation(@RequestBody FirestationModel firestation) throws Exception {
 
 		majPointeur();
 		String sVal = firestationService.updateFirestation(firestation);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@PatchMapping(\"/firestation\")", sVal);
+		return sVal;
 
 	}
 
@@ -92,11 +94,12 @@ public class FirestationController {
 	 * @throws Exception écriture fichier érroné
 	 */
 	@DeleteMapping("/firestation/{stationOrAddress}")
-	public void supprimerFirestation(@PathVariable String stationOrAddress) throws Exception {
+	public String supprimerFirestation(@PathVariable String stationOrAddress) throws Exception {
 		majPointeur();
 		String sVal = firestationService.deleteFirestation(stationOrAddress);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@DeleteMapping(\"/firestation/{stationOrAddress}\")", sVal);
+		return sVal;
 
 	}
 

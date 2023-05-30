@@ -62,11 +62,12 @@ public class MedicalrecordController {
 	 * @throws Exception écriture fichier érroné
 	 */
 	@PostMapping("/medicalRecord")
-	public void ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
+	public String ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
 		majPointeur();
 		String sVal = medicalrecordService.addMedicalRecord(medicalrecord);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@PostMapping(\"/medicalRecord\")" + sVal);
+		return sVal;
 	}
 
 	/**
@@ -76,11 +77,12 @@ public class MedicalrecordController {
 	 * @throws Exception écriture fichier érroné
 	 */
 	@PatchMapping("/medicalRecord")
-	public void mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
+	public String mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
 		majPointeur();
 		String sVal = medicalrecordService.updateMedicalRecord(medicalrecord);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@PatchMapping(\"/medicalRecord\")", sVal);
+		return sVal;
 	}
 
 	/**
@@ -90,11 +92,12 @@ public class MedicalrecordController {
 	 * @throws Exception écriture fichier érroné
 	 */
 	@DeleteMapping("/medicalRecord/{firstNameLastName}")
-	public void supprimerMedicalRecord(@PathVariable String firstNameLastName) throws Exception {
+	public String supprimerMedicalRecord(@PathVariable String firstNameLastName) throws Exception {
 		majPointeur();
 		String sVal = medicalrecordService.deleteMedicalRecord(firstNameLastName);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@DeleteMapping(\"/medicalRecord/{firstNameLastName}\")", sVal);
+		return sVal;
 
 	}
 

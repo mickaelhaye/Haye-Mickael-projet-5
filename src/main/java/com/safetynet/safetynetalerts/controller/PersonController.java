@@ -167,11 +167,12 @@ public class PersonController {
 	 * @throws Exception écriture fichier érroné
 	 */
 	@PostMapping("/person")
-	public void ajouterPerson(@RequestBody PersonModel person) throws Exception {
+	public String ajouterPerson(@RequestBody PersonModel person) throws Exception {
 		majPointeur();
 		String sVal = personService.addPerson(person);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@PostMapping(\"/person\")" + sVal);
+		return sVal;
 
 	}
 
@@ -182,11 +183,12 @@ public class PersonController {
 	 * @throws Exception écriture fichier érroné
 	 */
 	@PatchMapping("/person")
-	public void mettreAJourPerson(@RequestBody PersonModel person) throws Exception {
+	public String mettreAJourPerson(@RequestBody PersonModel person) throws Exception {
 		majPointeur();
 		String sVal = personService.updatePerson(person);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@PatchMapping(\"/person\")", sVal);
+		return sVal;
 	}
 
 	/**
@@ -196,11 +198,12 @@ public class PersonController {
 	 * @throws Exception écriture fichier érroné
 	 */
 	@DeleteMapping("/person/{firstNameLastName}")
-	public void supprimerPerson(@PathVariable String firstNameLastName) throws Exception {
+	public String supprimerPerson(@PathVariable String firstNameLastName) throws Exception {
 		majPointeur();
 		String sVal = personService.deletePerson(firstNameLastName);
 		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@DeleteMapping(\"/person/{firstNameLastName}\")", sVal);
+		return sVal;
 	}
 
 	/**

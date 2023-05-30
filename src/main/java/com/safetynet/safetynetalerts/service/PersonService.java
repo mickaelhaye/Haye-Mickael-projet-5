@@ -352,6 +352,12 @@ public class PersonService {
 	 */
 	public String addPerson(PersonModel person) {
 		logger.debug("addPerson " + person);
+		for (PersonModel personTest : persons) {
+			if ((personTest.getFirstName().equals(person.getFirstName()))
+					&& (personTest.getLastName().equals(person.getLastName()))) {
+				return person.getFirstName() + " " + person.getLastName() + " déjà présent";
+			}
+		}
 		persons.add(person);
 		return person.getFirstName() + " " + person.getLastName() + " ajouté";
 	}

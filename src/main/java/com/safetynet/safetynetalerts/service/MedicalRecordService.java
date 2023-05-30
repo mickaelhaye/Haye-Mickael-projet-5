@@ -31,6 +31,13 @@ public class MedicalRecordService {
 	 */
 	public String addMedicalRecord(MedicalrecordModel medicalRecord) {
 		logger.debug("addMedicalRecord " + medicalRecord);
+		for (MedicalrecordModel medicalRecordTest : medicalrecords) {
+			if ((medicalRecordTest.getFirstName().equals(medicalRecord.getFirstName()))
+					&& (medicalRecordTest.getLastName().equals(medicalRecord.getLastName()))) {
+				return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " déjà présent";
+			}
+		}
+
 		medicalrecords.add(medicalRecord);
 		return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " ajouté";
 	}

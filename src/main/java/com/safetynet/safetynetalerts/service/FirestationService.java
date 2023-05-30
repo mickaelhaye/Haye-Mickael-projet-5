@@ -31,6 +31,12 @@ public class FirestationService {
 	 */
 	public String addFirestation(FirestationModel firestation) {
 		logger.debug("addFirestation " + firestation);
+		for (FirestationModel firestationTest : firestations) {
+			if (firestationTest.getAddress().equals(firestation.getAddress())) {
+				return "la firestation " + firestation.getAddress() + " Station:" + firestation.getStation()
+						+ " déjà présente";
+			}
+		}
 		firestations.add(firestation);
 		return "la firestation " + firestation.getAddress() + " Station:" + firestation.getStation() + " a été ajoutée";
 	}
