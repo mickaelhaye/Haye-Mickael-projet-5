@@ -355,11 +355,11 @@ public class PersonService {
 		for (PersonModel personTest : persons) {
 			if ((personTest.getFirstName().equals(person.getFirstName()))
 					&& (personTest.getLastName().equals(person.getLastName()))) {
-				return person.getFirstName() + " " + person.getLastName() + " déjà présent";
+				return person.getFirstName() + " " + person.getLastName() + " deja present";
 			}
 		}
 		persons.add(person);
-		return person.getFirstName() + " " + person.getLastName() + " ajouté";
+		return person.getFirstName() + " " + person.getLastName() + " ajoute";
 	}
 
 	/**
@@ -384,9 +384,9 @@ public class PersonService {
 			}
 		}
 		if (!personneModifiee) {
-			return person.getFirstName() + " " + person.getLastName() + " n'est pas référencé";
+			return person.getFirstName() + " " + person.getLastName() + " n'est pas reference";
 		}
-		return person.getFirstName() + " " + person.getLastName() + " modifié";
+		return person.getFirstName() + " " + person.getLastName() + " modifie";
 	}
 
 	/**
@@ -407,9 +407,9 @@ public class PersonService {
 			}
 		}
 		if (!personneSupprimee) {
-			return firstNameLastName + " n'est pas référencé";
+			return firstNameLastName + " n'est pas reference";
 		}
-		return firstNameLastName + " supprimé";
+		return firstNameLastName + " supprime";
 	}
 
 }

@@ -34,12 +34,12 @@ public class MedicalRecordService {
 		for (MedicalrecordModel medicalRecordTest : medicalrecords) {
 			if ((medicalRecordTest.getFirstName().equals(medicalRecord.getFirstName()))
 					&& (medicalRecordTest.getLastName().equals(medicalRecord.getLastName()))) {
-				return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " déjà présent";
+				return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " deja present";
 			}
 		}
 
 		medicalrecords.add(medicalRecord);
-		return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " ajouté";
+		return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " ajoute";
 	}
 
 	/**
@@ -63,9 +63,9 @@ public class MedicalRecordService {
 			}
 		}
 		if (!medicalRecordModifiee) {
-			return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " n'est pas référencé";
+			return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " n'est pas reference";
 		}
-		return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " modifié";
+		return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " modifie";
 	}
 
 	/**
@@ -86,9 +86,9 @@ public class MedicalRecordService {
 			}
 		}
 		if (!medicalRecordSupprimee) {
-			return firstNameLastName + " n'est pas référencé";
+			return firstNameLastName + " n'est pas reference";
 		}
-		return firstNameLastName + " supprimé";
+		return firstNameLastName + " supprime";
 	}
 
 }

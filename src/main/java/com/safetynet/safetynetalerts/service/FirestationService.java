@@ -34,11 +34,11 @@ public class FirestationService {
 		for (FirestationModel firestationTest : firestations) {
 			if (firestationTest.getAddress().equals(firestation.getAddress())) {
 				return "la firestation " + firestation.getAddress() + " Station:" + firestation.getStation()
-						+ " déjà présente";
+						+ " deja presente";
 			}
 		}
 		firestations.add(firestation);
-		return "la firestation " + firestation.getAddress() + " Station:" + firestation.getStation() + " a été ajoutée";
+		return "la firestation " + firestation.getAddress() + " Station:" + firestation.getStation() + " a ete ajoutee";
 	}
 
 	/**
@@ -59,9 +59,9 @@ public class FirestationService {
 			}
 		}
 		if (!firestationModifiee) {
-			return "la firestation " + firestation.getAddress() + " n'est pas référencé";
+			return "la firestation " + firestation.getAddress() + " n'est pas reference";
 		}
-		return "la firestation " + firestation.getAddress() + " a été modifiée";
+		return "la firestation " + firestation.getAddress() + " a ete modifiee";
 	}
 
 	/**
@@ -88,12 +88,12 @@ public class FirestationService {
 			}
 		}
 		if (!firestationSupprimeebyStation && !firestationSupprimeebyAddress) {
-			return stationOrAddress + " n'est pas référencé";
+			return "la firestation " + stationOrAddress + " n'est pas reference";
 		}
 		if (firestationSupprimeebyAddress) {
-			return "la firestation " + stationOrAddress + " a été supprimée";
+			return "la firestation " + stationOrAddress + " a ete supprimee";
 		}
-		return "les firestations " + stationOrAddress + " ont été supprimées";
+		return "les firestations " + stationOrAddress + " ont ete supprimees";
 	}
 
 }
