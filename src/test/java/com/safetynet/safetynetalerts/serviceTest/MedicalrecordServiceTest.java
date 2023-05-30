@@ -58,6 +58,19 @@ class MedicalrecordServiceTest {
 	}
 
 	@Test
+	void addMedicalRecordBadMedicalRecordTest() {
+
+		List<MedicalrecordModel> medicalrecords = medicalRecordService.getMedicalrecords();
+		if (medicalrecords != null) {
+			int nbrMedicalrecordOld = medicalrecords.size();
+			MedicalrecordModel medicalrecord = new MedicalrecordModel("Tessa", "Carman", "02/18/2012", null, null);
+			medicalRecordService.addMedicalRecord(medicalrecord);
+			int nbrMedicalrecordNew = medicalrecords.size();
+			assertEquals(nbrMedicalrecordOld, nbrMedicalrecordNew);
+		}
+	}
+
+	@Test
 	void updateMedicalRecordTest() {
 
 		List<MedicalrecordModel> medicalrecords = medicalRecordService.getMedicalrecords();

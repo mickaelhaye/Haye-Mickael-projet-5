@@ -167,6 +167,20 @@ class PersonServiceTest {
 	}
 
 	@Test
+	void addPersonBadPersonTest() {
+
+		List<PersonModel> persons = personService.getPersons();
+		if (persons != null) {
+			int nbrPersonOld = persons.size();
+			PersonModel person = new PersonModel("John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512",
+					"jaboyd@email.com");
+			personService.addPerson(person);
+			int nbrPersonNew = persons.size();
+			assertEquals(nbrPersonOld, nbrPersonNew);
+		}
+	}
+
+	@Test
 	void updatePersonTest() {
 
 		List<PersonModel> persons = personService.getPersons();

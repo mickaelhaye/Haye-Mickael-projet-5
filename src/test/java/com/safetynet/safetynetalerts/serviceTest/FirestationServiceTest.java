@@ -57,6 +57,20 @@ class FirestationServiceTest {
 	}
 
 	@Test
+	void addFirestationBadFirestationTest() {
+
+		List<FirestationModel> firestations = firestationService.getFirestations();
+		if (firestations != null) {
+			int nbrFirestationOld = firestations.size();
+			FirestationModel firestation = new FirestationModel("1509 Culver St", "3");
+			firestationService.addFirestation(firestation);
+			int nbrFirestationNew = firestations.size();
+			assertEquals(nbrFirestationOld, nbrFirestationNew);
+		}
+
+	}
+
+	@Test
 	void updateFirestationTest() {
 
 		List<FirestationModel> firestations = firestationService.getFirestations();
