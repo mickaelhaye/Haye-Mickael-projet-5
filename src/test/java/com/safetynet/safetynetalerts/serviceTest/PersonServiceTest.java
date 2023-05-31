@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.safetynetalerts.CustomProperties;
+import com.safetynet.safetynetalerts.controller.Controller;
 import com.safetynet.safetynetalerts.model.PersonModel;
-import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileReadRepository;
 import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
 import com.safetynet.safetynetalerts.service.FoyerbyFirestationService;
@@ -27,20 +27,21 @@ class PersonServiceTest {
 	private CustomProperties prop;
 
 	@Autowired
+	private Controller controller;
+
+	@Autowired
 	private JsonFileReadRepository JsonFileReadRepository;
 
-	private static PersonService personService = new PersonService();
+	@Autowired
+	private PersonService personService;
 
 	@BeforeEach
 	void setUpPerTest() {
 		// chargement d'un fichierJson
 
-		FileEntryRepository file;
 		try {
-			file = JsonFileReadRepository.recupFile(prop.getJsonFileTestPath());
-			personService.setPersons(file.getPersons());
-			personService.setMedicalrecords(file.getMedicalrecords());
-			personService.setFirestations(file.getFirestations());
+			controller.setFile(JsonFileReadRepository.recupFile(prop.getJsonFileTestPath()));
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -156,85 +157,103 @@ class PersonServiceTest {
 	@Test
 	void addPersonTest() {
 
-		List<PersonModel> persons = personService.getPersons();
-		if (persons != null) {
+		try {
+			List<PersonModel> persons = controller.getFile().getPersons();
 			PersonModel person = new PersonModel("Jean", "Gabin", "30 rue de la victoire", "Nantes", "49860",
 					"065989875", "moi@toto.fr");
 			personService.addPerson(person);
 			person = persons.get(persons.size() - 1);
 			assertEquals("Gabin", person.getLastName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void addPersonBadPersonTest() {
 
-		List<PersonModel> persons = personService.getPersons();
-		if (persons != null) {
+		try {
+			List<PersonModel> persons = controller.getFile().getPersons();
 			int nbrPersonOld = persons.size();
 			PersonModel person = new PersonModel("John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512",
 					"jaboyd@email.com");
 			personService.addPerson(person);
 			int nbrPersonNew = persons.size();
 			assertEquals(nbrPersonOld, nbrPersonNew);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void updatePersonTest() {
 
-		List<PersonModel> persons = personService.getPersons();
-		if (persons != null) {
+		try {
+			List<PersonModel> persons = controller.getFile().getPersons();
 			PersonModel person = persons.get(0);
 			String oldCity = person.getCity();
 			person = new PersonModel("John", "Boyd", "1509 Culver St", "Rome", "97451", "841-874-6512",
 					"jaboyd@email.com");
 			personService.updatePerson(person);
-			persons = personService.getPersons();
+			persons = controller.getFile().getPersons();
 			person = persons.get(0);
 			String newCity = person.getCity();
 			assertNotEquals(oldCity, newCity);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void updatePersonBadPersonTest() {
 
-		List<PersonModel> persons = personService.getPersons();
-		if (persons != null) {
+		try {
+			List<PersonModel> persons = controller.getFile().getPersons();
 			PersonModel person = persons.get(0);
 			String oldCity = person.getCity();
 			person = new PersonModel("patrick", "Boyd", "1509 Culver St", "Rome", "97451", "841-874-6512",
 					"jaboyd@email.com");
 			personService.updatePerson(person);
-			persons = personService.getPersons();
+			persons = controller.getFile().getPersons();
 			person = persons.get(0);
 			String newCity = person.getCity();
 			assertEquals(oldCity, newCity);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void deletePersonTest() {
-		List<PersonModel> persons = personService.getPersons();
-		if (persons != null) {
+		try {
+			List<PersonModel> persons = controller.getFile().getPersons();
 			int nbrPersonneOld = persons.size();
 			personService.deletePerson("JohnBoyd");
-			persons = personService.getPersons();
+			persons = controller.getFile().getPersons();
 			int nbrPersonneNew = persons.size();
 			assertEquals(nbrPersonneOld - 1, nbrPersonneNew);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void deletePersonBadPersonTest() {
-		List<PersonModel> persons = personService.getPersons();
-		if (persons != null) {
+		try {
+			List<PersonModel> persons = controller.getFile().getPersons();
 			int nbrPersonneOld = persons.size();
 			personService.deletePerson("patrickBoyd");
-			persons = personService.getPersons();
+			persons = controller.getFile().getPersons();
 			int nbrPersonneNew = persons.size();
 			assertEquals(nbrPersonneOld, nbrPersonneNew);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

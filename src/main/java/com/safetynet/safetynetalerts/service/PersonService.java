@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.safetynet.safetynetalerts.controller.Controller;
 import com.safetynet.safetynetalerts.controller.FirestationController;
 import com.safetynet.safetynetalerts.model.FirestationModel;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
@@ -23,10 +25,10 @@ import lombok.Data;
 @Data
 @Service
 public class PersonService {
+	@Autowired
+	private Controller controller;
+
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
-	private List<PersonModel> persons;
-	private List<FirestationModel> firestations;
-	private List<MedicalrecordModel> medicalrecords;
 
 	/**
 	 * traitement de l'API //@GetMapping(value = "/firestation/{station}"),
@@ -45,13 +47,13 @@ public class PersonService {
 		List<PersonbyFirestationService> listPersonsPlus18 = new ArrayList<PersonbyFirestationService>();
 		List<PersonbyFirestationService> listPersons18EtMoins = new ArrayList<PersonbyFirestationService>();
 
-		for (FirestationModel firestation : firestations) {
+		for (FirestationModel firestation : controller.getFile().getFirestations()) {
 			if (firestation.getStation().equals(station)) {
 				listFirestations2.add(firestation);
 			}
 		}
 		for (FirestationModel firestation : listFirestations2) {
-			for (PersonModel person : persons) {
+			for (PersonModel person : controller.getFile().getPersons()) {
 				if (firestation.getAddress().equals(person.getAddress())) {
 					listPersonByFirestation.add(new PersonbyFirestationService(person.getFirstName(),
 							person.getLastName(), person.getAddress(), person.getPhone()));
@@ -61,7 +63,7 @@ public class PersonService {
 		// Décompte du nombre d'adulte de plus de 18 ans et enfants (individu agé de 18
 		// ans ou moins)
 		for (PersonbyFirestationService person : listPersonByFirestation) {
-			for (MedicalrecordModel medicalrecords : medicalrecords) {
+			for (MedicalrecordModel medicalrecords : controller.getFile().getMedicalrecords()) {
 				if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
 					CalculAgeService calcul = new CalculAgeService();
@@ -97,7 +99,7 @@ public class PersonService {
 		// Liste des personnes habitant à une adresse
 		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
 		List<ChildAlertByAddressService> listChildAlert = new ArrayList<ChildAlertByAddressService>();
-		for (PersonModel person : persons) {
+		for (PersonModel person : controller.getFile().getPersons()) {
 			if (person.getAddress().equals(address)) {
 				listPersons2.add(person);
 			}
@@ -106,7 +108,7 @@ public class PersonService {
 		// Décompte du nombre d'adulte de plus de 18 ans et enfants (individu agé de 18
 		// ans ou moins)
 		for (PersonModel person : listPersons2) {
-			for (MedicalrecordModel medicalrecords : medicalrecords) {
+			for (MedicalrecordModel medicalrecords : controller.getFile().getMedicalrecords()) {
 				if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
 					CalculAgeService calcul = new CalculAgeService();
@@ -146,13 +148,13 @@ public class PersonService {
 		List<String> listPhone = new ArrayList<String>();
 		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
 
-		for (FirestationModel firestation : firestations) {
+		for (FirestationModel firestation : controller.getFile().getFirestations()) {
 			if (firestation.getStation().equals(station)) {
 				listFirestations2.add(firestation);
 			}
 		}
 		for (FirestationModel firestation : listFirestations2) {
-			for (PersonModel person : persons) {
+			for (PersonModel person : controller.getFile().getPersons()) {
 				if (firestation.getAddress().equals(person.getAddress())) {
 					if (!listPhone.contains(person.getPhone())) {
 						listPhone.add(person.getPhone());
@@ -177,7 +179,7 @@ public class PersonService {
 		List<Object> listObjects = new ArrayList<Object>();
 		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
 		List<PersonByAddressService> listPersonByAddress = new ArrayList<PersonByAddressService>();
-		for (PersonModel person : persons) {
+		for (PersonModel person : controller.getFile().getPersons()) {
 			if (person.getAddress().equals(address)) {
 				listPersons2.add(person);
 			}
@@ -185,7 +187,7 @@ public class PersonService {
 
 		// recherche dans medicalrecors
 		for (PersonModel person : listPersons2) {
-			for (MedicalrecordModel medicalrecords : medicalrecords) {
+			for (MedicalrecordModel medicalrecords : controller.getFile().getMedicalrecords()) {
 				if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
 					CalculAgeService calcul = new CalculAgeService();
@@ -198,7 +200,7 @@ public class PersonService {
 
 		// recherche numéro de station desservant l'adresse
 		String numStation = "";
-		for (FirestationModel firestation : firestations) {
+		for (FirestationModel firestation : controller.getFile().getFirestations()) {
 			if (firestation.getAddress().equals(address)) {
 				numStation = firestation.getStation();
 			}
@@ -235,13 +237,13 @@ public class PersonService {
 		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
 		List<FoyerbyFirestationService> listFoyerbyFirestation = new ArrayList<FoyerbyFirestationService>();
 
-		for (FirestationModel firestation : firestations) {
+		for (FirestationModel firestation : controller.getFile().getFirestations()) {
 			if (firestation.getStation().equals(station)) {
 				listFirestations2.add(firestation);
 			}
 		}
 		for (FirestationModel firestation : listFirestations2) {
-			for (PersonModel person : persons) {
+			for (PersonModel person : controller.getFile().getPersons()) {
 				if (firestation.getAddress().equals(person.getAddress())) {
 					if (!listFoyer.contains(person.getAddress())) {
 						listFoyer.add((person.getAddress()));
@@ -252,14 +254,14 @@ public class PersonService {
 		for (String foyer : listFoyer) {
 			ArrayList<PersonByFoyerService> listPersonByFoyer = new ArrayList<PersonByFoyerService>();
 			boolean personFind = false;
-			for (PersonModel person : persons) {
+			for (PersonModel person : controller.getFile().getPersons()) {
 				if (foyer.equals(person.getAddress())) {
 					if (!personFind) {
 						listFoyerbyFirestation.add(new FoyerbyFirestationService(foyer, null));
 						personFind = true;
 					}
 
-					for (MedicalrecordModel medicalrecords : medicalrecords) {
+					for (MedicalrecordModel medicalrecords : controller.getFile().getMedicalrecords()) {
 						if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 								&& (person.getLastName().equals(medicalrecords.getLastName()))) {
 							CalculAgeService calcul = new CalculAgeService();
@@ -301,9 +303,9 @@ public class PersonService {
 		// Liste des personnes en fonction d'un prénom
 		List<String> listPerson = new ArrayList<String>();
 
-		for (PersonModel person : persons) {
+		for (PersonModel person : controller.getFile().getPersons()) {
 			if (person.getFirstName().equals(firstName)) {
-				for (MedicalrecordModel medicalrecords : medicalrecords) {
+				for (MedicalrecordModel medicalrecords : controller.getFile().getMedicalrecords()) {
 					if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 							&& (person.getLastName().equals(medicalrecords.getLastName()))) {
 						CalculAgeService calcul = new CalculAgeService();
@@ -336,7 +338,7 @@ public class PersonService {
 		// Liste des personnes en fonction d'un prénom
 		List<String> listEmail = new ArrayList<String>();
 
-		for (PersonModel person : persons) {
+		for (PersonModel person : controller.getFile().getPersons()) {
 			if (person.getCity().equals(city)) {
 				listEmail.add(person.getEmail());
 			}
@@ -352,13 +354,13 @@ public class PersonService {
 	 */
 	public String addPerson(PersonModel person) {
 		logger.debug("addPerson " + person);
-		for (PersonModel personTest : persons) {
+		for (PersonModel personTest : controller.getFile().getPersons()) {
 			if ((personTest.getFirstName().equals(person.getFirstName()))
 					&& (personTest.getLastName().equals(person.getLastName()))) {
 				return person.getFirstName() + " " + person.getLastName() + " deja present";
 			}
 		}
-		persons.add(person);
+		controller.getFile().getPersons().add(person);
 		return person.getFirstName() + " " + person.getLastName() + " ajoute";
 	}
 
@@ -371,7 +373,7 @@ public class PersonService {
 	public String updatePerson(PersonModel person) {
 		logger.debug("updatePerson " + person);
 		boolean personneModifiee = false;
-		for (PersonModel personTest : persons) {
+		for (PersonModel personTest : controller.getFile().getPersons()) {
 			if ((personTest.getFirstName().equals(person.getFirstName()))
 					&& (personTest.getLastName().equals(person.getLastName()))) {
 				personTest.setAddress(person.getAddress());
@@ -398,10 +400,10 @@ public class PersonService {
 	public String deletePerson(String firstNameLastName) {
 		logger.debug("deletePerson " + firstNameLastName);
 		boolean personneSupprimee = false;
-		for (PersonModel personTest : persons) {
+		for (PersonModel personTest : controller.getFile().getPersons()) {
 			String firstNameLastNamePersonTest = personTest.getFirstName() + personTest.getLastName();
 			if (firstNameLastNamePersonTest.equals(firstNameLastName)) {
-				persons.remove(personTest);
+				controller.getFile().getPersons().remove(personTest);
 				personneSupprimee = true;
 				break;
 			}

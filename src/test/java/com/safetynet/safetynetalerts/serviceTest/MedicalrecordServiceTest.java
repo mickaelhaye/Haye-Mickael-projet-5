@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.safetynetalerts.CustomProperties;
+import com.safetynet.safetynetalerts.controller.Controller;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
-import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileReadRepository;
 import com.safetynet.safetynetalerts.service.MedicalRecordService;
 
@@ -26,18 +26,20 @@ class MedicalrecordServiceTest {
 	private CustomProperties prop;
 
 	@Autowired
+	private Controller controller;
+
+	@Autowired
 	private JsonFileReadRepository JsonFileReadRepository;
 
-	private static MedicalRecordService medicalRecordService = new MedicalRecordService();
+	@Autowired
+	private MedicalRecordService medicalRecordService;
 
 	@BeforeEach
 	void setUpPerTest() {
 		// chargement d'un fichierJson
 
-		FileEntryRepository file;
 		try {
-			file = JsonFileReadRepository.recupFile(prop.getJsonFileTestPath());
-			medicalRecordService.setMedicalrecords(file.getMedicalrecords());
+			controller.setFile(JsonFileReadRepository.recupFile(prop.getJsonFileTestPath()));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,33 +50,39 @@ class MedicalrecordServiceTest {
 	@Test
 	void addMedicalRecordTest() {
 
-		List<MedicalrecordModel> medicalrecords = medicalRecordService.getMedicalrecords();
-		if (medicalrecords != null) {
+		try {
+			List<MedicalrecordModel> medicalrecords = controller.getFile().getMedicalrecords();
 			MedicalrecordModel medicalrecord = new MedicalrecordModel("Jean", "Gabin", "03/06/1984", null, null);
 			medicalRecordService.addMedicalRecord(medicalrecord);
 			medicalrecord = medicalrecords.get(medicalrecords.size() - 1);
 			assertEquals("Gabin", medicalrecord.getLastName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void addMedicalRecordBadMedicalRecordTest() {
 
-		List<MedicalrecordModel> medicalrecords = medicalRecordService.getMedicalrecords();
-		if (medicalrecords != null) {
+		try {
+			List<MedicalrecordModel> medicalrecords = controller.getFile().getMedicalrecords();
 			int nbrMedicalrecordOld = medicalrecords.size();
 			MedicalrecordModel medicalrecord = new MedicalrecordModel("Tessa", "Carman", "02/18/2012", null, null);
 			medicalRecordService.addMedicalRecord(medicalrecord);
 			int nbrMedicalrecordNew = medicalrecords.size();
 			assertEquals(nbrMedicalrecordOld, nbrMedicalrecordNew);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void updateMedicalRecordTest() {
 
-		List<MedicalrecordModel> medicalrecords = medicalRecordService.getMedicalrecords();
-		if (medicalrecords != null) {
+		try {
+			List<MedicalrecordModel> medicalrecords = controller.getFile().getMedicalrecords();
 			MedicalrecordModel medicalrecord = medicalrecords.get(0);
 			String oldBirthdate = medicalrecord.getBirthdate();
 			ArrayList<String> medications = new ArrayList<String>();
@@ -84,18 +92,21 @@ class MedicalrecordServiceTest {
 			allergies.add("nillacilan");
 			medicalrecord = new MedicalrecordModel("John", "Boyd", "04/07/1985", medications, allergies);
 			medicalRecordService.updateMedicalRecord(medicalrecord);
-			medicalrecords = medicalRecordService.getMedicalrecords();
+			medicalrecords = controller.getFile().getMedicalrecords();
 			medicalrecord = medicalrecords.get(0);
 			String newBirthdate = medicalrecord.getBirthdate();
 			assertNotEquals(oldBirthdate, newBirthdate);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void updateMedicalRecordBadMedicalRecordTest() {
 
-		List<MedicalrecordModel> medicalrecords = medicalRecordService.getMedicalrecords();
-		if (medicalrecords != null) {
+		try {
+			List<MedicalrecordModel> medicalrecords = controller.getFile().getMedicalrecords();
 			MedicalrecordModel medicalrecord = medicalrecords.get(0);
 			String oldBirthdate = medicalrecord.getBirthdate();
 			ArrayList<String> medications = new ArrayList<String>();
@@ -105,35 +116,44 @@ class MedicalrecordServiceTest {
 			allergies.add("nillacilan");
 			medicalrecord = new MedicalrecordModel("Gilbert", "Boyd", "04/07/1985", medications, allergies);
 			medicalRecordService.updateMedicalRecord(medicalrecord);
-			medicalrecords = medicalRecordService.getMedicalrecords();
+			medicalrecords = controller.getFile().getMedicalrecords();
 			medicalrecord = medicalrecords.get(0);
 			String newBirthdate = medicalrecord.getBirthdate();
 			assertEquals(oldBirthdate, newBirthdate);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void deleteMedicalRecordTest() {
-		List<MedicalrecordModel> medicalrecords = medicalRecordService.getMedicalrecords();
-		if (medicalrecords != null) {
+		try {
+			List<MedicalrecordModel> medicalrecords = controller.getFile().getMedicalrecords();
 			int nbrMedicalrecorOld = medicalrecords.size();
 			medicalRecordService.deleteMedicalRecord("JohnBoyd");
-			medicalrecords = medicalRecordService.getMedicalrecords();
+			medicalrecords = controller.getFile().getMedicalrecords();
 			int nbrMedicalrecordNew = medicalrecords.size();
 			assertEquals(nbrMedicalrecorOld - 1, nbrMedicalrecordNew);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void deletePersonBadPersonTest() {
-		List<MedicalrecordModel> medicalrecords = medicalRecordService.getMedicalrecords();
-		if (medicalrecords != null) {
+		try {
+			List<MedicalrecordModel> medicalrecords = controller.getFile().getMedicalrecords();
 			int nbrMedicalrecorOld = medicalrecords.size();
 
 			medicalRecordService.deleteMedicalRecord("PatrickBoyd");
-			medicalrecords = medicalRecordService.getMedicalrecords();
+			medicalrecords = controller.getFile().getMedicalrecords();
 			int nbrMedicalrecordNew = medicalrecords.size();
 			assertEquals(nbrMedicalrecorOld, nbrMedicalrecordNew);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.service.MedicalRecordService;
@@ -32,9 +31,6 @@ public class MedicalrecordController {
 	private Controller controller;
 
 	@Autowired
-	private CustomProperties prop;
-
-	@Autowired
 	private MedicalRecordService medicalrecordService;
 
 	private FileEntryRepository file;
@@ -46,7 +42,7 @@ public class MedicalrecordController {
 	 */
 	@GetMapping(value = "/medicalRecord")
 	public List<MedicalrecordModel> afficherListeMedicalrecord() {
-		majPointeur();
+		file = controller.getFile();
 		logger.info("@GetMapping(value = \"/medicalrecord\")");
 		return file.getMedicalrecords();
 	}
@@ -59,7 +55,6 @@ public class MedicalrecordController {
 	 */
 	@PostMapping("/medicalRecord")
 	public String ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
-		majPointeur();
 		String sVal = medicalrecordService.addMedicalRecord(medicalrecord);
 		logger.info("@PostMapping(\"/medicalRecord\")" + sVal);
 		return sVal;
@@ -73,7 +68,6 @@ public class MedicalrecordController {
 	 */
 	@PatchMapping("/medicalRecord")
 	public String mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
-		majPointeur();
 		String sVal = medicalrecordService.updateMedicalRecord(medicalrecord);
 		logger.info("@PatchMapping(\"/medicalRecord\")", sVal);
 		return sVal;
@@ -87,19 +81,9 @@ public class MedicalrecordController {
 	 */
 	@DeleteMapping("/medicalRecord/{firstNameLastName}")
 	public String supprimerMedicalRecord(@PathVariable String firstNameLastName) throws Exception {
-		majPointeur();
 		String sVal = medicalrecordService.deleteMedicalRecord(firstNameLastName);
 		logger.info("@DeleteMapping(\"/medicalRecord/{firstNameLastName}\")", sVal);
 		return sVal;
 
 	}
-
-	/**
-	 * Récupération des données, Récupération de la liste des medicalrecord
-	 */
-	void majPointeur() {
-		file = controller.getFile();// à valider
-		medicalrecordService.setMedicalrecords(file.getMedicalrecords()); // à valider
-	}
-
 }

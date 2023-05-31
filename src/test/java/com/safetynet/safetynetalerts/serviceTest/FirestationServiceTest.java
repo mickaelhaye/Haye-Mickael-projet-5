@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.safetynetalerts.CustomProperties;
+import com.safetynet.safetynetalerts.controller.Controller;
 import com.safetynet.safetynetalerts.model.FirestationModel;
-import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileReadRepository;
 import com.safetynet.safetynetalerts.service.FirestationService;
 
@@ -25,17 +25,19 @@ class FirestationServiceTest {
 	private CustomProperties prop;
 
 	@Autowired
+	private Controller controller;
+
+	@Autowired
 	private JsonFileReadRepository JsonFileReadRepository;
 
-	private static FirestationService firestationService = new FirestationService();
+	@Autowired
+	private FirestationService firestationService;
 
 	@BeforeEach
 	void setUpPerTest() {
 		// chargement d'un fichierJson
-		FileEntryRepository file;
 		try {
-			file = JsonFileReadRepository.recupFile(prop.getJsonFileTestPath());
-			firestationService.setFirestations(file.getFirestations());
+			controller.setFile(JsonFileReadRepository.recupFile(prop.getJsonFileTestPath()));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,12 +48,15 @@ class FirestationServiceTest {
 	@Test
 	void addFirestationTest() {
 
-		List<FirestationModel> firestations = firestationService.getFirestations();
-		if (firestations != null) {
+		try {
+			List<FirestationModel> firestations = controller.getFile().getFirestations();
 			FirestationModel firestation = new FirestationModel("19 square cholet", "9");
 			firestationService.addFirestation(firestation);
 			firestation = firestations.get(firestations.size() - 1);
 			assertEquals("19 square cholet", firestation.getAddress());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -59,13 +64,16 @@ class FirestationServiceTest {
 	@Test
 	void addFirestationBadFirestationTest() {
 
-		List<FirestationModel> firestations = firestationService.getFirestations();
-		if (firestations != null) {
+		try {
+			List<FirestationModel> firestations = controller.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 			FirestationModel firestation = new FirestationModel("1509 Culver St", "3");
 			firestationService.addFirestation(firestation);
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld, nbrFirestationNew);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -73,86 +81,104 @@ class FirestationServiceTest {
 	@Test
 	void updateFirestationTest() {
 
-		List<FirestationModel> firestations = firestationService.getFirestations();
-		if (firestations != null) {
+		try {
+			List<FirestationModel> firestations = controller.getFile().getFirestations();
 			FirestationModel firestation = firestations.get(0);
 			String oldStation = firestation.getStation();
 
 			firestation = new FirestationModel("1509 Culver St", "8");
 			firestationService.updateFirestation(firestation);
-			firestations = firestationService.getFirestations();
+			firestations = controller.getFile().getFirestations();
 			firestation = firestations.get(0);
 			String newStation = firestation.getStation();
 			assertNotEquals(oldStation, newStation);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void updateFirestationBadFirestationTest() {
 
-		List<FirestationModel> firestations = firestationService.getFirestations();
-		if (firestations != null) {
+		try {
+			List<FirestationModel> firestations = controller.getFile().getFirestations();
 			FirestationModel firestation = firestations.get(0);
 			String oldStation = firestation.getStation();
 
 			firestation = new FirestationModel("mars", "8");
 			firestationService.updateFirestation(firestation);
-			firestations = firestationService.getFirestations();
+			firestations = controller.getFile().getFirestations();
 			firestation = firestations.get(0);
 			String newStation = firestation.getStation();
 			assertEquals(oldStation, newStation);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void deleteFirestationByStationTest() {
-		List<FirestationModel> firestations = firestationService.getFirestations();
-		if (firestations != null) {
+		try {
+			List<FirestationModel> firestations = controller.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 
 			firestationService.deleteFirestation("2");
-			firestations = firestationService.getFirestations();
+			firestations = controller.getFile().getFirestations();
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld - 3, nbrFirestationNew);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void deleteFirestationByStationBadFirestationTest() {
-		List<FirestationModel> firestations = firestationService.getFirestations();
-		if (firestations != null) {
+		try {
+			List<FirestationModel> firestations = controller.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 
 			firestationService.deleteFirestation("8");
-			firestations = firestationService.getFirestations();
+			firestations = controller.getFile().getFirestations();
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld, nbrFirestationNew);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void deleteFirestationByAddressTest() {
-		List<FirestationModel> firestations = firestationService.getFirestations();
-		if (firestations != null) {
+		try {
+			List<FirestationModel> firestations = controller.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 
 			firestationService.deleteFirestation("1509 Culver St");
-			firestations = firestationService.getFirestations();
+			firestations = controller.getFile().getFirestations();
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld - 1, nbrFirestationNew);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Test
 	void deleteFirestationByAddressBadFirestationTest() {
-		List<FirestationModel> firestations = firestationService.getFirestations();
-		if (firestations != null) {
+		try {
+			List<FirestationModel> firestations = controller.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 
 			firestationService.deleteFirestation("mars");
-			firestations = firestationService.getFirestations();
+			firestations = controller.getFile().getFirestations();
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld, nbrFirestationNew);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

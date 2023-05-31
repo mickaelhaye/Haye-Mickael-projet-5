@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.model.FirestationModel;
 import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.service.FirestationService;
@@ -32,9 +31,6 @@ public class FirestationController {
 	private Controller controller;
 
 	@Autowired
-	private CustomProperties prop;
-
-	@Autowired
 	private FirestationService firestationService;
 
 	private FileEntryRepository file;
@@ -46,7 +42,7 @@ public class FirestationController {
 	 */
 	@GetMapping(value = "/firestation")
 	public List<FirestationModel> afficherListeFirestation() {
-		majPointeur();
+		file = controller.getFile();
 		logger.info("@GetMapping(value = \"/firestation\")");
 		return file.getFirestations();
 	}
@@ -59,7 +55,6 @@ public class FirestationController {
 	 */
 	@PostMapping("/firestation")
 	public String ajouterFirestation(@RequestBody FirestationModel firestation) throws Exception {
-		majPointeur();
 		String sVal = firestationService.addFirestation(firestation);
 		logger.info("@PostMapping(\"/firestation\")" + sVal);
 		return sVal;
@@ -73,8 +68,6 @@ public class FirestationController {
 	 */
 	@PatchMapping("/firestation")
 	public String mettreAJourFirestation(@RequestBody FirestationModel firestation) throws Exception {
-
-		majPointeur();
 		String sVal = firestationService.updateFirestation(firestation);
 		logger.info("@PatchMapping(\"/firestation\")", sVal);
 		return sVal;
@@ -89,19 +82,10 @@ public class FirestationController {
 	 */
 	@DeleteMapping("/firestation/{stationOrAddress}")
 	public String supprimerFirestation(@PathVariable String stationOrAddress) throws Exception {
-		majPointeur();
 		String sVal = firestationService.deleteFirestation(stationOrAddress);
 		logger.info("@DeleteMapping(\"/firestation/{stationOrAddress}\")", sVal);
 		return sVal;
 
-	}
-
-	/**
-	 * récupération des données, récupération de la liste des firestations
-	 */
-	void majPointeur() {
-		file = controller.getFile();// à valider
-		firestationService.setFirestations(file.getFirestations()); // à valider
 	}
 
 }
