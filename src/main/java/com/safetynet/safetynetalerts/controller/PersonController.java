@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.repository.FileEntryRepository;
-import com.safetynet.safetynetalerts.repository.JsonFileWriteRepository;
 import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
 import com.safetynet.safetynetalerts.service.PersonService;
 
@@ -35,9 +34,6 @@ public class PersonController {
 
 	@Autowired
 	private CustomProperties prop;
-
-	@Autowired
-	private JsonFileWriteRepository jsonFileWrite;
 
 	@Autowired
 	private PersonService personService;
@@ -170,7 +166,6 @@ public class PersonController {
 	public String ajouterPerson(@RequestBody PersonModel person) throws Exception {
 		majPointeur();
 		String sVal = personService.addPerson(person);
-		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@PostMapping(\"/person\")" + sVal);
 		return sVal;
 
@@ -186,7 +181,6 @@ public class PersonController {
 	public String mettreAJourPerson(@RequestBody PersonModel person) throws Exception {
 		majPointeur();
 		String sVal = personService.updatePerson(person);
-		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@PatchMapping(\"/person\")", sVal);
 		return sVal;
 	}
@@ -201,7 +195,6 @@ public class PersonController {
 	public String supprimerPerson(@PathVariable String firstNameLastName) throws Exception {
 		majPointeur();
 		String sVal = personService.deletePerson(firstNameLastName);
-		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@DeleteMapping(\"/person/{firstNameLastName}\")", sVal);
 		return sVal;
 	}

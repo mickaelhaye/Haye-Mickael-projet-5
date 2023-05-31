@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.repository.FileEntryRepository;
-import com.safetynet.safetynetalerts.repository.JsonFileWriteRepository;
 import com.safetynet.safetynetalerts.service.MedicalRecordService;
 
 /**
@@ -34,9 +33,6 @@ public class MedicalrecordController {
 
 	@Autowired
 	private CustomProperties prop;
-
-	@Autowired
-	private JsonFileWriteRepository jsonFileWrite;
 
 	@Autowired
 	private MedicalRecordService medicalrecordService;
@@ -65,7 +61,6 @@ public class MedicalrecordController {
 	public String ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
 		majPointeur();
 		String sVal = medicalrecordService.addMedicalRecord(medicalrecord);
-		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@PostMapping(\"/medicalRecord\")" + sVal);
 		return sVal;
 	}
@@ -80,7 +75,6 @@ public class MedicalrecordController {
 	public String mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
 		majPointeur();
 		String sVal = medicalrecordService.updateMedicalRecord(medicalrecord);
-		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@PatchMapping(\"/medicalRecord\")", sVal);
 		return sVal;
 	}
@@ -95,7 +89,6 @@ public class MedicalrecordController {
 	public String supprimerMedicalRecord(@PathVariable String firstNameLastName) throws Exception {
 		majPointeur();
 		String sVal = medicalrecordService.deleteMedicalRecord(firstNameLastName);
-		jsonFileWrite.writeFile(file, prop.getJsonFilePath());
 		logger.info("@DeleteMapping(\"/medicalRecord/{firstNameLastName}\")", sVal);
 		return sVal;
 
