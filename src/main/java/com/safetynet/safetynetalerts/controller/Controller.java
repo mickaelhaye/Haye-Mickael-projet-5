@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetynetalerts.CustomProperties;
-import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileReadRepository;
+import com.safetynet.safetynetalerts.service.FileEntryService;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
@@ -30,7 +30,7 @@ public class Controller {
 	@Autowired
 	private CustomProperties prop;
 
-	private FileEntryRepository file;
+	private FileEntryService file;
 
 	/**
 	 * Cette méthode permet de récupérer le fichier json au lancement de

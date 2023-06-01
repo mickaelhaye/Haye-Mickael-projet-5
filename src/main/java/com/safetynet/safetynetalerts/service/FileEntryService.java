@@ -1,8 +1,8 @@
-package com.safetynet.safetynetalerts.repository;
+package com.safetynet.safetynetalerts.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.safetynet.safetynetalerts.model.FirestationModel;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
@@ -17,8 +17,8 @@ import lombok.Data;
  *
  */
 @Data
-@Repository
-public class FileEntryRepository {
+@Service
+public class FileEntryService {
 
 	List<PersonModel> persons;
 	List<FirestationModel> firestations;

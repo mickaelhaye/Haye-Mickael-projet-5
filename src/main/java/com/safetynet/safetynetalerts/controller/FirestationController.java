@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetynetalerts.model.FirestationModel;
-import com.safetynet.safetynetalerts.repository.FileEntryRepository;
+import com.safetynet.safetynetalerts.service.FileEntryService;
 import com.safetynet.safetynetalerts.service.FirestationService;
 
 /**
@@ -33,7 +33,7 @@ public class FirestationController {
 	@Autowired
 	private FirestationService firestationService;
 
-	private FileEntryRepository file;
+	private FileEntryService file;
 
 	/**
 	 * API pour récupérer la liste des firestations

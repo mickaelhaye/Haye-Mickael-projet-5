@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.safetynetalerts.CustomProperties;
-import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.repository.JsonFileReadRepository;
+import com.safetynet.safetynetalerts.service.FileEntryService;
 
 @SpringBootTest
 class JsonFileReadRepositoryTest {
@@ -22,7 +22,7 @@ class JsonFileReadRepositoryTest {
 
 	@Test
 	void recupFileTest() {
-		FileEntryRepository file;
+		FileEntryService file;
 		try {
 			file = JsonFileReadRepository.recupFile(prop.getJsonFileTestPath());
 			assertEquals(
@@ -36,7 +36,7 @@ class JsonFileReadRepositoryTest {
 
 	@Test
 	void recupFileBadPathTest() {
-		FileEntryRepository file;
+		FileEntryService file;
 		try {
 			file = JsonFileReadRepository.recupFile("");
 			assertNull(file);

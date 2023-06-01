@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetynetalerts.model.PersonModel;
-import com.safetynet.safetynetalerts.repository.FileEntryRepository;
 import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
+import com.safetynet.safetynetalerts.service.FileEntryService;
 import com.safetynet.safetynetalerts.service.PersonService;
 
 /**
@@ -34,7 +34,7 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 
-	private FileEntryRepository file;
+	private FileEntryService file;
 
 	/**
 	 * API pour récupérer la liste des persons

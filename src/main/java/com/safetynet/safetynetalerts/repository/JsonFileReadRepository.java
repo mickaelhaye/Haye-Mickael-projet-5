@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetynetalerts.controller.FirestationController;
+import com.safetynet.safetynetalerts.service.FileEntryService;
 
 /**
  * Classe qui permet de récupérer les données dans le fichier d'entrée et de les
@@ -26,15 +27,15 @@ public class JsonFileReadRepository {
 	 * 
 	 * @return une classe avec des listes contenant les données du fichier
 	 */
-	public FileEntryRepository recupFile(String path) throws Exception {
+	public FileEntryService recupFile(String path) throws Exception {
 
-		FileEntryRepository file = null;
+		FileEntryService file = null;
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		try {
 
-			file = objectMapper.readValue(new File(path), FileEntryRepository.class);
+			file = objectMapper.readValue(new File(path), FileEntryService.class);
 			logger.debug("Lecture du fichier Json OK");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -8,42 +8,41 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.safetynet.safetynetalerts.repository.FileEntryRepository;
+import com.safetynet.safetynetalerts.service.FileEntryService;
 import com.safetynet.safetynetalerts.service.PersonByAddressService;
 
 @SpringBootTest
 class FileEntryRepositoryTest {
 	@Autowired
-	FileEntryRepository fileEntryRepository;
+	FileEntryService fileEntryService;
 
 	@Test
 	void toStringTest() {
 		assertEquals(
 
-				"FileEntryRepository(persons=null, firestations=null, medicalrecords=null)",
-				fileEntryRepository.toString());
+				"FileEntryService(persons=null, firestations=null, medicalrecords=null)", fileEntryService.toString());
 	}
 
 	@Test
 	void equalsTest() {
-		assertTrue(new FileEntryRepository().equals(fileEntryRepository));
+		assertTrue(new FileEntryService().equals(fileEntryService));
 	}
 
 	@Test
 	void equalsSameObjetTest() {
-		assertTrue(fileEntryRepository.equals(fileEntryRepository));
+		assertTrue(fileEntryService.equals(fileEntryService));
 	}
 
 	@Test
 	void equalsNullObjetTest() {
-		PersonByAddressService fileEntryRepositoryNull = null;
-		assertFalse(fileEntryRepository.equals(fileEntryRepositoryNull));
+		PersonByAddressService fileEntryServiceNull = null;
+		assertFalse(fileEntryService.equals(fileEntryServiceNull));
 	}
 
 	@Test
 	void equalsDifferentObjetTest() {
 		Object objetDifferent = new Object();
-		assertFalse(fileEntryRepository.equals(objetDifferent));
+		assertFalse(fileEntryService.equals(objetDifferent));
 	}
 
 }
