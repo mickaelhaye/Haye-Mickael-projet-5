@@ -44,7 +44,7 @@ public class FirestationController {
 	@GetMapping(value = "/firestation")
 	public List<FirestationModel> afficherListeFirestation() {
 		file = jsonFileReadService.getFile();
-		logger.info("@GetMapping(value = \"/firestation\")");
+		logger.info("Récupération de la liste des firestations");
 		return file.getFirestations();
 	}
 
@@ -57,7 +57,7 @@ public class FirestationController {
 	@PostMapping("/firestation")
 	public String ajouterFirestation(@RequestBody FirestationModel firestation) throws Exception {
 		String sVal = firestationService.addFirestation(firestation);
-		logger.info("@PostMapping(\"/firestation\")" + sVal);
+		logger.info("Rajout d'une firestation " + sVal);
 		return sVal;
 	}
 
@@ -70,7 +70,7 @@ public class FirestationController {
 	@PatchMapping("/firestation")
 	public String mettreAJourFirestation(@RequestBody FirestationModel firestation) throws Exception {
 		String sVal = firestationService.updateFirestation(firestation);
-		logger.info("@PatchMapping(\"/firestation\")", sVal);
+		logger.info("Modification d'une firestation " + sVal);
 		return sVal;
 
 	}
@@ -84,7 +84,7 @@ public class FirestationController {
 	@DeleteMapping("/firestation/{stationOrAddress}")
 	public String supprimerFirestation(@PathVariable String stationOrAddress) throws Exception {
 		String sVal = firestationService.deleteFirestation(stationOrAddress);
-		logger.info("@DeleteMapping(\"/firestation/{stationOrAddress}\")", sVal);
+		logger.info("Suppression d'une firestation " + sVal);
 		return sVal;
 
 	}

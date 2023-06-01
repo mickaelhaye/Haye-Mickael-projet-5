@@ -45,7 +45,7 @@ public class PersonController {
 	@GetMapping(value = "/person")
 	public List<PersonModel> afficherListePersonne() {
 		file = jsonFileReadService.getFile();
-		logger.info("@GetMapping(value = \"/person\")");
+		logger.info("Récupération de la liste des persons");
 		return file.getPersons();
 	}
 
@@ -59,8 +59,9 @@ public class PersonController {
 	 */
 	@GetMapping(value = "/firestation/{station}")
 	public List<Object> afficherUneListePersonne(@PathVariable String station) throws Exception {
-		logger.info("@GetMapping(value = \"/firestation/{station}\")");
-		return personService.findByFirestationAListPersons(station);
+		List<Object> list = personService.findByFirestationAListPersons(station);
+		logger.info("Liste des personnes couvertes par la caserne de pompier correspondante " + list);
+		return list;
 	}
 
 	/**
@@ -73,8 +74,9 @@ public class PersonController {
 	 */
 	@GetMapping(value = "/childAlert/{address}")
 	public List<ChildAlertByAddressService> afficherUneListeEnfant(@PathVariable String address) throws Exception {
-		logger.info("@GetMapping(value = \"/childAlert/{address}\")");
-		return personService.findByAddressAListChild(address);
+		List<ChildAlertByAddressService> list = personService.findByAddressAListChild(address);
+		logger.info("Liste des enfants en fonction d'une adresse " + list);
+		return list;
 	}
 
 	/**
@@ -87,8 +89,9 @@ public class PersonController {
 	 */
 	@GetMapping(value = "/phoneAlert/{station}")
 	public List<String> afficherUneListeNumTelephone(@PathVariable String station) throws Exception {
-		logger.info("@GetMapping(value = \"/phoneAlert/{station}\")");
-		return personService.findByFirestationAPhone(station);
+		List<String> list = personService.findByFirestationAPhone(station);
+		logger.info("Liste des numéros de téléphon,e desservis par une caserne " + list);
+		return list;
 	}
 
 	/**
@@ -100,8 +103,9 @@ public class PersonController {
 	 */
 	@GetMapping(value = "/fire/{address}")
 	public List<Object> afficherUneListePersonneParAddresse(@PathVariable String address) throws Exception {
-		logger.info("@GetMapping(value = \"/fire/{address}\")");
-		return personService.findByAddressAPerson(address);
+		List<Object> list = personService.findByAddressAPerson(address);
+		logger.info("Liste des personnes en fonction d'une adresse " + list);
+		return list;
 	}
 
 	/**
@@ -114,8 +118,9 @@ public class PersonController {
 	 */
 	@GetMapping(value = "/flood/stations/{station}")
 	public List<Object> afficherUneListeFoyerParFirestation(@PathVariable String station) throws Exception {
-		logger.info("@GetMapping(value = \"/flood/stations/{station}\")");
-		return personService.findByFirestationAFoyer(station);
+		List<Object> list = personService.findByFirestationAFoyer(station);
+		logger.info("Liste des personnes en fonction d'une adresse " + list);
+		return list;
 	}
 
 	/**
@@ -128,8 +133,9 @@ public class PersonController {
 	 */
 	@GetMapping(value = "/personInfo/{firstName}")
 	public List<String> afficherUneListePersonneParPrenom(@PathVariable String firstName) throws Exception {
-		logger.info("@GetMapping(value = \"/personInfo/{firstName}\")");
-		return personService.findByFirstNameAPerson(firstName);
+		List<String> list = personService.findByFirstNameAPerson(firstName);
+		logger.info("liste des personnes en fonction d'un prénom " + list);
+		return list;
 	}
 
 	/**
@@ -142,8 +148,9 @@ public class PersonController {
 	// Récupération des adresses mail en fonction d'une ville
 	@GetMapping(value = "/communityEmail/{city}")
 	public List<String> afficherEmailParCity(@PathVariable String city) throws Exception {
-		logger.info("@GetMapping(value = \"/communityEmail/{city}\")");
-		return personService.findByCityAEmail(city);
+		List<String> list = personService.findByCityAEmail(city);
+		logger.info("Liste des adresses mail en fonction d'une ville " + list);
+		return list;
 	}
 
 	/**
@@ -155,7 +162,7 @@ public class PersonController {
 	@PostMapping("/person")
 	public String ajouterPerson(@RequestBody PersonModel person) throws Exception {
 		String sVal = personService.addPerson(person);
-		logger.info("@PostMapping(\"/person\")" + sVal);
+		logger.info("Rajout d'une person" + sVal);
 		return sVal;
 
 	}
@@ -169,7 +176,7 @@ public class PersonController {
 	@PatchMapping("/person")
 	public String mettreAJourPerson(@RequestBody PersonModel person) throws Exception {
 		String sVal = personService.updatePerson(person);
-		logger.info("@PatchMapping(\"/person\")", sVal);
+		logger.info("Modification d'une person " + sVal);
 		return sVal;
 	}
 
@@ -182,7 +189,7 @@ public class PersonController {
 	@DeleteMapping("/person/{firstNameLastName}")
 	public String supprimerPerson(@PathVariable String firstNameLastName) throws Exception {
 		String sVal = personService.deletePerson(firstNameLastName);
-		logger.info("@DeleteMapping(\"/person/{firstNameLastName}\")", sVal);
+		logger.info("Suppression d'une person " + sVal);
 		return sVal;
 	}
 

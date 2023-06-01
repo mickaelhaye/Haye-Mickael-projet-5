@@ -44,7 +44,7 @@ public class MedicalrecordController {
 	@GetMapping(value = "/medicalRecord")
 	public List<MedicalrecordModel> afficherListeMedicalrecord() {
 		file = jsonFileReadService.getFile();
-		logger.info("@GetMapping(value = \"/medicalrecord\")");
+		logger.info("Récupération de la liste des medicalrecords");
 		return file.getMedicalrecords();
 	}
 
@@ -57,7 +57,7 @@ public class MedicalrecordController {
 	@PostMapping("/medicalRecord")
 	public String ajouterMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
 		String sVal = medicalrecordService.addMedicalRecord(medicalrecord);
-		logger.info("@PostMapping(\"/medicalRecord\")" + sVal);
+		logger.info("Rajout d'un medicalrecord " + sVal);
 		return sVal;
 	}
 
@@ -70,7 +70,7 @@ public class MedicalrecordController {
 	@PatchMapping("/medicalRecord")
 	public String mettreAJourMedicalRecord(@RequestBody MedicalrecordModel medicalrecord) throws Exception {
 		String sVal = medicalrecordService.updateMedicalRecord(medicalrecord);
-		logger.info("@PatchMapping(\"/medicalRecord\")", sVal);
+		logger.info("Modification d'un mediaclrecord " + sVal);
 		return sVal;
 	}
 
@@ -83,7 +83,7 @@ public class MedicalrecordController {
 	@DeleteMapping("/medicalRecord/{firstNameLastName}")
 	public String supprimerMedicalRecord(@PathVariable String firstNameLastName) throws Exception {
 		String sVal = medicalrecordService.deleteMedicalRecord(firstNameLastName);
-		logger.info("@DeleteMapping(\"/medicalRecord/{firstNameLastName}\")", sVal);
+		logger.info("Suppression d'un medicalrecord " + sVal);
 		return sVal;
 
 	}
