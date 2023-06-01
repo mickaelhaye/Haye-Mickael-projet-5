@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.service.FileEntryService;
+import com.safetynet.safetynetalerts.service.JsonFileReadService;
 import com.safetynet.safetynetalerts.service.MedicalRecordService;
 
 /**
@@ -28,7 +29,7 @@ public class MedicalrecordController {
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
 	@Autowired
-	private Controller controller;
+	private JsonFileReadService jsonFileReadService;
 
 	@Autowired
 	private MedicalRecordService medicalrecordService;
@@ -42,7 +43,7 @@ public class MedicalrecordController {
 	 */
 	@GetMapping(value = "/medicalRecord")
 	public List<MedicalrecordModel> afficherListeMedicalrecord() {
-		file = controller.getFile();
+		file = jsonFileReadService.getFile();
 		logger.info("@GetMapping(value = \"/medicalrecord\")");
 		return file.getMedicalrecords();
 	}

@@ -13,23 +13,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.safetynet.safetynetalerts.CustomProperties;
-import com.safetynet.safetynetalerts.controller.Controller;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
-import com.safetynet.safetynetalerts.repository.JsonFileReadRepository;
+import com.safetynet.safetynetalerts.service.JsonFileReadService;
 import com.safetynet.safetynetalerts.service.MedicalRecordService;
 
 @SpringBootTest
 class MedicalrecordServiceTest {
 
 	@Autowired
-	private CustomProperties prop;
-
-	@Autowired
-	private Controller controller;
-
-	@Autowired
-	private JsonFileReadRepository JsonFileReadRepository;
+	private JsonFileReadService jsonFileReadRepository;
 
 	@Autowired
 	private MedicalRecordService medicalRecordService;
@@ -39,7 +31,7 @@ class MedicalrecordServiceTest {
 		// chargement d'un fichierJson
 
 		try {
-			controller.setFile(JsonFileReadRepository.recupFile(prop.getJsonFileTestPath()));
+			jsonFileReadRepository.recupFile();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -51,7 +43,7 @@ class MedicalrecordServiceTest {
 	void addMedicalRecordTest() {
 
 		try {
-			List<MedicalrecordModel> medicalrecords = controller.getFile().getMedicalrecords();
+			List<MedicalrecordModel> medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			MedicalrecordModel medicalrecord = new MedicalrecordModel("Jean", "Gabin", "03/06/1984", null, null);
 			medicalRecordService.addMedicalRecord(medicalrecord);
 			medicalrecord = medicalrecords.get(medicalrecords.size() - 1);
@@ -66,7 +58,7 @@ class MedicalrecordServiceTest {
 	void addMedicalRecordBadMedicalRecordTest() {
 
 		try {
-			List<MedicalrecordModel> medicalrecords = controller.getFile().getMedicalrecords();
+			List<MedicalrecordModel> medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			int nbrMedicalrecordOld = medicalrecords.size();
 			MedicalrecordModel medicalrecord = new MedicalrecordModel("Tessa", "Carman", "02/18/2012", null, null);
 			medicalRecordService.addMedicalRecord(medicalrecord);
@@ -82,7 +74,7 @@ class MedicalrecordServiceTest {
 	void updateMedicalRecordTest() {
 
 		try {
-			List<MedicalrecordModel> medicalrecords = controller.getFile().getMedicalrecords();
+			List<MedicalrecordModel> medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			MedicalrecordModel medicalrecord = medicalrecords.get(0);
 			String oldBirthdate = medicalrecord.getBirthdate();
 			ArrayList<String> medications = new ArrayList<String>();
@@ -92,7 +84,7 @@ class MedicalrecordServiceTest {
 			allergies.add("nillacilan");
 			medicalrecord = new MedicalrecordModel("John", "Boyd", "04/07/1985", medications, allergies);
 			medicalRecordService.updateMedicalRecord(medicalrecord);
-			medicalrecords = controller.getFile().getMedicalrecords();
+			medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			medicalrecord = medicalrecords.get(0);
 			String newBirthdate = medicalrecord.getBirthdate();
 			assertNotEquals(oldBirthdate, newBirthdate);
@@ -106,7 +98,7 @@ class MedicalrecordServiceTest {
 	void updateMedicalRecordBadMedicalRecordTest() {
 
 		try {
-			List<MedicalrecordModel> medicalrecords = controller.getFile().getMedicalrecords();
+			List<MedicalrecordModel> medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			MedicalrecordModel medicalrecord = medicalrecords.get(0);
 			String oldBirthdate = medicalrecord.getBirthdate();
 			ArrayList<String> medications = new ArrayList<String>();
@@ -116,7 +108,7 @@ class MedicalrecordServiceTest {
 			allergies.add("nillacilan");
 			medicalrecord = new MedicalrecordModel("Gilbert", "Boyd", "04/07/1985", medications, allergies);
 			medicalRecordService.updateMedicalRecord(medicalrecord);
-			medicalrecords = controller.getFile().getMedicalrecords();
+			medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			medicalrecord = medicalrecords.get(0);
 			String newBirthdate = medicalrecord.getBirthdate();
 			assertEquals(oldBirthdate, newBirthdate);
@@ -129,10 +121,10 @@ class MedicalrecordServiceTest {
 	@Test
 	void deleteMedicalRecordTest() {
 		try {
-			List<MedicalrecordModel> medicalrecords = controller.getFile().getMedicalrecords();
+			List<MedicalrecordModel> medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			int nbrMedicalrecorOld = medicalrecords.size();
 			medicalRecordService.deleteMedicalRecord("JohnBoyd");
-			medicalrecords = controller.getFile().getMedicalrecords();
+			medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			int nbrMedicalrecordNew = medicalrecords.size();
 			assertEquals(nbrMedicalrecorOld - 1, nbrMedicalrecordNew);
 		} catch (Exception e) {
@@ -144,11 +136,11 @@ class MedicalrecordServiceTest {
 	@Test
 	void deletePersonBadPersonTest() {
 		try {
-			List<MedicalrecordModel> medicalrecords = controller.getFile().getMedicalrecords();
+			List<MedicalrecordModel> medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			int nbrMedicalrecorOld = medicalrecords.size();
 
 			medicalRecordService.deleteMedicalRecord("PatrickBoyd");
-			medicalrecords = controller.getFile().getMedicalrecords();
+			medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			int nbrMedicalrecordNew = medicalrecords.size();
 			assertEquals(nbrMedicalrecorOld, nbrMedicalrecordNew);
 		} catch (Exception e) {

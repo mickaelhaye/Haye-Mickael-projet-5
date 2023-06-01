@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.safetynet.safetynetalerts.controller.Controller;
 import com.safetynet.safetynetalerts.controller.FirestationController;
 import com.safetynet.safetynetalerts.model.FirestationModel;
 
@@ -21,7 +20,7 @@ import lombok.Data;
 @Service
 public class FirestationService {
 	@Autowired
-	private Controller controller;
+	private JsonFileReadService jsonFileReadRepository;
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
 	/**
@@ -32,13 +31,13 @@ public class FirestationService {
 	 */
 	public String addFirestation(FirestationModel firestation) {
 		logger.debug("addFirestation " + firestation);
-		for (FirestationModel firestationTest : controller.getFile().getFirestations()) {
+		for (FirestationModel firestationTest : jsonFileReadRepository.getFile().getFirestations()) {
 			if (firestationTest.getAddress().equals(firestation.getAddress())) {
 				return "la firestation " + firestation.getAddress() + " Station:" + firestation.getStation()
 						+ " deja presente";
 			}
 		}
-		controller.getFile().getFirestations().add(firestation);
+		jsonFileReadRepository.getFile().getFirestations().add(firestation);
 		return "la firestation " + firestation.getAddress() + " Station:" + firestation.getStation() + " a ete ajoutee";
 	}
 
@@ -52,7 +51,7 @@ public class FirestationService {
 	public String updateFirestation(FirestationModel firestation) {
 		logger.debug("updateFirestation " + firestation);
 		boolean firestationModifiee = false;
-		for (FirestationModel firestationTest : controller.getFile().getFirestations()) {
+		for (FirestationModel firestationTest : jsonFileReadRepository.getFile().getFirestations()) {
 			if (firestationTest.getAddress().equals(firestation.getAddress())) {
 				firestationTest.setStation(firestation.getStation());
 				firestationModifiee = true;
@@ -75,15 +74,15 @@ public class FirestationService {
 		logger.debug("deleteFirestation " + stationOrAddress);
 		boolean firestationSupprimeebyStation = false;
 		boolean firestationSupprimeebyAddress = false;
-		for (int i = 0; i < controller.getFile().getFirestations().size(); i++) {
-			FirestationModel firestationTest = controller.getFile().getFirestations().get(i);
+		for (int i = 0; i < jsonFileReadRepository.getFile().getFirestations().size(); i++) {
+			FirestationModel firestationTest = jsonFileReadRepository.getFile().getFirestations().get(i);
 			if (stationOrAddress.equals(firestationTest.getAddress())) {
-				controller.getFile().getFirestations().remove(firestationTest);
+				jsonFileReadRepository.getFile().getFirestations().remove(firestationTest);
 				firestationSupprimeebyAddress = true;
 				break;
 			}
 			if (stationOrAddress.equals(firestationTest.getStation())) {
-				controller.getFile().getFirestations().remove(firestationTest);
+				jsonFileReadRepository.getFile().getFirestations().remove(firestationTest);
 				firestationSupprimeebyStation = true;
 				i--;
 			}

@@ -2,6 +2,7 @@ package com.safetynet.safetynetalerts.service;
 
 import java.util.ArrayList;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -11,21 +12,9 @@ import lombok.Data;
  *
  */
 @Data
+@AllArgsConstructor
 public class FoyerbyFirestationService {
 	private String address;
 
 	ArrayList<PersonByFoyerService> listPersonByFoyer = new ArrayList<PersonByFoyerService>();
-
-	/**
-	 * Constructor
-	 * 
-	 * @param address
-	 * @param listPersonnByFoyer
-	 */
-	public FoyerbyFirestationService(String address, ArrayList<PersonByFoyerService> listPersonnByFoyer) {
-		super();
-		this.address = address;
-		this.listPersonByFoyer = null;
-	}
-
 }

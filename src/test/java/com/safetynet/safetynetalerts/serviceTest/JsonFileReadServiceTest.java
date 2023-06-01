@@ -1,30 +1,29 @@
-package com.safetynet.safetynetalerts.repositoryTest;
+package com.safetynet.safetynetalerts.serviceTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.safetynetalerts.CustomProperties;
-import com.safetynet.safetynetalerts.repository.JsonFileReadRepository;
 import com.safetynet.safetynetalerts.service.FileEntryService;
+import com.safetynet.safetynetalerts.service.JsonFileReadService;
 
 @SpringBootTest
-class JsonFileReadRepositoryTest {
+class JsonFileReadServiceTest {
 
 	@Autowired
 	private CustomProperties prop;
 
 	@Autowired
-	private JsonFileReadRepository JsonFileReadRepository;
+	private JsonFileReadService JsonFileReadRepository;
 
 	@Test
 	void recupFileTest() {
 		FileEntryService file;
 		try {
-			file = JsonFileReadRepository.recupFile(prop.getJsonFileTestPath());
+			file = JsonFileReadRepository.recupFile();
 			assertEquals(
 					"PersonModel(firstName=John, lastName=Boyd, address=1509 Culver St, city=Culver, zip=97451, phone=841-874-6512, email=jaboyd@email.com)",
 					file.getPersons().get(0).toString());
@@ -33,17 +32,4 @@ class JsonFileReadRepositoryTest {
 			e.printStackTrace();
 		}
 	}
-
-	@Test
-	void recupFileBadPathTest() {
-		FileEntryService file;
-		try {
-			file = JsonFileReadRepository.recupFile("");
-			assertNull(file);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 }

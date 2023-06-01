@@ -1,5 +1,6 @@
 package com.safetynet.safetynetalerts.service;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Data;
  *
  */
 @Data
+@AllArgsConstructor
 public class PersonByFoyerService {
 
 	private String firstName;
@@ -18,21 +20,5 @@ public class PersonByFoyerService {
 	private String phone;
 
 	private int age;
-
-	/**
-	 * Constructor
-	 * 
-	 * @param firstName
-	 * @param lastName_medications_allergies
-	 * @param phone
-	 * @param age
-	 */
-	public PersonByFoyerService(String firstName, String lastName_medications_allergies, String phone, int age) {
-		super();
-		this.firstName = firstName;
-		this.lastName_medications_allergies = lastName_medications_allergies;
-		this.phone = phone;
-		this.age = age;
-	}
 
 }

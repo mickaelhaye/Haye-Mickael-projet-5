@@ -2,6 +2,7 @@ package com.safetynet.safetynetalerts.service;
 
 import java.util.ArrayList;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -11,6 +12,7 @@ import lombok.Data;
  *
  */
 @Data
+@AllArgsConstructor
 public class PersonByAddressService {
 
 	private String firstName;
@@ -24,26 +26,4 @@ public class PersonByAddressService {
 	ArrayList<String> medications = new ArrayList<String>();
 
 	ArrayList<String> allergies = new ArrayList<String>();
-
-	/**
-	 * Constructor
-	 * 
-	 * @param firstName
-	 * @param lastName
-	 * @param phone
-	 * @param age
-	 * @param medications
-	 * @param allergies
-	 */
-	public PersonByAddressService(String firstName, String lastName, String phone, int age,
-			ArrayList<String> medications, ArrayList<String> allergies) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phone = phone;
-		this.age = age;
-		this.medications = medications;
-		this.allergies = allergies;
-	}
-
 }

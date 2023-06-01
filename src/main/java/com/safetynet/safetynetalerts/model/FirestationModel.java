@@ -2,6 +2,7 @@ package com.safetynet.safetynetalerts.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
  *
  */
 @Data
+@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
 public class FirestationModel {
@@ -19,17 +21,5 @@ public class FirestationModel {
 	private String address;
 
 	private String station;
-
-	/**
-	 * Constructor
-	 * 
-	 * @param address adresse de la station
-	 * @param station numéro de la station
-	 */
-	public FirestationModel(String address, String station) {
-		super();
-		this.address = address;
-		this.station = station;
-	}
 
 }

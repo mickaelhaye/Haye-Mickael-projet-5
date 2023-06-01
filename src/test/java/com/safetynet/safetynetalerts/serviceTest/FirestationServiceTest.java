@@ -12,23 +12,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.safetynet.safetynetalerts.CustomProperties;
-import com.safetynet.safetynetalerts.controller.Controller;
 import com.safetynet.safetynetalerts.model.FirestationModel;
-import com.safetynet.safetynetalerts.repository.JsonFileReadRepository;
 import com.safetynet.safetynetalerts.service.FirestationService;
+import com.safetynet.safetynetalerts.service.JsonFileReadService;
 
 @SpringBootTest
 class FirestationServiceTest {
 
 	@Autowired
-	private CustomProperties prop;
-
-	@Autowired
-	private Controller controller;
-
-	@Autowired
-	private JsonFileReadRepository JsonFileReadRepository;
+	private JsonFileReadService jsonFileReadRepository;
 
 	@Autowired
 	private FirestationService firestationService;
@@ -37,7 +29,7 @@ class FirestationServiceTest {
 	void setUpPerTest() {
 		// chargement d'un fichierJson
 		try {
-			controller.setFile(JsonFileReadRepository.recupFile(prop.getJsonFileTestPath()));
+			jsonFileReadRepository.recupFile();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,7 +41,7 @@ class FirestationServiceTest {
 	void addFirestationTest() {
 
 		try {
-			List<FirestationModel> firestations = controller.getFile().getFirestations();
+			List<FirestationModel> firestations = jsonFileReadRepository.getFile().getFirestations();
 			FirestationModel firestation = new FirestationModel("19 square cholet", "9");
 			firestationService.addFirestation(firestation);
 			firestation = firestations.get(firestations.size() - 1);
@@ -65,7 +57,7 @@ class FirestationServiceTest {
 	void addFirestationBadFirestationTest() {
 
 		try {
-			List<FirestationModel> firestations = controller.getFile().getFirestations();
+			List<FirestationModel> firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 			FirestationModel firestation = new FirestationModel("1509 Culver St", "3");
 			firestationService.addFirestation(firestation);
@@ -82,13 +74,13 @@ class FirestationServiceTest {
 	void updateFirestationTest() {
 
 		try {
-			List<FirestationModel> firestations = controller.getFile().getFirestations();
+			List<FirestationModel> firestations = jsonFileReadRepository.getFile().getFirestations();
 			FirestationModel firestation = firestations.get(0);
 			String oldStation = firestation.getStation();
 
 			firestation = new FirestationModel("1509 Culver St", "8");
 			firestationService.updateFirestation(firestation);
-			firestations = controller.getFile().getFirestations();
+			firestations = jsonFileReadRepository.getFile().getFirestations();
 			firestation = firestations.get(0);
 			String newStation = firestation.getStation();
 			assertNotEquals(oldStation, newStation);
@@ -102,13 +94,13 @@ class FirestationServiceTest {
 	void updateFirestationBadFirestationTest() {
 
 		try {
-			List<FirestationModel> firestations = controller.getFile().getFirestations();
+			List<FirestationModel> firestations = jsonFileReadRepository.getFile().getFirestations();
 			FirestationModel firestation = firestations.get(0);
 			String oldStation = firestation.getStation();
 
 			firestation = new FirestationModel("mars", "8");
 			firestationService.updateFirestation(firestation);
-			firestations = controller.getFile().getFirestations();
+			firestations = jsonFileReadRepository.getFile().getFirestations();
 			firestation = firestations.get(0);
 			String newStation = firestation.getStation();
 			assertEquals(oldStation, newStation);
@@ -121,11 +113,11 @@ class FirestationServiceTest {
 	@Test
 	void deleteFirestationByStationTest() {
 		try {
-			List<FirestationModel> firestations = controller.getFile().getFirestations();
+			List<FirestationModel> firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 
 			firestationService.deleteFirestation("2");
-			firestations = controller.getFile().getFirestations();
+			firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld - 3, nbrFirestationNew);
 		} catch (Exception e) {
@@ -137,11 +129,11 @@ class FirestationServiceTest {
 	@Test
 	void deleteFirestationByStationBadFirestationTest() {
 		try {
-			List<FirestationModel> firestations = controller.getFile().getFirestations();
+			List<FirestationModel> firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 
 			firestationService.deleteFirestation("8");
-			firestations = controller.getFile().getFirestations();
+			firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld, nbrFirestationNew);
 		} catch (Exception e) {
@@ -153,11 +145,11 @@ class FirestationServiceTest {
 	@Test
 	void deleteFirestationByAddressTest() {
 		try {
-			List<FirestationModel> firestations = controller.getFile().getFirestations();
+			List<FirestationModel> firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 
 			firestationService.deleteFirestation("1509 Culver St");
-			firestations = controller.getFile().getFirestations();
+			firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld - 1, nbrFirestationNew);
 		} catch (Exception e) {
@@ -169,11 +161,11 @@ class FirestationServiceTest {
 	@Test
 	void deleteFirestationByAddressBadFirestationTest() {
 		try {
-			List<FirestationModel> firestations = controller.getFile().getFirestations();
+			List<FirestationModel> firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 
 			firestationService.deleteFirestation("mars");
-			firestations = controller.getFile().getFirestations();
+			firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld, nbrFirestationNew);
 		} catch (Exception e) {

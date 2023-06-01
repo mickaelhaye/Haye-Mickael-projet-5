@@ -2,8 +2,6 @@ package com.safetynet.safetynetalerts.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.safetynet.safetynetalerts.model.FirestationModel;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
@@ -17,7 +15,6 @@ import lombok.Data;
  *
  */
 @Data
-@Service
 public class FileEntryService {
 
 	List<PersonModel> persons;

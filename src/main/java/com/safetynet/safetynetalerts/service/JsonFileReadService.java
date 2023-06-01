@@ -1,15 +1,18 @@
-package com.safetynet.safetynetalerts.repository;
+package com.safetynet.safetynetalerts.service;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.controller.FirestationController;
-import com.safetynet.safetynetalerts.service.FileEntryService;
+
+import jakarta.annotation.PostConstruct;
 
 /**
  * Classe qui permet de récupérer les données dans le fichier d'entrée et de les
@@ -18,8 +21,13 @@ import com.safetynet.safetynetalerts.service.FileEntryService;
  * @author Mickael Hayé
  *
  */
-@Repository
-public class JsonFileReadRepository {
+@Service
+public class JsonFileReadService {
+
+	@Autowired
+	private CustomProperties prop;
+
+	private FileEntryService file;
 
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
@@ -27,15 +35,17 @@ public class JsonFileReadRepository {
 	 * 
 	 * @return une classe avec des listes contenant les données du fichier
 	 */
-	public FileEntryService recupFile(String path) throws Exception {
+	@PostConstruct
+	public FileEntryService recupFile() throws Exception {
 
-		FileEntryService file = null;
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
 
+		file = null;
+
 		try {
 
-			file = objectMapper.readValue(new File(path), FileEntryService.class);
+			file = objectMapper.readValue(new File(prop.getJsonFilePath()), FileEntryService.class);
 			logger.debug("Lecture du fichier Json OK");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -43,6 +53,10 @@ public class JsonFileReadRepository {
 			logger.error("Lecture du fichier Json ECHEC" + e);
 		}
 
+		return file;
+	}
+
+	public FileEntryService getFile() {
 		return file;
 	}
 

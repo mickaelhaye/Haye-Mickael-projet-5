@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
 import com.safetynet.safetynetalerts.service.FileEntryService;
+import com.safetynet.safetynetalerts.service.JsonFileReadService;
 import com.safetynet.safetynetalerts.service.PersonService;
 
 /**
@@ -29,7 +30,7 @@ public class PersonController {
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
 	@Autowired
-	private Controller controller;
+	private JsonFileReadService jsonFileReadService;
 
 	@Autowired
 	private PersonService personService;
@@ -43,7 +44,7 @@ public class PersonController {
 	 */
 	@GetMapping(value = "/person")
 	public List<PersonModel> afficherListePersonne() {
-		file = controller.getFile();
+		file = jsonFileReadService.getFile();
 		logger.info("@GetMapping(value = \"/person\")");
 		return file.getPersons();
 	}

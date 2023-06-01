@@ -12,25 +12,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.safetynet.safetynetalerts.CustomProperties;
-import com.safetynet.safetynetalerts.controller.Controller;
 import com.safetynet.safetynetalerts.model.PersonModel;
-import com.safetynet.safetynetalerts.repository.JsonFileReadRepository;
 import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
 import com.safetynet.safetynetalerts.service.FoyerbyFirestationService;
+import com.safetynet.safetynetalerts.service.JsonFileReadService;
 import com.safetynet.safetynetalerts.service.PersonService;
 
 @SpringBootTest
 class PersonServiceTest {
 
 	@Autowired
-	private CustomProperties prop;
-
-	@Autowired
-	private Controller controller;
-
-	@Autowired
-	private JsonFileReadRepository JsonFileReadRepository;
+	private JsonFileReadService jsonFileReadRepository;
 
 	@Autowired
 	private PersonService personService;
@@ -40,8 +32,7 @@ class PersonServiceTest {
 		// chargement d'un fichierJson
 
 		try {
-			controller.setFile(JsonFileReadRepository.recupFile(prop.getJsonFileTestPath()));
-
+			jsonFileReadRepository.recupFile();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -158,7 +149,7 @@ class PersonServiceTest {
 	void addPersonTest() {
 
 		try {
-			List<PersonModel> persons = controller.getFile().getPersons();
+			List<PersonModel> persons = jsonFileReadRepository.getFile().getPersons();
 			PersonModel person = new PersonModel("Jean", "Gabin", "30 rue de la victoire", "Nantes", "49860",
 					"065989875", "moi@toto.fr");
 			personService.addPerson(person);
@@ -174,7 +165,7 @@ class PersonServiceTest {
 	void addPersonBadPersonTest() {
 
 		try {
-			List<PersonModel> persons = controller.getFile().getPersons();
+			List<PersonModel> persons = jsonFileReadRepository.getFile().getPersons();
 			int nbrPersonOld = persons.size();
 			PersonModel person = new PersonModel("John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512",
 					"jaboyd@email.com");
@@ -191,13 +182,13 @@ class PersonServiceTest {
 	void updatePersonTest() {
 
 		try {
-			List<PersonModel> persons = controller.getFile().getPersons();
+			List<PersonModel> persons = jsonFileReadRepository.getFile().getPersons();
 			PersonModel person = persons.get(0);
 			String oldCity = person.getCity();
 			person = new PersonModel("John", "Boyd", "1509 Culver St", "Rome", "97451", "841-874-6512",
 					"jaboyd@email.com");
 			personService.updatePerson(person);
-			persons = controller.getFile().getPersons();
+			persons = jsonFileReadRepository.getFile().getPersons();
 			person = persons.get(0);
 			String newCity = person.getCity();
 			assertNotEquals(oldCity, newCity);
@@ -211,13 +202,13 @@ class PersonServiceTest {
 	void updatePersonBadPersonTest() {
 
 		try {
-			List<PersonModel> persons = controller.getFile().getPersons();
+			List<PersonModel> persons = jsonFileReadRepository.getFile().getPersons();
 			PersonModel person = persons.get(0);
 			String oldCity = person.getCity();
 			person = new PersonModel("patrick", "Boyd", "1509 Culver St", "Rome", "97451", "841-874-6512",
 					"jaboyd@email.com");
 			personService.updatePerson(person);
-			persons = controller.getFile().getPersons();
+			persons = jsonFileReadRepository.getFile().getPersons();
 			person = persons.get(0);
 			String newCity = person.getCity();
 			assertEquals(oldCity, newCity);
@@ -230,10 +221,10 @@ class PersonServiceTest {
 	@Test
 	void deletePersonTest() {
 		try {
-			List<PersonModel> persons = controller.getFile().getPersons();
+			List<PersonModel> persons = jsonFileReadRepository.getFile().getPersons();
 			int nbrPersonneOld = persons.size();
 			personService.deletePerson("JohnBoyd");
-			persons = controller.getFile().getPersons();
+			persons = jsonFileReadRepository.getFile().getPersons();
 			int nbrPersonneNew = persons.size();
 			assertEquals(nbrPersonneOld - 1, nbrPersonneNew);
 		} catch (Exception e) {
@@ -245,10 +236,10 @@ class PersonServiceTest {
 	@Test
 	void deletePersonBadPersonTest() {
 		try {
-			List<PersonModel> persons = controller.getFile().getPersons();
+			List<PersonModel> persons = jsonFileReadRepository.getFile().getPersons();
 			int nbrPersonneOld = persons.size();
 			personService.deletePerson("patrickBoyd");
-			persons = controller.getFile().getPersons();
+			persons = jsonFileReadRepository.getFile().getPersons();
 			int nbrPersonneNew = persons.size();
 			assertEquals(nbrPersonneOld, nbrPersonneNew);
 		} catch (Exception e) {

@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.safetynet.safetynetalerts.controller.Controller;
 import com.safetynet.safetynetalerts.controller.FirestationController;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 
@@ -21,7 +20,7 @@ import lombok.Data;
 @Service
 public class MedicalRecordService {
 	@Autowired
-	private Controller controller;
+	private JsonFileReadService jsonFileReadRepository;
 
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
@@ -33,14 +32,14 @@ public class MedicalRecordService {
 	 */
 	public String addMedicalRecord(MedicalrecordModel medicalRecord) {
 		logger.debug("addMedicalRecord " + medicalRecord);
-		for (MedicalrecordModel medicalRecordTest : controller.getFile().getMedicalrecords()) {
+		for (MedicalrecordModel medicalRecordTest : jsonFileReadRepository.getFile().getMedicalrecords()) {
 			if ((medicalRecordTest.getFirstName().equals(medicalRecord.getFirstName()))
 					&& (medicalRecordTest.getLastName().equals(medicalRecord.getLastName()))) {
 				return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " deja present";
 			}
 		}
 
-		controller.getFile().getMedicalrecords().add(medicalRecord);
+		jsonFileReadRepository.getFile().getMedicalrecords().add(medicalRecord);
 		return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " ajoute";
 	}
 
@@ -54,7 +53,7 @@ public class MedicalRecordService {
 	public String updateMedicalRecord(MedicalrecordModel medicalRecord) {
 		logger.debug("updateMedicalRecord " + medicalRecord);
 		boolean medicalRecordModifiee = false;
-		for (MedicalrecordModel medicalRecordTest : controller.getFile().getMedicalrecords()) {
+		for (MedicalrecordModel medicalRecordTest : jsonFileReadRepository.getFile().getMedicalrecords()) {
 			if ((medicalRecordTest.getFirstName().equals(medicalRecord.getFirstName()))
 					&& (medicalRecordTest.getLastName().equals(medicalRecord.getLastName()))) {
 				medicalRecordTest.setBirthdate(medicalRecord.getBirthdate());
@@ -79,10 +78,10 @@ public class MedicalRecordService {
 	public String deleteMedicalRecord(String firstNameLastName) {
 		logger.debug("deleteMedicalRecord " + firstNameLastName);
 		boolean medicalRecordSupprimee = false;
-		for (MedicalrecordModel medicalRecordTest : controller.getFile().getMedicalrecords()) {
+		for (MedicalrecordModel medicalRecordTest : jsonFileReadRepository.getFile().getMedicalrecords()) {
 			String firstNameLastNamePersonTest = medicalRecordTest.getFirstName() + medicalRecordTest.getLastName();
 			if (firstNameLastNamePersonTest.equals(firstNameLastName)) {
-				controller.getFile().getMedicalrecords().remove(medicalRecordTest);
+				jsonFileReadRepository.getFile().getMedicalrecords().remove(medicalRecordTest);
 				medicalRecordSupprimee = true;
 				break;
 			}
