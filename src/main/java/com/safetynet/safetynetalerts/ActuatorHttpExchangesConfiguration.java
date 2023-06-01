@@ -5,6 +5,12 @@ import org.springframework.boot.actuate.web.exchanges.InMemoryHttpExchangeReposi
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * classe permettant l'affichage du endpoint actuator HttpExchanges
+ * 
+ * @author Mickael Hayé
+ *
+ */
 @Configuration
 public class ActuatorHttpExchangesConfiguration {
 	@Bean

@@ -46,11 +46,14 @@ public class PersonService {
 		List<PersonbyFirestationService> listPersonsPlus18 = new ArrayList<PersonbyFirestationService>();
 		List<PersonbyFirestationService> listPersons18EtMoins = new ArrayList<PersonbyFirestationService>();
 
+		// Recupération de la liste des firestations en fonction du numéro de station
 		for (FirestationModel firestation : jsonFileReadRepository.getFile().getFirestations()) {
 			if (firestation.getStation().equals(station)) {
 				listFirestations2.add(firestation);
 			}
 		}
+		// récupération de la liste des personnes en fonction de la liste des
+		// firestations
 		for (FirestationModel firestation : listFirestations2) {
 			for (PersonModel person : jsonFileReadRepository.getFile().getPersons()) {
 				if (firestation.getAddress().equals(person.getAddress())) {
@@ -147,11 +150,14 @@ public class PersonService {
 		List<String> listPhone = new ArrayList<String>();
 		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
 
+		// récupération de la liste des firestations en fonction du numéro de station
 		for (FirestationModel firestation : jsonFileReadRepository.getFile().getFirestations()) {
 			if (firestation.getStation().equals(station)) {
 				listFirestations2.add(firestation);
 			}
 		}
+		// récupération de la liste des personnes en fonction de la liste des
+		// firestations
 		for (FirestationModel firestation : listFirestations2) {
 			for (PersonModel person : jsonFileReadRepository.getFile().getPersons()) {
 				if (firestation.getAddress().equals(person.getAddress())) {
@@ -223,11 +229,6 @@ public class PersonService {
 	 * @param station (station d'entrée)
 	 * @return une liste d'objets (Liste de foyers)
 	 */
-	/*
-	 * Récupération des personnes en fonction d'une adresse
-	 * 
-	 * @GetMapping(value = "/flood/stations/{station}")
-	 */
 	public List<Object> findByFirestationAFoyer(String station) throws Exception {
 		logger.debug("findByFirestationAFoyer " + station);
 		// Liste des foyer dépendant d'un numéro de station
@@ -292,11 +293,6 @@ public class PersonService {
 	 * @param firstName (prénom d'entrée)
 	 * @return une liste de persons
 	 */
-	/*
-	 * Récupération des personnes en fonction d'un prénom
-	 * 
-	 * @GetMapping(value = "/personInfo/{firstName}")
-	 */
 	public List<String> findByFirstNameAPerson(String firstName) throws Exception {
 		logger.debug("findByFirstNameAPerson " + firstName);
 		// Liste des personnes en fonction d'un prénom
@@ -326,11 +322,6 @@ public class PersonService {
 	 * 
 	 * @param city (city d'entrée)
 	 * @return une liste d'emails
-	 */
-	/*
-	 * Récupération des adresses mail en fonction d'une ville
-	 * 
-	 * @GetMapping(value = "/communityEmail/{city}")
 	 */
 	public List<String> findByCityAEmail(String city) throws Exception {
 		logger.debug("findByCityAEmail " + city);

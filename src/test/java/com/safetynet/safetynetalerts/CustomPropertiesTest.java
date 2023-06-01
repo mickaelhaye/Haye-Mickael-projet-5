@@ -17,17 +17,4 @@ class CustomPropertiesTest {
 		prop.setJsonFilePath("test");
 		assertEquals("test", prop.getJsonFilePath());
 	}
-
-	@Test
-	void setGetJsonFileTestPathTest() {
-		prop.setJsonFileTestPath("test");
-		assertEquals("test", prop.getJsonFileTestPath());
-	}
-
-	@Test
-	void setGetJsonFileTestWritePathTest() {
-		prop.setJsonFileTestWritePath("test");
-		assertEquals("test", prop.getJsonFileTestWritePath());
-	}
-
 }

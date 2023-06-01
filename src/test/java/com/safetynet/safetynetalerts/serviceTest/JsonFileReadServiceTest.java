@@ -6,15 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.service.FileEntryService;
 import com.safetynet.safetynetalerts.service.JsonFileReadService;
 
 @SpringBootTest
 class JsonFileReadServiceTest {
-
-	@Autowired
-	private CustomProperties prop;
 
 	@Autowired
 	private JsonFileReadService JsonFileReadRepository;
