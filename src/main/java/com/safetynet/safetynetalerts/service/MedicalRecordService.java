@@ -32,13 +32,6 @@ public class MedicalRecordService {
 	 */
 	public String addMedicalRecord(MedicalrecordModel medicalRecord) {
 		logger.debug("addMedicalRecord " + medicalRecord);
-		for (MedicalrecordModel medicalRecordTest : jsonFileReadRepository.getFile().getMedicalrecords()) {
-			if ((medicalRecordTest.getFirstName().equals(medicalRecord.getFirstName()))
-					&& (medicalRecordTest.getLastName().equals(medicalRecord.getLastName()))) {
-				return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " deja present";
-			}
-		}
-
 		jsonFileReadRepository.getFile().getMedicalrecords().add(medicalRecord);
 		return medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " ajoute";
 	}

@@ -1,5 +1,6 @@
 package com.safetynet.safetynetalerts.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetynetalerts.model.FileEntryModel;
@@ -32,20 +33,68 @@ public class FirestationController {
 	private JsonFileReadService jsonFileReadService;
 
 	@Autowired
+	private FirestationService FirestationService;
+
+	@Autowired
 	private FirestationService firestationService;
 
 	private FileEntryModel file;
 
 	/**
-	 * API pour récupérer la liste des firestations
+	 * API pour récupérer des personnes couvertes par une station
 	 * 
-	 * @return la liste des firestations
+	 * @param station (station d'entrée)
+	 * @return une liste d'Objets (liste de persons + décompte adultes +décompte
+	 *         enfants
+	 * @throws Exception mauvais retour personService.findByFirestationAListPersons
 	 */
-	@GetMapping(value = "/firestation")
-	public List<FirestationModel> afficherListeFirestation() {
+	@GetMapping("/firestation")
+	public List<Object> afficherUneListePersonne(
+			@RequestParam(required = false, name = "stationNumber") String station_number) throws Exception {
+		if (station_number != null) {
+			List<Object> list = FirestationService.findByFirestationAListPersons(station_number);
+			logger.info("Liste des personnes couvertes par la caserne de pompier correspondante " + list);
+			return list;
+		}
 		file = jsonFileReadService.getFile();
 		logger.info("Récupération de la liste des firestations");
-		return file.getFirestations();
+		List<Object> list = new ArrayList<Object>();
+		for (FirestationModel firestation : file.getFirestations()) {
+			list.add(firestation);
+		}
+		return list;
+	}
+
+	/**
+	 * Pour récupérer des personnes en fonction d'une adresse
+	 * 
+	 * @param station (station d'entrée)
+	 * @return une liste d'objets (Liste de foyers)
+	 * @throws Exception mauvais retour
+	 *                   personService.findByFirestationAFoyer(station)
+	 */
+	@GetMapping("/flood/stations")
+	public List<Object> afficherUneListeFoyerParFirestation(@RequestParam(name = "stations") String[] ListStation)
+			throws Exception {
+		List<Object> list = FirestationService.findByFirestationAFoyer(ListStation);
+		logger.info("Liste des personnes en fonction d'une adresse " + list);
+		return list;
+	}
+
+	/**
+	 * Pour récupérer des numéros de téléphone desservis par la caserne
+	 * 
+	 * @param station (station d'entrée)
+	 * @return une liste de numéros de téléphone
+	 * @throws Exception mauvais retour
+	 *                   personService.findByFirestationAPhone(station)
+	 */
+	@GetMapping("/phoneAlert")
+	public List<String> afficherUneListeNumTelephone(@RequestParam(name = "firestation") String firestation_number)
+			throws Exception {
+		List<String> list = FirestationService.findByFirestationAPhone(firestation_number);
+		logger.info("Liste des numéros de téléphon,e desservis par une caserne " + list);
+		return list;
 	}
 
 	/**
@@ -81,26 +130,19 @@ public class FirestationController {
 	 * @param station
 	 * @throws Exception écriture fichier érroné
 	 */
-	@DeleteMapping("/firestation/station/{station}")
-	public String supprimerFirestationByStation(@PathVariable String station) throws Exception {
-		String sVal = firestationService.deleteFirestationByStation(station);
+	@DeleteMapping("/firestation")
+	public String supprimerFirestationByStation(@RequestParam(required = false, name = "station") String station,
+			@RequestParam(required = false, name = "address") String address) throws Exception {
+		String sVal = "";
+		if (station != null) {
+			sVal = firestationService.deleteFirestationByStation(station);
+		} else {
+			if (address != null) {
+				sVal = firestationService.deleteFirestationByAddress(address);
+			}
+		}
 		logger.info("Suppression d'une firestation " + sVal);
 		return sVal;
 
 	}
-
-	/**
-	 * API pour supprimer un firestation
-	 * 
-	 * @param Address
-	 * @throws Exception écriture fichier érroné
-	 */
-	@DeleteMapping("/firestation/address/{address}")
-	public String supprimerFirestationByAddress(@PathVariable String address) throws Exception {
-		String sVal = firestationService.deleteFirestationByAddress(address);
-		logger.info("Suppression d'une firestation " + sVal);
-		return sVal;
-
-	}
-
 }

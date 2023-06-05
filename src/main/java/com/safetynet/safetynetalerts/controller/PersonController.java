@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetynetalerts.model.ChildAlertByAddressModel;
@@ -42,26 +42,11 @@ public class PersonController {
 	 * 
 	 * @return la liste des persons
 	 */
-	@GetMapping(value = "/person")
+	@GetMapping("/person")
 	public List<PersonModel> afficherListePersonne() {
 		file = jsonFileReadService.getFile();
 		logger.info("Récupération de la liste des persons");
 		return file.getPersons();
-	}
-
-	/**
-	 * API pour récupérer des personnes couvertes par une station
-	 * 
-	 * @param station (station d'entrée)
-	 * @return une liste d'Objets (liste de persons + décompte adultes +décompte
-	 *         enfants
-	 * @throws Exception mauvais retour personService.findByFirestationAListPersons
-	 */
-	@GetMapping(value = "/firestation/{station}")
-	public List<Object> afficherUneListePersonne(@PathVariable String station) throws Exception {
-		List<Object> list = personService.findByFirestationAListPersons(station);
-		logger.info("Liste des personnes couvertes par la caserne de pompier correspondante " + list);
-		return list;
 	}
 
 	/**
@@ -72,25 +57,11 @@ public class PersonController {
 	 * @throws Exception mauvais retour
 	 *                   personService.findByAddressAListChild(address)
 	 */
-	@GetMapping(value = "/childAlert/{address}")
-	public List<ChildAlertByAddressModel> afficherUneListeEnfant(@PathVariable String address) throws Exception {
+	@GetMapping("/childAlert")
+	public List<ChildAlertByAddressModel> afficherUneListeEnfant(@RequestParam(name = "address") String address)
+			throws Exception {
 		List<ChildAlertByAddressModel> list = personService.findByAddressAListChild(address);
 		logger.info("Liste des enfants en fonction d'une adresse " + list);
-		return list;
-	}
-
-	/**
-	 * Pour récupérer des numéros de téléphone desservis par la caserne
-	 * 
-	 * @param station (station d'entrée)
-	 * @return une liste de numéros de téléphone
-	 * @throws Exception mauvais retour
-	 *                   personService.findByFirestationAPhone(station)
-	 */
-	@GetMapping(value = "/phoneAlert/{station}")
-	public List<String> afficherUneListeNumTelephone(@PathVariable String station) throws Exception {
-		List<String> list = personService.findByFirestationAPhone(station);
-		logger.info("Liste des numéros de téléphon,e desservis par une caserne " + list);
 		return list;
 	}
 
@@ -101,24 +72,10 @@ public class PersonController {
 	 * @return une liste d'objets (Liste de persons + numéro de station)
 	 * @throws Exception mauvais retour personService.findByAddressAPerson(address)
 	 */
-	@GetMapping(value = "/fire/{address}")
-	public List<Object> afficherUneListePersonneParAddresse(@PathVariable String address) throws Exception {
+	@GetMapping("/fire")
+	public List<Object> afficherUneListePersonneParAddresse(@RequestParam(name = "address") String address)
+			throws Exception {
 		List<Object> list = personService.findByAddressAPerson(address);
-		logger.info("Liste des personnes en fonction d'une adresse " + list);
-		return list;
-	}
-
-	/**
-	 * Pour récupérer des personnes en fonction d'une adresse
-	 * 
-	 * @param station (station d'entrée)
-	 * @return une liste d'objets (Liste de foyers)
-	 * @throws Exception mauvais retour
-	 *                   personService.findByFirestationAFoyer(station)
-	 */
-	@GetMapping(value = "/flood/stations/{station}")
-	public List<Object> afficherUneListeFoyerParFirestation(@PathVariable String station) throws Exception {
-		List<Object> list = personService.findByFirestationAFoyer(station);
 		logger.info("Liste des personnes en fonction d'une adresse " + list);
 		return list;
 	}
@@ -131,9 +88,10 @@ public class PersonController {
 	 * @throws Exception mauvais retour
 	 *                   personService.findByFirstNameAPerson(firstName)
 	 */
-	@GetMapping(value = "/personInfo/{firstName}")
-	public List<String> afficherUneListePersonneParPrenom(@PathVariable String firstName) throws Exception {
-		List<String> list = personService.findByFirstNameAPerson(firstName);
+	@GetMapping("/personInfo")
+	public List<String> afficherUneListePersonneParPrenom(@RequestParam(name = "firstName") String firstName,
+			@RequestParam(name = "lastName") String lastName) throws Exception {
+		List<String> list = personService.findByFirstNameAPerson(firstName, lastName);
 		logger.info("liste des personnes en fonction d'un prénom " + list);
 		return list;
 	}
@@ -146,8 +104,8 @@ public class PersonController {
 	 * @throws Exception mauvais retour personService.findByCityAEmail(city)
 	 */
 	// Récupération des adresses mail en fonction d'une ville
-	@GetMapping(value = "/communityEmail/{city}")
-	public List<String> afficherEmailParCity(@PathVariable String city) throws Exception {
+	@GetMapping("/communityEmail")
+	public List<String> afficherEmailParCity(@RequestParam(name = "city") String city) throws Exception {
 		List<String> list = personService.findByCityAEmail(city);
 		logger.info("Liste des adresses mail en fonction d'une ville " + list);
 		return list;
@@ -186,8 +144,10 @@ public class PersonController {
 	 * @param firstNameLastName
 	 * @throws Exception écriture fichier érroné
 	 */
-	@DeleteMapping("/person/{firstName}/{lastName}")
-	public String supprimerPerson(@PathVariable String firstName, @PathVariable String lastName) throws Exception {
+
+	@DeleteMapping("/person")
+	public String supprimerPerson(@RequestParam(name = "firstName") String firstName,
+			@RequestParam(name = "lastName") String lastName) throws Exception {
 		String sVal = personService.deletePerson(firstName, lastName);
 		logger.info("Suppression d'une person " + sVal);
 		return sVal;

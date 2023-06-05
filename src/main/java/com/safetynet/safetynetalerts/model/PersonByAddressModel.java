@@ -23,7 +23,7 @@ public class PersonByAddressModel {
 
 	private int age;
 
-	ArrayList<String> medications = new ArrayList<String>();
+	ArrayList<MedicationModel> medications = new ArrayList<MedicationModel>();
 
-	ArrayList<String> allergies = new ArrayList<String>();
+	ArrayList<AllergieModel> allergies = new ArrayList<AllergieModel>();
 }

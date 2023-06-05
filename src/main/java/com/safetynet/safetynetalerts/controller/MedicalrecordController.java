@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetynetalerts.model.FileEntryModel;
@@ -41,7 +41,7 @@ public class MedicalrecordController {
 	 * 
 	 * @return la liste des medicalrecords
 	 */
-	@GetMapping(value = "/medicalRecord")
+	@GetMapping("/medicalRecord")
 	public List<MedicalrecordModel> afficherListeMedicalrecord() {
 		file = jsonFileReadService.getFile();
 		logger.info("Récupération de la liste des medicalrecords");
@@ -80,9 +80,9 @@ public class MedicalrecordController {
 	 * @param firstNameLastName
 	 * @throws Exception écriture fichier érroné
 	 */
-	@DeleteMapping("/medicalRecord/{firstName}/{lastName}")
-	public String supprimerMedicalRecord(@PathVariable String firstName, @PathVariable String lastName)
-			throws Exception {
+	@DeleteMapping("/medicalRecord")
+	public String supprimerMedicalRecord(@RequestParam(name = "firstName") String firstName,
+			@RequestParam(name = "lastName") String lastName) throws Exception {
 		String sVal = medicalrecordService.deleteMedicalRecord(firstName, lastName);
 		logger.info("Suppression d'un medicalrecord " + sVal);
 		return sVal;

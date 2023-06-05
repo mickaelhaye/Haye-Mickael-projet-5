@@ -11,12 +11,9 @@ import org.springframework.stereotype.Service;
 import com.safetynet.safetynetalerts.controller.FirestationController;
 import com.safetynet.safetynetalerts.model.ChildAlertByAddressModel;
 import com.safetynet.safetynetalerts.model.FirestationModel;
-import com.safetynet.safetynetalerts.model.FoyerbyFirestationModel;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.model.PersonByAddressModel;
-import com.safetynet.safetynetalerts.model.PersonByFoyerModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
-import com.safetynet.safetynetalerts.model.PersonbyFirestationModel;
 
 import lombok.Data;
 
@@ -33,66 +30,6 @@ public class PersonService {
 	private JsonFileReadService jsonFileReadRepository;
 
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
-
-	/**
-	 * traitement de l'API //@GetMapping(value = "/firestation/{station}"),
-	 * récupération des personnes couvertes par une station
-	 * 
-	 * @param station (station d'entrée)
-	 * @return une liste d'Objets (liste de persons + décompte adultes +décompte
-	 *         enfants
-	 */
-	public List<Object> findByFirestationAListPersons(String station) throws Exception {
-		logger.debug("findByFirestationAListPersons " + station);
-		// Liste des personnes dépendant d'un numéro de station
-		List<Object> listObjects = new ArrayList<Object>();
-		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
-		List<PersonbyFirestationModel> listPersonByFirestation = new ArrayList<PersonbyFirestationModel>();
-		List<PersonbyFirestationModel> listPersonsPlus18 = new ArrayList<PersonbyFirestationModel>();
-		List<PersonbyFirestationModel> listPersons18EtMoins = new ArrayList<PersonbyFirestationModel>();
-
-		// Recupération de la liste des firestations en fonction du numéro de station
-		for (FirestationModel firestation : jsonFileReadRepository.getFile().getFirestations()) {
-			if (firestation.getStation().equals(station)) {
-				listFirestations2.add(firestation);
-			}
-		}
-		// récupération de la liste des personnes en fonction de la liste des
-		// firestations
-		for (FirestationModel firestation : listFirestations2) {
-			for (PersonModel person : jsonFileReadRepository.getFile().getPersons()) {
-				if (firestation.getAddress().equals(person.getAddress())) {
-					listPersonByFirestation.add(new PersonbyFirestationModel(person.getFirstName(),
-							person.getLastName(), person.getAddress(), person.getPhone()));
-				}
-			}
-		}
-		// Décompte du nombre d'adulte de plus de 18 ans et enfants (individu agé de 18
-		// ans ou moins)
-		for (PersonbyFirestationModel person : listPersonByFirestation) {
-			for (MedicalrecordModel medicalrecords : jsonFileReadRepository.getFile().getMedicalrecords()) {
-				if ((person.getFirstName().equals(medicalrecords.getFirstName()))
-						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
-					CalculAgeService calcul = new CalculAgeService();
-					int age = calcul.calculAge(medicalrecords.getBirthdate());
-					if (age > 18) {
-						listPersonsPlus18.add(person);
-					} else {
-						listPersons18EtMoins.add(person);
-					}
-				}
-			}
-		}
-		for (PersonbyFirestationModel personByFirestation : listPersonByFirestation) {
-			listObjects.add(personByFirestation);
-		}
-		listObjects.add("");
-		listObjects.add("le nombre d'adultes est de " + listPersonsPlus18.size());
-		listObjects.add("");
-		listObjects.add("le nombre d'enfants est de " + listPersons18EtMoins.size());
-
-		return listObjects;
-	}
 
 	/**
 	 * traitement de l'API //@GetMapping(value = "/childAlert/{address}"),
@@ -140,40 +77,6 @@ public class PersonService {
 			childAlerte.setPersonnDansMemeFoyer(personnDansMemeFoyer);
 		}
 		return listChildAlert;
-	}
-
-	/**
-	 * traitement de l'API //@GetMapping(value = "/phoneAlert/{station}"),
-	 * Récupération des numéros de téléphone desservis par la caserne
-	 * 
-	 * @param station (station d'entrée)
-	 * @return une liste de numéros de téléphone
-	 */
-	public List<String> findByFirestationAPhone(String station) throws Exception {
-		logger.debug("findByFirestationAPhone " + station);
-		// Liste des numéros de telephone dépendant d'un numéro de station
-		List<String> listPhone = new ArrayList<String>();
-		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
-
-		// récupération de la liste des firestations en fonction du numéro de station
-		for (FirestationModel firestation : jsonFileReadRepository.getFile().getFirestations()) {
-			if (firestation.getStation().equals(station)) {
-				listFirestations2.add(firestation);
-			}
-		}
-		// récupération de la liste des personnes en fonction de la liste des
-		// firestations
-		for (FirestationModel firestation : listFirestations2) {
-			for (PersonModel person : jsonFileReadRepository.getFile().getPersons()) {
-				if (firestation.getAddress().equals(person.getAddress())) {
-					if (!listPhone.contains(person.getPhone())) {
-						listPhone.add(person.getPhone());
-					}
-				}
-			}
-		}
-
-		return listPhone;
 	}
 
 	/**
@@ -228,92 +131,30 @@ public class PersonService {
 	}
 
 	/**
-	 * Traitement de l'API //@GetMapping(value = "/flood/stations/{station}",
-	 * récupération des personnes en fonction d'une adresse
-	 * 
-	 * @param station (station d'entrée)
-	 * @return une liste d'objets (Liste de foyers)
-	 */
-	public List<Object> findByFirestationAFoyer(String station) throws Exception {
-		logger.debug("findByFirestationAFoyer " + station);
-		// Liste des foyer dépendant d'un numéro de station
-		List<Object> listObjects = new ArrayList<Object>();
-		List<String> listFoyer = new ArrayList<String>();
-		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
-		List<FoyerbyFirestationModel> listFoyerbyFirestation = new ArrayList<FoyerbyFirestationModel>();
-
-		for (FirestationModel firestation : jsonFileReadRepository.getFile().getFirestations()) {
-			if (firestation.getStation().equals(station)) {
-				listFirestations2.add(firestation);
-			}
-		}
-		for (FirestationModel firestation : listFirestations2) {
-			for (PersonModel person : jsonFileReadRepository.getFile().getPersons()) {
-				if (firestation.getAddress().equals(person.getAddress())) {
-					if (!listFoyer.contains(person.getAddress())) {
-						listFoyer.add((person.getAddress()));
-					}
-				}
-			}
-		}
-		for (String foyer : listFoyer) {
-			ArrayList<PersonByFoyerModel> listPersonByFoyer = new ArrayList<PersonByFoyerModel>();
-			boolean personFind = false;
-			for (PersonModel person : jsonFileReadRepository.getFile().getPersons()) {
-				if (foyer.equals(person.getAddress())) {
-					if (!personFind) {
-						listFoyerbyFirestation.add(new FoyerbyFirestationModel(foyer, null));
-						personFind = true;
-					}
-
-					for (MedicalrecordModel medicalrecords : jsonFileReadRepository.getFile().getMedicalrecords()) {
-						if ((person.getFirstName().equals(medicalrecords.getFirstName()))
-								&& (person.getLastName().equals(medicalrecords.getLastName()))) {
-							CalculAgeService calcul = new CalculAgeService();
-							int age = calcul.calculAge(medicalrecords.getBirthdate());
-							String sVal = person.getLastName() + " medications:" + medicalrecords.getMedications()
-									+ " allergies:" + medicalrecords.getAllergies();
-							listPersonByFoyer
-									.add(new PersonByFoyerModel(person.getFirstName(), sVal, person.getPhone(), age));
-						}
-					}
-				}
-
-			}
-			FoyerbyFirestationModel Foyer = listFoyerbyFirestation.get(listFoyerbyFirestation.size() - 1);
-			Foyer.setListPersonByFoyer(listPersonByFoyer);
-		}
-
-		for (FoyerbyFirestationModel foyer : listFoyerbyFirestation) {
-			listObjects.add(foyer);
-		}
-
-		return listObjects;
-	}
-
-	/**
 	 * Traitement de l'API //@GetMapping(value = "/personInfo/{firstName}"),
 	 * récupération des personnes en fonction d'un prénom
 	 * 
 	 * @param firstName (prénom d'entrée)
 	 * @return une liste de persons
 	 */
-	public List<String> findByFirstNameAPerson(String firstName) throws Exception {
+	public List<String> findByFirstNameAPerson(String firstName, String lastName) throws Exception {
 		logger.debug("findByFirstNameAPerson " + firstName);
 		// Liste des personnes en fonction d'un prénom
 		List<String> listPerson = new ArrayList<String>();
 
 		for (PersonModel person : jsonFileReadRepository.getFile().getPersons()) {
 			if (person.getFirstName().equals(firstName)) {
-				for (MedicalrecordModel medicalrecords : jsonFileReadRepository.getFile().getMedicalrecords()) {
-					if ((person.getFirstName().equals(medicalrecords.getFirstName()))
-							&& (person.getLastName().equals(medicalrecords.getLastName()))) {
-						CalculAgeService calcul = new CalculAgeService();
-						int age = calcul.calculAge(medicalrecords.getBirthdate());
-						listPerson.add(person.getLastName() + " , " + person.getAddress() + " , " + age + " , "
-								+ person.getEmail() + " , " + medicalrecords.getMedications() + " , "
-								+ medicalrecords.getAllergies());
+				if (person.getLastName().equals(lastName)) {
+					for (MedicalrecordModel medicalrecords : jsonFileReadRepository.getFile().getMedicalrecords()) {
+						if ((person.getFirstName().equals(medicalrecords.getFirstName()))
+								&& (person.getLastName().equals(medicalrecords.getLastName()))) {
+							CalculAgeService calcul = new CalculAgeService();
+							int age = calcul.calculAge(medicalrecords.getBirthdate());
+							listPerson.add(person.getLastName() + " , " + person.getAddress() + " , " + age + " , "
+									+ person.getEmail() + " , " + medicalrecords.getMedications() + " , "
+									+ medicalrecords.getAllergies());
 
+						}
 					}
 				}
 			}
@@ -349,12 +190,6 @@ public class PersonService {
 	 */
 	public String addPerson(PersonModel person) {
 		logger.debug("addPerson " + person);
-		for (PersonModel personTest : jsonFileReadRepository.getFile().getPersons()) {
-			if ((personTest.getFirstName().equals(person.getFirstName()))
-					&& (personTest.getLastName().equals(person.getLastName()))) {
-				return person.getFirstName() + " " + person.getLastName() + " deja present";
-			}
-		}
 		jsonFileReadRepository.getFile().getPersons().add(person);
 		return person.getFirstName() + " " + person.getLastName() + " ajoute";
 	}
