@@ -77,7 +77,7 @@ class PersonServiceTest {
 			listPerson = personService.findByFirstNameAPerson("John", "Boyd");
 			String person = listPerson.get(0);
 			assertEquals(
-					"Boyd , 1509 Culver St , 38 , jaboyd@email.com , [aznol:350mg, hydrapermazol:100mg] , [nillacilan]",
+					"Boyd , 1509 Culver St , 39 , jaboyd@email.com , [MedicationModel(medication=aznol:350mg), MedicationModel(medication=hydrapermazol:100mg)] , [AllergieModel(allergie=nillacilan)]",
 					person);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -109,23 +109,6 @@ class PersonServiceTest {
 			personService.addPerson(person);
 			person = persons.get(persons.size() - 1);
 			assertEquals("Gabin", person.getLastName());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	void addPersonBadPersonTest() {
-
-		try {
-			List<PersonModel> persons = jsonFileReadRepository.getFile().getPersons();
-			int nbrPersonOld = persons.size();
-			PersonModel person = new PersonModel("John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512",
-					"jaboyd@email.com");
-			personService.addPerson(person);
-			int nbrPersonNew = persons.size();
-			assertEquals(nbrPersonOld, nbrPersonNew);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

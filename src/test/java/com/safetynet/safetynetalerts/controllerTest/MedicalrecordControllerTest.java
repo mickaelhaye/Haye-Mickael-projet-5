@@ -49,8 +49,8 @@ class MedicalrecordControllerTest {
 
 	@Test
 	void deleteMedicalrecordsTest() throws Exception {
-		mockMvc.perform(delete("/medicalRecord/Johnny/Boyd").accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print())
-				.andExpect(status().isOk())
+		mockMvc.perform(delete("/medicalRecord").param("firstName", "Johnny").param("lastName", "Boyd")
+				.accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().string(containsString("Johnny Boyd n'est pas reference")));
 	}
 

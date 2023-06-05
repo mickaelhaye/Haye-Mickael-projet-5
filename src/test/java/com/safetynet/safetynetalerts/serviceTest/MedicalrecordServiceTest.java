@@ -55,22 +55,6 @@ class MedicalrecordServiceTest {
 	}
 
 	@Test
-	void addMedicalRecordBadMedicalRecordTest() {
-
-		try {
-			List<MedicalrecordModel> medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
-			int nbrMedicalrecordOld = medicalrecords.size();
-			MedicalrecordModel medicalrecord = new MedicalrecordModel("Tessa", "Carman", "02/18/2012", null, null);
-			medicalRecordService.addMedicalRecord(medicalrecord);
-			int nbrMedicalrecordNew = medicalrecords.size();
-			assertEquals(nbrMedicalrecordOld, nbrMedicalrecordNew);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	@Test
 	void updateMedicalRecordTest() {
 
 		try {

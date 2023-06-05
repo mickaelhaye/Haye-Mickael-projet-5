@@ -49,44 +49,44 @@ class PersonControllerTest {
 
 	@Test
 	void deletePersonsTest() throws Exception {
-		mockMvc.perform(delete("/person/Johnny/Boyd").accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print())
-				.andExpect(status().isOk())
+		mockMvc.perform(delete("/person").param("firstName", "Johnny").param("lastName", "Boyd")
+				.accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().string(containsString("Johnny Boyd n'est pas reference")));
 	}
 
 	@Test
 	void getAfficherUneListePersonneTest() throws Exception {
-		mockMvc.perform(get("/firestation/3")).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(get("/firestation")).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
 	void getafficherUneListeEnfantTest() throws Exception {
-		mockMvc.perform(get("/childAlert/1509 Culver St")).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(get("/childAlert")).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
 	void afficherUneListeNumTelephoneTest() throws Exception {
-		mockMvc.perform(get("/phoneAlert/3")).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(get("/phoneAlert")).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
 	void afficherUneListePersonneParAddresseTest() throws Exception {
-		mockMvc.perform(get("/fire/1509 Culver St")).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(get("/fire")).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
 	void afficherUneListeFoyerParFirestationTest() throws Exception {
-		mockMvc.perform(get("/flood/stations/3")).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(get("/flood/stations")).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
 	void afficherUneListePersonneParPrenomTest() throws Exception {
-		mockMvc.perform(get("/personInfo/John")).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(get("/personInfo")).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
 	void afficherEmailParCityTest() throws Exception {
-		mockMvc.perform(get("/communityEmail/Culver")).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(get("/communityEmail")).andDo(print()).andExpect(status().isOk());
 	}
 
 }

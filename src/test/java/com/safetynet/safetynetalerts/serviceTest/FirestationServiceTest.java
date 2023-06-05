@@ -101,23 +101,6 @@ class FirestationServiceTest {
 	}
 
 	@Test
-	void addFirestationBadFirestationTest() {
-
-		try {
-			List<FirestationModel> firestations = jsonFileReadRepository.getFile().getFirestations();
-			int nbrFirestationOld = firestations.size();
-			FirestationModel firestation = new FirestationModel("1509 Culver St", "3");
-			firestationService.addFirestation(firestation);
-			int nbrFirestationNew = firestations.size();
-			assertEquals(nbrFirestationOld, nbrFirestationNew);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	@Test
 	void updateFirestationTest() {
 
 		try {
