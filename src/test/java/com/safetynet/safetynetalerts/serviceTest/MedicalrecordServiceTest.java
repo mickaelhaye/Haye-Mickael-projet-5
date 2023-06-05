@@ -82,7 +82,7 @@ class MedicalrecordServiceTest {
 			medications.add("hydrapermazol:100mg");
 			ArrayList<String> allergies = new ArrayList<String>();
 			allergies.add("nillacilan");
-			medicalrecord = new MedicalrecordModel("John", "Boyd", "04/07/1985", medications, allergies);
+			medicalrecord = new MedicalrecordModel("John", "Boyd", "04/07/1985", null, null);
 			medicalRecordService.updateMedicalRecord(medicalrecord);
 			medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			medicalrecord = medicalrecords.get(0);
@@ -106,7 +106,7 @@ class MedicalrecordServiceTest {
 			medications.add("hydrapermazol:100mg");
 			ArrayList<String> allergies = new ArrayList<String>();
 			allergies.add("nillacilan");
-			medicalrecord = new MedicalrecordModel("Gilbert", "Boyd", "04/07/1985", medications, allergies);
+			medicalrecord = new MedicalrecordModel("Gilbert", "Boyd", "04/07/1985", null, null);
 			medicalRecordService.updateMedicalRecord(medicalrecord);
 			medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			medicalrecord = medicalrecords.get(0);

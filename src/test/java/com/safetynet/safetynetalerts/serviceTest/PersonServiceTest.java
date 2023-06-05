@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.safetynetalerts.model.ChildAlertByAddressModel;
-import com.safetynet.safetynetalerts.model.FoyerbyFirestationModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.service.JsonFileReadService;
 import com.safetynet.safetynetalerts.service.PersonService;
@@ -41,21 +40,6 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void findByFirestationAListPersonsTest() {
-
-		List<Object> listObjet;
-		try {
-			listObjet = personService.findByFirestationAListPersons("2");
-			String lastObjet = (String) listObjet.get(listObjet.size() - 1);
-			assertEquals("le nombre d'enfants est de 1", lastObjet);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	@Test
 	void findByAddressAListChildTest() {
 
 		List<ChildAlertByAddressModel> listObjet;
@@ -63,21 +47,6 @@ class PersonServiceTest {
 			listObjet = personService.findByAddressAListChild("1509 Culver St");
 			ChildAlertByAddressModel child = listObjet.get(0);
 			assertEquals(10, child.getAge());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	@Test
-	void findByFirestationAPhoneTest() {
-
-		List<String> listPhone;
-		try {
-			listPhone = personService.findByFirestationAPhone("2");
-			String phone = listPhone.get(0);
-			assertEquals("841-874-6513", phone);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,26 +70,11 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void findByFirestationAFoyerTest() {
-
-		List<Object> listObjet;
-		try {
-			listObjet = personService.findByFirestationAFoyer("2");
-			FoyerbyFirestationModel foyerbyFirestationService = (FoyerbyFirestationModel) listObjet.get(0);
-			assertEquals("29 15th St", foyerbyFirestationService.getAddress());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	@Test
 	void findByFirstNameAPersonTest() {
 
 		List<String> listPerson;
 		try {
-			listPerson = personService.findByFirstNameAPerson("John");
+			listPerson = personService.findByFirstNameAPerson("John", "Boyd");
 			String person = listPerson.get(0);
 			assertEquals(
 					"Boyd , 1509 Culver St , 38 , jaboyd@email.com , [aznol:350mg, hydrapermazol:100mg] , [nillacilan]",

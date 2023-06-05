@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.safetynetalerts.model.FirestationModel;
+import com.safetynet.safetynetalerts.model.FoyerbyFirestationModel;
 import com.safetynet.safetynetalerts.service.FirestationService;
 import com.safetynet.safetynetalerts.service.JsonFileReadService;
 
@@ -30,6 +31,52 @@ class FirestationServiceTest {
 		// chargement d'un fichierJson
 		try {
 			jsonFileReadRepository.recupFile();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	@Test
+	void findByFirestationAListPersonsTest() {
+
+		List<Object> listObjet;
+		try {
+			listObjet = firestationService.findByFirestationAListPersons("2");
+			String lastObjet = (String) listObjet.get(listObjet.size() - 1);
+			assertEquals("le nombre d'enfants est de 1", lastObjet);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	@Test
+	void findByFirestationAPhoneTest() {
+
+		List<String> listPhone;
+		try {
+			listPhone = firestationService.findByFirestationAPhone("2");
+			String phone = listPhone.get(0);
+			assertEquals("841-874-6513", phone);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	@Test
+	void findByFirestationAFoyerTest() {
+
+		List<Object> listObjet;
+		try {
+			String[] LisStation = new String[] { "2" };
+			listObjet = firestationService.findByFirestationAFoyer(LisStation);
+			FoyerbyFirestationModel foyerbyFirestationService = (FoyerbyFirestationModel) listObjet.get(0);
+			assertEquals("29 15th St", foyerbyFirestationService.getAddress());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -36,7 +36,7 @@ class PersonControllerTest {
 		mockMvc.perform(post("/person").contentType(MediaType.APPLICATION_JSON_VALUE).content(
 				"{ \"firstName\":\"John\", \"lastName\":\"Boyd\", \"address\":\"1509 Culver St\", \"city\":\"Culver\", \"zip\":\"97451\", \"phone\":\"841-874-6512\", \"email\":\"jaboyd@email.com\" }")
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().string(containsString("John Boyd deja present")));
+				.andExpect(content().string(containsString("John Boyd ajoute")));
 	}
 
 	@Test

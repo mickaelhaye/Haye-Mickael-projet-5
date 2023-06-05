@@ -36,7 +36,7 @@ class MedicalrecordControllerTest {
 		mockMvc.perform(post("/medicalRecord").contentType(MediaType.APPLICATION_JSON_VALUE).content(
 				"{ \"firstName\":\"John\", \"lastName\":\"Boyd\", \"birthdate\":\"03/06/1984\", \"medications\":[\"aznol:350mg\", \"hydrapermazol:100mg\"], \"allergies\":[\"nillacilan\"] }")
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().string(containsString("John Boyd deja present")));
+				.andExpect(content().string(containsString("John Boyd ajoute")));
 	}
 
 	@Test
