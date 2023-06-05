@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.safetynetalerts.model.FileEntryModel;
 import com.safetynet.safetynetalerts.model.FirestationModel;
-import com.safetynet.safetynetalerts.service.FileEntryService;
 import com.safetynet.safetynetalerts.service.FirestationService;
 import com.safetynet.safetynetalerts.service.JsonFileReadService;
 
@@ -34,7 +34,7 @@ public class FirestationController {
 	@Autowired
 	private FirestationService firestationService;
 
-	private FileEntryService file;
+	private FileEntryModel file;
 
 	/**
 	 * API pour récupérer la liste des firestations
@@ -78,12 +78,26 @@ public class FirestationController {
 	/**
 	 * API pour supprimer un firestation
 	 * 
-	 * @param stationOrAddress
+	 * @param station
 	 * @throws Exception écriture fichier érroné
 	 */
-	@DeleteMapping("/firestation/{stationOrAddress}")
-	public String supprimerFirestation(@PathVariable String stationOrAddress) throws Exception {
-		String sVal = firestationService.deleteFirestation(stationOrAddress);
+	@DeleteMapping("/firestation/station/{station}")
+	public String supprimerFirestationByStation(@PathVariable String station) throws Exception {
+		String sVal = firestationService.deleteFirestationByStation(station);
+		logger.info("Suppression d'une firestation " + sVal);
+		return sVal;
+
+	}
+
+	/**
+	 * API pour supprimer un firestation
+	 * 
+	 * @param Address
+	 * @throws Exception écriture fichier érroné
+	 */
+	@DeleteMapping("/firestation/address/{address}")
+	public String supprimerFirestationByAddress(@PathVariable String address) throws Exception {
+		String sVal = firestationService.deleteFirestationByAddress(address);
 		logger.info("Suppression d'une firestation " + sVal);
 		return sVal;
 

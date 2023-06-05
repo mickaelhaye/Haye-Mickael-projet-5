@@ -12,9 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.safetynet.safetynetalerts.model.ChildAlertByAddressModel;
+import com.safetynet.safetynetalerts.model.FoyerbyFirestationModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
-import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
-import com.safetynet.safetynetalerts.service.FoyerbyFirestationService;
 import com.safetynet.safetynetalerts.service.JsonFileReadService;
 import com.safetynet.safetynetalerts.service.PersonService;
 
@@ -58,11 +58,11 @@ class PersonServiceTest {
 	@Test
 	void findByAddressAListChildTest() {
 
-		List<ChildAlertByAddressService> listObjet;
+		List<ChildAlertByAddressModel> listObjet;
 		try {
 			listObjet = personService.findByAddressAListChild("1509 Culver St");
-			ChildAlertByAddressService child = listObjet.get(0);
-			assertEquals(9, child.getAge());
+			ChildAlertByAddressModel child = listObjet.get(0);
+			assertEquals(10, child.getAge());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,7 +106,7 @@ class PersonServiceTest {
 		List<Object> listObjet;
 		try {
 			listObjet = personService.findByFirestationAFoyer("2");
-			FoyerbyFirestationService foyerbyFirestationService = (FoyerbyFirestationService) listObjet.get(0);
+			FoyerbyFirestationModel foyerbyFirestationService = (FoyerbyFirestationModel) listObjet.get(0);
 			assertEquals("29 15th St", foyerbyFirestationService.getAddress());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -223,7 +223,7 @@ class PersonServiceTest {
 		try {
 			List<PersonModel> persons = jsonFileReadRepository.getFile().getPersons();
 			int nbrPersonneOld = persons.size();
-			personService.deletePerson("JohnBoyd");
+			personService.deletePerson("John", "Boyd");
 			persons = jsonFileReadRepository.getFile().getPersons();
 			int nbrPersonneNew = persons.size();
 			assertEquals(nbrPersonneOld - 1, nbrPersonneNew);
@@ -238,7 +238,7 @@ class PersonServiceTest {
 		try {
 			List<PersonModel> persons = jsonFileReadRepository.getFile().getPersons();
 			int nbrPersonneOld = persons.size();
-			personService.deletePerson("patrickBoyd");
+			personService.deletePerson("patrick", "Boyd");
 			persons = jsonFileReadRepository.getFile().getPersons();
 			int nbrPersonneNew = persons.size();
 			assertEquals(nbrPersonneOld, nbrPersonneNew);

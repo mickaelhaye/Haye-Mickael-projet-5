@@ -1,10 +1,6 @@
-package com.safetynet.safetynetalerts.service;
+package com.safetynet.safetynetalerts.model;
 
 import java.util.List;
-
-import com.safetynet.safetynetalerts.model.FirestationModel;
-import com.safetynet.safetynetalerts.model.MedicalrecordModel;
-import com.safetynet.safetynetalerts.model.PersonModel;
 
 /**
  * Classe permettant le stockage des données du fichier d'entrée Data.json
@@ -12,7 +8,7 @@ import com.safetynet.safetynetalerts.model.PersonModel;
  * @author mickael
  *
  */
-public class FileEntryService {
+public class FileEntryModel {
 
 	List<PersonModel> persons;
 	List<FirestationModel> firestations;

@@ -1,4 +1,4 @@
-package com.safetynet.safetynetalerts.service;
+package com.safetynet.safetynetalerts.model;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class PersonByAddressService {
+public class PersonByAddressModel {
 
 	private String firstName;
 

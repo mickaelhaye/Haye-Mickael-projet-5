@@ -1,4 +1,4 @@
-package com.safetynet.safetynetalerts.service;
+package com.safetynet.safetynetalerts.model;
 
 import java.util.ArrayList;
 
@@ -13,8 +13,8 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class FoyerbyFirestationService {
+public class FoyerbyFirestationModel {
 	private String address;
 
-	ArrayList<PersonByFoyerService> listPersonByFoyer = new ArrayList<PersonByFoyerService>();
+	ArrayList<PersonByFoyerModel> listPersonByFoyer = new ArrayList<PersonByFoyerModel>();
 }

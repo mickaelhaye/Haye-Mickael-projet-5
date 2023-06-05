@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.safetynetalerts.model.FileEntryModel;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
-import com.safetynet.safetynetalerts.service.FileEntryService;
 import com.safetynet.safetynetalerts.service.JsonFileReadService;
 import com.safetynet.safetynetalerts.service.MedicalRecordService;
 
@@ -34,7 +34,7 @@ public class MedicalrecordController {
 	@Autowired
 	private MedicalRecordService medicalrecordService;
 
-	private FileEntryService file;
+	private FileEntryModel file;
 
 	/**
 	 * API pour récupérer la liste des medicalrecords
@@ -80,9 +80,10 @@ public class MedicalrecordController {
 	 * @param firstNameLastName
 	 * @throws Exception écriture fichier érroné
 	 */
-	@DeleteMapping("/medicalRecord/{firstNameLastName}")
-	public String supprimerMedicalRecord(@PathVariable String firstNameLastName) throws Exception {
-		String sVal = medicalrecordService.deleteMedicalRecord(firstNameLastName);
+	@DeleteMapping("/medicalRecord/{firstName}/{lastName}")
+	public String supprimerMedicalRecord(@PathVariable String firstName, @PathVariable String lastName)
+			throws Exception {
+		String sVal = medicalrecordService.deleteMedicalRecord(firstName, lastName);
 		logger.info("Suppression d'un medicalrecord " + sVal);
 		return sVal;
 

@@ -9,9 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.safetynetalerts.controller.FirestationController;
+import com.safetynet.safetynetalerts.model.ChildAlertByAddressModel;
 import com.safetynet.safetynetalerts.model.FirestationModel;
+import com.safetynet.safetynetalerts.model.FoyerbyFirestationModel;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
+import com.safetynet.safetynetalerts.model.PersonByAddressModel;
+import com.safetynet.safetynetalerts.model.PersonByFoyerModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
+import com.safetynet.safetynetalerts.model.PersonbyFirestationModel;
 
 import lombok.Data;
 
@@ -42,9 +47,9 @@ public class PersonService {
 		// Liste des personnes dépendant d'un numéro de station
 		List<Object> listObjects = new ArrayList<Object>();
 		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
-		List<PersonbyFirestationService> listPersonByFirestation = new ArrayList<PersonbyFirestationService>();
-		List<PersonbyFirestationService> listPersonsPlus18 = new ArrayList<PersonbyFirestationService>();
-		List<PersonbyFirestationService> listPersons18EtMoins = new ArrayList<PersonbyFirestationService>();
+		List<PersonbyFirestationModel> listPersonByFirestation = new ArrayList<PersonbyFirestationModel>();
+		List<PersonbyFirestationModel> listPersonsPlus18 = new ArrayList<PersonbyFirestationModel>();
+		List<PersonbyFirestationModel> listPersons18EtMoins = new ArrayList<PersonbyFirestationModel>();
 
 		// Recupération de la liste des firestations en fonction du numéro de station
 		for (FirestationModel firestation : jsonFileReadRepository.getFile().getFirestations()) {
@@ -57,14 +62,14 @@ public class PersonService {
 		for (FirestationModel firestation : listFirestations2) {
 			for (PersonModel person : jsonFileReadRepository.getFile().getPersons()) {
 				if (firestation.getAddress().equals(person.getAddress())) {
-					listPersonByFirestation.add(new PersonbyFirestationService(person.getFirstName(),
+					listPersonByFirestation.add(new PersonbyFirestationModel(person.getFirstName(),
 							person.getLastName(), person.getAddress(), person.getPhone()));
 				}
 			}
 		}
 		// Décompte du nombre d'adulte de plus de 18 ans et enfants (individu agé de 18
 		// ans ou moins)
-		for (PersonbyFirestationService person : listPersonByFirestation) {
+		for (PersonbyFirestationModel person : listPersonByFirestation) {
 			for (MedicalrecordModel medicalrecords : jsonFileReadRepository.getFile().getMedicalrecords()) {
 				if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
@@ -78,7 +83,7 @@ public class PersonService {
 				}
 			}
 		}
-		for (PersonbyFirestationService personByFirestation : listPersonByFirestation) {
+		for (PersonbyFirestationModel personByFirestation : listPersonByFirestation) {
 			listObjects.add(personByFirestation);
 		}
 		listObjects.add("");
@@ -96,11 +101,11 @@ public class PersonService {
 	 * @param address (address d'entrée)
 	 * @return une liste d'enfants
 	 */
-	public List<ChildAlertByAddressService> findByAddressAListChild(String address) throws Exception {
+	public List<ChildAlertByAddressModel> findByAddressAListChild(String address) throws Exception {
 		logger.debug("findByAddressAListChild " + address);
 		// Liste des personnes habitant à une adresse
 		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
-		List<ChildAlertByAddressService> listChildAlert = new ArrayList<ChildAlertByAddressService>();
+		List<ChildAlertByAddressModel> listChildAlert = new ArrayList<ChildAlertByAddressModel>();
 		for (PersonModel person : jsonFileReadRepository.getFile().getPersons()) {
 			if (person.getAddress().equals(address)) {
 				listPersons2.add(person);
@@ -118,13 +123,13 @@ public class PersonService {
 					if (age > 18) {
 					} else {
 						listChildAlert.add(
-								new ChildAlertByAddressService(person.getFirstName(), person.getLastName(), age, null));
+								new ChildAlertByAddressModel(person.getFirstName(), person.getLastName(), age, null));
 					}
 				}
 			}
 		}
 		// person dans le même foyer
-		for (ChildAlertByAddressService childAlerte : listChildAlert) {
+		for (ChildAlertByAddressModel childAlerte : listChildAlert) {
 			ArrayList<String> personnDansMemeFoyer = new ArrayList<String>();
 			for (PersonModel person : listPersons2) {
 				if (!person.getFirstName().equals(childAlerte.getFirstName())) {
@@ -183,7 +188,7 @@ public class PersonService {
 		// Liste des personnes habitant à une adresse
 		List<Object> listObjects = new ArrayList<Object>();
 		List<PersonModel> listPersons2 = new ArrayList<PersonModel>();
-		List<PersonByAddressService> listPersonByAddress = new ArrayList<PersonByAddressService>();
+		List<PersonByAddressModel> listPersonByAddress = new ArrayList<PersonByAddressModel>();
 		for (PersonModel person : jsonFileReadRepository.getFile().getPersons()) {
 			if (person.getAddress().equals(address)) {
 				listPersons2.add(person);
@@ -197,7 +202,7 @@ public class PersonService {
 						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
 					CalculAgeService calcul = new CalculAgeService();
 					int age = calcul.calculAge(medicalrecords.getBirthdate());
-					listPersonByAddress.add(new PersonByAddressService(person.getFirstName(), person.getLastName(),
+					listPersonByAddress.add(new PersonByAddressModel(person.getFirstName(), person.getLastName(),
 							person.getPhone(), age, medicalrecords.getMedications(), medicalrecords.getAllergies()));
 				}
 			}
@@ -211,7 +216,7 @@ public class PersonService {
 			}
 		}
 
-		for (PersonByAddressService personByAdresss : listPersonByAddress) {
+		for (PersonByAddressModel personByAdresss : listPersonByAddress) {
 			listObjects.add(personByAdresss);
 		}
 
@@ -235,7 +240,7 @@ public class PersonService {
 		List<Object> listObjects = new ArrayList<Object>();
 		List<String> listFoyer = new ArrayList<String>();
 		List<FirestationModel> listFirestations2 = new ArrayList<FirestationModel>();
-		List<FoyerbyFirestationService> listFoyerbyFirestation = new ArrayList<FoyerbyFirestationService>();
+		List<FoyerbyFirestationModel> listFoyerbyFirestation = new ArrayList<FoyerbyFirestationModel>();
 
 		for (FirestationModel firestation : jsonFileReadRepository.getFile().getFirestations()) {
 			if (firestation.getStation().equals(station)) {
@@ -252,12 +257,12 @@ public class PersonService {
 			}
 		}
 		for (String foyer : listFoyer) {
-			ArrayList<PersonByFoyerService> listPersonByFoyer = new ArrayList<PersonByFoyerService>();
+			ArrayList<PersonByFoyerModel> listPersonByFoyer = new ArrayList<PersonByFoyerModel>();
 			boolean personFind = false;
 			for (PersonModel person : jsonFileReadRepository.getFile().getPersons()) {
 				if (foyer.equals(person.getAddress())) {
 					if (!personFind) {
-						listFoyerbyFirestation.add(new FoyerbyFirestationService(foyer, null));
+						listFoyerbyFirestation.add(new FoyerbyFirestationModel(foyer, null));
 						personFind = true;
 					}
 
@@ -269,17 +274,17 @@ public class PersonService {
 							String sVal = person.getLastName() + " medications:" + medicalrecords.getMedications()
 									+ " allergies:" + medicalrecords.getAllergies();
 							listPersonByFoyer
-									.add(new PersonByFoyerService(person.getFirstName(), sVal, person.getPhone(), age));
+									.add(new PersonByFoyerModel(person.getFirstName(), sVal, person.getPhone(), age));
 						}
 					}
 				}
 
 			}
-			FoyerbyFirestationService Foyer = listFoyerbyFirestation.get(listFoyerbyFirestation.size() - 1);
+			FoyerbyFirestationModel Foyer = listFoyerbyFirestation.get(listFoyerbyFirestation.size() - 1);
 			Foyer.setListPersonByFoyer(listPersonByFoyer);
 		}
 
-		for (FoyerbyFirestationService foyer : listFoyerbyFirestation) {
+		for (FoyerbyFirestationModel foyer : listFoyerbyFirestation) {
 			listObjects.add(foyer);
 		}
 
@@ -387,21 +392,21 @@ public class PersonService {
 	 * @param firstNameLastName
 	 * @return un String contenant le résultat de la suppression d'une person
 	 */
-	public String deletePerson(String firstNameLastName) {
-		logger.debug("deletePerson " + firstNameLastName);
+	public String deletePerson(String firstName, String lastName) {
+		logger.debug("deletePerson " + firstName + lastName);
 		boolean personneSupprimee = false;
 		for (PersonModel personTest : jsonFileReadRepository.getFile().getPersons()) {
 			String firstNameLastNamePersonTest = personTest.getFirstName() + personTest.getLastName();
-			if (firstNameLastNamePersonTest.equals(firstNameLastName)) {
+			if (firstNameLastNamePersonTest.equals(firstName + lastName)) {
 				jsonFileReadRepository.getFile().getPersons().remove(personTest);
 				personneSupprimee = true;
 				break;
 			}
 		}
 		if (!personneSupprimee) {
-			return firstNameLastName + " n'est pas reference";
+			return firstName + " " + lastName + " n'est pas reference";
 		}
-		return firstNameLastName + " supprime";
+		return firstName + " " + lastName + " supprime";
 	}
 
 }

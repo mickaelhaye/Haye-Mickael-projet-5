@@ -49,9 +49,9 @@ class PersonControllerTest {
 
 	@Test
 	void deletePersonsTest() throws Exception {
-		mockMvc.perform(delete("/person/JohnnyBoyd").accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print())
+		mockMvc.perform(delete("/person/Johnny/Boyd").accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("JohnnyBoyd n'est pas reference")));
+				.andExpect(content().string(containsString("Johnny Boyd n'est pas reference")));
 	}
 
 	@Test

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetynetalerts.CustomProperties;
 import com.safetynet.safetynetalerts.controller.FirestationController;
+import com.safetynet.safetynetalerts.model.FileEntryModel;
 
 import jakarta.annotation.PostConstruct;
 
@@ -27,7 +28,7 @@ public class JsonFileReadService {
 	@Autowired
 	private CustomProperties prop;
 
-	private FileEntryService file;
+	private FileEntryModel file;
 
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
@@ -36,7 +37,7 @@ public class JsonFileReadService {
 	 * @return une classe avec des listes contenant les données du fichier
 	 */
 	@PostConstruct
-	public FileEntryService recupFile() throws Exception {
+	public FileEntryModel recupFile() throws Exception {
 
 		// Recupération des données dans le fichier json
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -45,7 +46,7 @@ public class JsonFileReadService {
 
 		try {
 
-			file = objectMapper.readValue(new File(prop.getJsonFilePath()), FileEntryService.class);
+			file = objectMapper.readValue(new File(prop.getJsonFilePath()), FileEntryModel.class);
 			logger.debug("Lecture du fichier Json OK");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -56,7 +57,7 @@ public class JsonFileReadService {
 		return file;
 	}
 
-	public FileEntryService getFile() {
+	public FileEntryModel getFile() {
 		return file;
 	}
 

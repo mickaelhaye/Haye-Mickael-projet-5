@@ -75,21 +75,21 @@ public class MedicalRecordService {
 	 * @param firstNameLastName
 	 * @return un String contenant le résultat de la suppression d'une medicalrecord
 	 */
-	public String deleteMedicalRecord(String firstNameLastName) {
-		logger.debug("deleteMedicalRecord " + firstNameLastName);
+	public String deleteMedicalRecord(String firstName, String lastName) {
+		logger.debug("deleteMedicalRecord " + firstName + lastName);
 		boolean medicalRecordSupprimee = false;
 		for (MedicalrecordModel medicalRecordTest : jsonFileReadRepository.getFile().getMedicalrecords()) {
 			String firstNameLastNamePersonTest = medicalRecordTest.getFirstName() + medicalRecordTest.getLastName();
-			if (firstNameLastNamePersonTest.equals(firstNameLastName)) {
+			if (firstNameLastNamePersonTest.equals(firstName + lastName)) {
 				jsonFileReadRepository.getFile().getMedicalrecords().remove(medicalRecordTest);
 				medicalRecordSupprimee = true;
 				break;
 			}
 		}
 		if (!medicalRecordSupprimee) {
-			return firstNameLastName + " n'est pas reference";
+			return firstName + " " + lastName + " n'est pas reference";
 		}
-		return firstNameLastName + " supprime";
+		return firstName + " " + lastName + " supprime";
 	}
 
 }

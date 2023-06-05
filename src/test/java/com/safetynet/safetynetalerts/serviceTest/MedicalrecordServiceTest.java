@@ -123,7 +123,7 @@ class MedicalrecordServiceTest {
 		try {
 			List<MedicalrecordModel> medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			int nbrMedicalrecorOld = medicalrecords.size();
-			medicalRecordService.deleteMedicalRecord("JohnBoyd");
+			medicalRecordService.deleteMedicalRecord("John", "Boyd");
 			medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			int nbrMedicalrecordNew = medicalrecords.size();
 			assertEquals(nbrMedicalrecorOld - 1, nbrMedicalrecordNew);
@@ -139,7 +139,7 @@ class MedicalrecordServiceTest {
 			List<MedicalrecordModel> medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			int nbrMedicalrecorOld = medicalrecords.size();
 
-			medicalRecordService.deleteMedicalRecord("PatrickBoyd");
+			medicalRecordService.deleteMedicalRecord("Patrick", "Boyd");
 			medicalrecords = jsonFileReadRepository.getFile().getMedicalrecords();
 			int nbrMedicalrecordNew = medicalrecords.size();
 			assertEquals(nbrMedicalrecorOld, nbrMedicalrecordNew);

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.safetynetalerts.model.ChildAlertByAddressModel;
+import com.safetynet.safetynetalerts.model.FileEntryModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
-import com.safetynet.safetynetalerts.service.ChildAlertByAddressService;
-import com.safetynet.safetynetalerts.service.FileEntryService;
 import com.safetynet.safetynetalerts.service.JsonFileReadService;
 import com.safetynet.safetynetalerts.service.PersonService;
 
@@ -35,7 +35,7 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 
-	private FileEntryService file;
+	private FileEntryModel file;
 
 	/**
 	 * API pour récupérer la liste des persons
@@ -73,8 +73,8 @@ public class PersonController {
 	 *                   personService.findByAddressAListChild(address)
 	 */
 	@GetMapping(value = "/childAlert/{address}")
-	public List<ChildAlertByAddressService> afficherUneListeEnfant(@PathVariable String address) throws Exception {
-		List<ChildAlertByAddressService> list = personService.findByAddressAListChild(address);
+	public List<ChildAlertByAddressModel> afficherUneListeEnfant(@PathVariable String address) throws Exception {
+		List<ChildAlertByAddressModel> list = personService.findByAddressAListChild(address);
 		logger.info("Liste des enfants en fonction d'une adresse " + list);
 		return list;
 	}
@@ -186,9 +186,9 @@ public class PersonController {
 	 * @param firstNameLastName
 	 * @throws Exception écriture fichier érroné
 	 */
-	@DeleteMapping("/person/{firstNameLastName}")
-	public String supprimerPerson(@PathVariable String firstNameLastName) throws Exception {
-		String sVal = personService.deletePerson(firstNameLastName);
+	@DeleteMapping("/person/{firstName}/{lastName}")
+	public String supprimerPerson(@PathVariable String firstName, @PathVariable String lastName) throws Exception {
+		String sVal = personService.deletePerson(firstName, lastName);
 		logger.info("Suppression d'une person " + sVal);
 		return sVal;
 	}

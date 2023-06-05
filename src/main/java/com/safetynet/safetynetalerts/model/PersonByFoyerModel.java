@@ -1,4 +1,4 @@
-package com.safetynet.safetynetalerts.service;
+package com.safetynet.safetynetalerts.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,13 +11,14 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class PersonbyFirestationService {
+public class PersonByFoyerModel {
+
 	private String firstName;
 
-	private String lastName;
-
-	private String address;
+	private String lastName_medications_allergies;
 
 	private String phone;
+
+	private int age;
 
 }

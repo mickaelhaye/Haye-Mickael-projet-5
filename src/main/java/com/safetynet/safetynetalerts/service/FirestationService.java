@@ -65,35 +65,49 @@ public class FirestationService {
 	}
 
 	/**
-	 * //@DeleteMapping("/firestation/{stationOrAddress}")
+	 * //@DeleteMapping("/firestation/{station}")
 	 * 
-	 * @param stationOrAddress
+	 * @param station
 	 * @return un String contenant le résultat de la suppression d'une Firestation
 	 */
-	public String deleteFirestation(String stationOrAddress) {
-		logger.debug("deleteFirestation " + stationOrAddress);
-		boolean firestationSupprimeebyStation = false;
-		boolean firestationSupprimeebyAddress = false;
+	public String deleteFirestationByStation(String station) {
+		logger.debug("deleteFirestationByStation " + station);
+		boolean firestationSupprimee = false;
 		for (int i = 0; i < jsonFileReadRepository.getFile().getFirestations().size(); i++) {
 			FirestationModel firestationTest = jsonFileReadRepository.getFile().getFirestations().get(i);
-			if (stationOrAddress.equals(firestationTest.getAddress())) {
+			if (station.equals(firestationTest.getStation())) {
 				jsonFileReadRepository.getFile().getFirestations().remove(firestationTest);
-				firestationSupprimeebyAddress = true;
+				i--;
+				firestationSupprimee = true;
+			}
+		}
+		if (!firestationSupprimee) {
+			return "la firestation " + station + " n'est pas reference";
+		}
+		return "les firestations " + station + " ont ete supprimees";
+	}
+
+	/**
+	 * //@DeleteMapping("/firestation/{Address}")
+	 * 
+	 * @param Address
+	 * @return un String contenant le résultat de la suppression d'une Firestation
+	 */
+	public String deleteFirestationByAddress(String address) {
+		logger.debug("deleteFirestationByAddress " + address);
+		boolean firestationSupprimee = false;
+		for (int i = 0; i < jsonFileReadRepository.getFile().getFirestations().size(); i++) {
+			FirestationModel firestationTest = jsonFileReadRepository.getFile().getFirestations().get(i);
+			if (address.equals(firestationTest.getAddress())) {
+				jsonFileReadRepository.getFile().getFirestations().remove(firestationTest);
+				firestationSupprimee = true;
 				break;
 			}
-			if (stationOrAddress.equals(firestationTest.getStation())) {
-				jsonFileReadRepository.getFile().getFirestations().remove(firestationTest);
-				firestationSupprimeebyStation = true;
-				i--;
-			}
 		}
-		if (!firestationSupprimeebyStation && !firestationSupprimeebyAddress) {
-			return "la firestation " + stationOrAddress + " n'est pas reference";
+		if (!firestationSupprimee) {
+			return "la firestation " + address + " n'est pas reference";
 		}
-		if (firestationSupprimeebyAddress) {
-			return "la firestation " + stationOrAddress + " a ete supprimee";
-		}
-		return "les firestations " + stationOrAddress + " ont ete supprimees";
+		return "les firestations " + address + " ont ete supprimees";
 	}
 
 }

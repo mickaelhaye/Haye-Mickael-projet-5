@@ -48,10 +48,17 @@ class FirestationControllerTest {
 	}
 
 	@Test
-	void deleteFirestationsTest() throws Exception {
-		mockMvc.perform(delete("/firestation/10").accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print())
+	void deleteFirestationsByStationTest() throws Exception {
+		mockMvc.perform(delete("/firestation/station/10").accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("la firestation 10 n'est pas reference")));
+	}
+
+	@Test
+	void deleteFirestationsByAddressTest() throws Exception {
+		mockMvc.perform(delete("/firestation/address/toto").accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("la firestation toto n'est pas reference")));
 	}
 
 }

@@ -116,7 +116,7 @@ class FirestationServiceTest {
 			List<FirestationModel> firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 
-			firestationService.deleteFirestation("2");
+			firestationService.deleteFirestationByStation("2");
 			firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld - 3, nbrFirestationNew);
@@ -132,7 +132,7 @@ class FirestationServiceTest {
 			List<FirestationModel> firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 
-			firestationService.deleteFirestation("8");
+			firestationService.deleteFirestationByStation("8");
 			firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld, nbrFirestationNew);
@@ -148,7 +148,7 @@ class FirestationServiceTest {
 			List<FirestationModel> firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 
-			firestationService.deleteFirestation("1509 Culver St");
+			firestationService.deleteFirestationByAddress("1509 Culver St");
 			firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld - 1, nbrFirestationNew);
@@ -164,7 +164,7 @@ class FirestationServiceTest {
 			List<FirestationModel> firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationOld = firestations.size();
 
-			firestationService.deleteFirestation("mars");
+			firestationService.deleteFirestationByAddress("mars");
 			firestations = jsonFileReadRepository.getFile().getFirestations();
 			int nbrFirestationNew = firestations.size();
 			assertEquals(nbrFirestationOld, nbrFirestationNew);

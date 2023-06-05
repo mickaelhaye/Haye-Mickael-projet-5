@@ -1,4 +1,6 @@
-package com.safetynet.safetynetalerts.service;
+package com.safetynet.safetynetalerts.model;
+
+import java.util.ArrayList;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,14 +13,13 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class PersonByFoyerService {
-
+public class ChildAlertByAddressModel {
 	private String firstName;
 
-	private String lastName_medications_allergies;
-
-	private String phone;
+	private String lastName;
 
 	private int age;
+
+	ArrayList<String> personnDansMemeFoyer = new ArrayList<String>();
 
 }
