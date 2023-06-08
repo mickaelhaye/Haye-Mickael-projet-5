@@ -35,7 +35,7 @@ class PersonControllerTest {
 	void postPersonsTest() throws Exception {
 		mockMvc.perform(post("/person").contentType(MediaType.APPLICATION_JSON_VALUE).content(
 				"{ \"firstName\":\"John\", \"lastName\":\"Boyd\", \"address\":\"1509 Culver St\", \"city\":\"Culver\", \"zip\":\"97451\", \"phone\":\"841-874-6512\", \"email\":\"jaboyd@email.com\" }")
-				.accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk())
+				.accept(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isCreated())
 				.andExpect(content().string(containsString("John Boyd ajoute")));
 	}
 

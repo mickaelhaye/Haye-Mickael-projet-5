@@ -35,7 +35,7 @@ class FirestationControllerTest {
 	void postFirestationsTest() throws Exception {
 		mockMvc.perform(post("/firestation").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content("{ \"address\":\"29 15th St\", \"station\":\"2\" }").accept(MediaType.APPLICATION_JSON_VALUE))
-				.andDo(print()).andExpect(status().isOk())
+				.andDo(print()).andExpect(status().isCreated())
 				.andExpect(content().string(containsString("la firestation 29 15th St Station:2 a ete ajoutee")));
 	}
 
