@@ -1,4 +1,4 @@
-package com.safetynet.safetynetalerts;
+package com.safetynet.safetynetalerts.configurationTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
