@@ -83,11 +83,12 @@ public class FirestationService {
 		for (PersonbyFirestationModel personByFirestation : listPersonByFirestation) {
 			listObjects.add(personByFirestation);
 		}
-		listObjects.add("");
-		listObjects.add("le nombre d'adultes est de " + listPersonsPlus18.size());
-		listObjects.add("");
-		listObjects.add("le nombre d'enfants est de " + listPersons18EtMoins.size());
-
+		if (!listPersonsPlus18.isEmpty() || !listPersons18EtMoins.isEmpty()) {
+			listObjects.add("");
+			listObjects.add("le nombre d'adultes est de " + listPersonsPlus18.size());
+			listObjects.add("");
+			listObjects.add("le nombre d'enfants est de " + listPersons18EtMoins.size());
+		}
 		return listObjects;
 	}
 

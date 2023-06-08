@@ -123,9 +123,10 @@ public class PersonService {
 			listObjects.add(personByAdresss);
 		}
 
-		listObjects.add("");
-		listObjects.add("L'adresse " + address + " : est desservie par la station : " + numStation);
-
+		if (!listObjects.isEmpty()) {
+			listObjects.add("");
+			listObjects.add("L'adresse " + address + " : est desservie par la station : " + numStation);
+		}
 		return listObjects;
 
 	}
