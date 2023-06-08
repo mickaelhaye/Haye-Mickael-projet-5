@@ -16,15 +16,12 @@ import com.safetynet.safetynetalerts.model.PersonByFoyerModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.model.PersonbyFirestationModel;
 
-import lombok.Data;
-
 /**
  * Cette classe permet de traiter les API concernant Firestation
  * 
  * @author Mickael Hayé
  *
  */
-@Data
 @Service
 public class FirestationService {
 	@Autowired

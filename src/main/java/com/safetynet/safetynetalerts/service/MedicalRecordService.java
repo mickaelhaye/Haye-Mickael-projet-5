@@ -8,15 +8,12 @@ import org.springframework.stereotype.Service;
 import com.safetynet.safetynetalerts.controller.FirestationController;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 
-import lombok.Data;
-
 /**
  * Cette classe permet de traiter les API concernant Medicalrecord
  * 
  * @author Mickael Hayé
  *
  */
-@Data
 @Service
 public class MedicalRecordService {
 	@Autowired

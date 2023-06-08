@@ -12,15 +12,12 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.safetynetalerts.controller.FirestationController;
 
-import lombok.Data;
-
 /**
  * Classe pour calculer un age
  * 
  * @author Mickael Hayé
  *
  */
-@Data
 @Service
 public class CalculAgeService {
 

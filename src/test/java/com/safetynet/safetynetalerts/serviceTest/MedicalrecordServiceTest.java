@@ -1,9 +1,7 @@
 package com.safetynet.safetynetalerts.serviceTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,29 +130,4 @@ class MedicalrecordServiceTest {
 			e.printStackTrace();
 		}
 	}
-
-	@Test
-	void equalsTest() {
-		MedicalRecordService medicalRecordService2 = new MedicalRecordService();
-		MedicalRecordService medicalRecordService3 = new MedicalRecordService();
-		assertTrue(medicalRecordService2.equals(medicalRecordService3));
-	}
-
-	@Test
-	void equalsSameObjetTest() {
-		assertTrue(medicalRecordService.equals(medicalRecordService));
-	}
-
-	@Test
-	void equalsNullObjetTest() {
-		MedicalRecordService medicalRecordServiceNull = null;
-		assertFalse(medicalRecordService.equals(medicalRecordServiceNull));
-	}
-
-	@Test
-	void equalsDifferentObjetTest() {
-		Object objetDifferent = new Object();
-		assertFalse(medicalRecordService.equals(objetDifferent));
-	}
-
 }

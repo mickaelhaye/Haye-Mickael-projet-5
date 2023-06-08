@@ -15,15 +15,12 @@ import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.model.PersonByAddressModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
 
-import lombok.Data;
-
 /**
  * Cette classe permet de traiter les API concernant Person
  * 
  * @author Mickael Hayé
  *
  */
-@Data
 @Service
 public class PersonService {
 	@Autowired
