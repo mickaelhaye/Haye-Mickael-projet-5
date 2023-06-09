@@ -12,17 +12,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.safetynetalerts.model.FirestationModel;
 import com.safetynet.safetynetalerts.model.FoyerbyFirestationModel;
-import com.safetynet.safetynetalerts.service.FirestationService;
-import com.safetynet.safetynetalerts.service.JsonFileReadService;
+import com.safetynet.safetynetalerts.service.impl.FirestationServiceImpl;
+import com.safetynet.safetynetalerts.service.impl.JsonFileReadServiceImpl;
 
 @SpringBootTest
 class FirestationServiceTest {
 
 	@Autowired
-	private JsonFileReadService jsonFileReadRepository;
+	private JsonFileReadServiceImpl jsonFileReadRepository;
 
 	@Autowired
-	private FirestationService firestationService;
+	private FirestationServiceImpl firestationService;
 
 	@BeforeEach
 	void setUpPerTest() {

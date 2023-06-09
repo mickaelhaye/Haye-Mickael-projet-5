@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetynetalerts.configuration.CustomProperties;
 import com.safetynet.safetynetalerts.controller.FirestationController;
 import com.safetynet.safetynetalerts.model.FileEntryModel;
+import com.safetynet.safetynetalerts.service.impl.JsonFileReadServiceImpl;
 
 import jakarta.annotation.PostConstruct;
 
@@ -23,7 +24,7 @@ import jakarta.annotation.PostConstruct;
  *
  */
 @Service
-public class JsonFileReadService {
+public class JsonFileReadService implements JsonFileReadServiceImpl {
 
 	@Autowired
 	private CustomProperties prop;
@@ -37,6 +38,7 @@ public class JsonFileReadService {
 	 * @return une classe avec des listes contenant les données du fichier
 	 */
 	@PostConstruct
+	@Override
 	public FileEntryModel recupFile() throws Exception {
 
 		// Recupération des données dans le fichier json
@@ -57,6 +59,7 @@ public class JsonFileReadService {
 		return file;
 	}
 
+	@Override
 	public FileEntryModel getFile() {
 		return file;
 	}

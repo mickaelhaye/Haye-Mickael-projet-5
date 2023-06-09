@@ -14,6 +14,9 @@ import com.safetynet.safetynetalerts.model.FirestationModel;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.model.PersonByAddressModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
+import com.safetynet.safetynetalerts.service.impl.CalculAgeServiceImpl;
+import com.safetynet.safetynetalerts.service.impl.JsonFileReadServiceImpl;
+import com.safetynet.safetynetalerts.service.impl.PersonServiceImpl;
 
 /**
  * Cette classe permet de traiter les API concernant Person
@@ -22,9 +25,12 @@ import com.safetynet.safetynetalerts.model.PersonModel;
  *
  */
 @Service
-public class PersonService {
+public class PersonService implements PersonServiceImpl {
 	@Autowired
-	private JsonFileReadService jsonFileReadRepository;
+	private JsonFileReadServiceImpl jsonFileReadRepository;
+
+	@Autowired
+	CalculAgeServiceImpl calculAge;
 
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
@@ -35,6 +41,7 @@ public class PersonService {
 	 * @param address (address d'entrée)
 	 * @return une liste d'enfants
 	 */
+	@Override
 	public List<ChildAlertByAddressModel> findByAddressAListChild(String address) throws Exception {
 		logger.debug("findByAddressAListChild " + address);
 		// Liste des personnes habitant à une adresse
@@ -52,8 +59,7 @@ public class PersonService {
 			for (MedicalrecordModel medicalrecords : jsonFileReadRepository.getFile().getMedicalrecords()) {
 				if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
-					CalculAgeService calcul = new CalculAgeService();
-					int age = calcul.calculAge(medicalrecords.getBirthdate());
+					int age = calculAge.calculAge(medicalrecords.getBirthdate());
 					if (age > 18) {
 					} else {
 						listChildAlert.add(
@@ -83,6 +89,7 @@ public class PersonService {
 	 * @param address (adress d'entrée)
 	 * @return une liste d'objets (Liste de persons + numéro de station)
 	 */
+	@Override
 	public List<Object> findByAddressAPerson(String address) throws Exception {
 		logger.debug("findByAddressAPerson " + address);
 		// Liste des personnes habitant à une adresse
@@ -100,8 +107,7 @@ public class PersonService {
 			for (MedicalrecordModel medicalrecords : jsonFileReadRepository.getFile().getMedicalrecords()) {
 				if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
-					CalculAgeService calcul = new CalculAgeService();
-					int age = calcul.calculAge(medicalrecords.getBirthdate());
+					int age = calculAge.calculAge(medicalrecords.getBirthdate());
 					listPersonByAddress.add(new PersonByAddressModel(person.getFirstName(), person.getLastName(),
 							person.getPhone(), age, medicalrecords.getMedications(), medicalrecords.getAllergies()));
 				}
@@ -135,6 +141,7 @@ public class PersonService {
 	 * @param firstName (prénom d'entrée)
 	 * @return une liste de persons
 	 */
+	@Override
 	public List<String> findByFirstNameAPerson(String firstName, String lastName) throws Exception {
 		logger.debug("findByFirstNameAPerson " + firstName);
 		// Liste des personnes en fonction d'un prénom
@@ -146,8 +153,7 @@ public class PersonService {
 					for (MedicalrecordModel medicalrecords : jsonFileReadRepository.getFile().getMedicalrecords()) {
 						if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 								&& (person.getLastName().equals(medicalrecords.getLastName()))) {
-							CalculAgeService calcul = new CalculAgeService();
-							int age = calcul.calculAge(medicalrecords.getBirthdate());
+							int age = calculAge.calculAge(medicalrecords.getBirthdate());
 							listPerson.add(person.getLastName() + " , " + person.getAddress() + " , " + age + " , "
 									+ person.getEmail() + " , " + medicalrecords.getMedications() + " , "
 									+ medicalrecords.getAllergies());
@@ -167,6 +173,7 @@ public class PersonService {
 	 * @param city (city d'entrée)
 	 * @return une liste d'emails
 	 */
+	@Override
 	public List<String> findByCityAEmail(String city) throws Exception {
 		logger.debug("findByCityAEmail " + city);
 		// Liste des personnes en fonction d'un prénom
@@ -186,6 +193,7 @@ public class PersonService {
 	 * @param person
 	 * @return un String contenant le résultat du rajout d'une person
 	 */
+	@Override
 	public String addPerson(PersonModel person) {
 		logger.debug("addPerson " + person);
 		jsonFileReadRepository.getFile().getPersons().add(person);
@@ -198,6 +206,7 @@ public class PersonService {
 	 * @param person
 	 * @return un String contenant le résultat de la modification d'une person
 	 */
+	@Override
 	public String updatePerson(PersonModel person) {
 		logger.debug("updatePerson " + person);
 		boolean personneModifiee = false;
@@ -225,6 +234,7 @@ public class PersonService {
 	 * @param firstNameLastName
 	 * @return un String contenant le résultat de la suppression d'une person
 	 */
+	@Override
 	public String deletePerson(String firstName, String lastName) {
 		logger.debug("deletePerson " + firstName + lastName);
 		boolean personneSupprimee = false;

@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetynetalerts.model.FileEntryModel;
 import com.safetynet.safetynetalerts.model.FirestationModel;
-import com.safetynet.safetynetalerts.service.FirestationService;
-import com.safetynet.safetynetalerts.service.JsonFileReadService;
+import com.safetynet.safetynetalerts.service.impl.FirestationServiceImpl;
+import com.safetynet.safetynetalerts.service.impl.JsonFileReadServiceImpl;
 
 /**
  * Cette classe gère les API au niveau de Firestation
@@ -32,10 +32,10 @@ public class FirestationController {
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
 	@Autowired
-	private JsonFileReadService jsonFileReadService;
+	private JsonFileReadServiceImpl jsonFileReadService;
 
 	@Autowired
-	private FirestationService firestationService;
+	private FirestationServiceImpl firestationService;
 
 	private FileEntryModel file;
 

@@ -15,6 +15,9 @@ import com.safetynet.safetynetalerts.model.MedicalrecordModel;
 import com.safetynet.safetynetalerts.model.PersonByFoyerModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
 import com.safetynet.safetynetalerts.model.PersonbyFirestationModel;
+import com.safetynet.safetynetalerts.service.impl.CalculAgeServiceImpl;
+import com.safetynet.safetynetalerts.service.impl.FirestationServiceImpl;
+import com.safetynet.safetynetalerts.service.impl.JsonFileReadServiceImpl;
 
 /**
  * Cette classe permet de traiter les API concernant Firestation
@@ -23,9 +26,13 @@ import com.safetynet.safetynetalerts.model.PersonbyFirestationModel;
  *
  */
 @Service
-public class FirestationService {
+public class FirestationService implements FirestationServiceImpl {
 	@Autowired
-	private JsonFileReadService jsonFileReadRepository;
+	private JsonFileReadServiceImpl jsonFileReadRepository;
+
+	@Autowired
+	CalculAgeServiceImpl calculAge;
+
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
 	/**
@@ -36,6 +43,7 @@ public class FirestationService {
 	 * @return une liste d'Objets (liste de persons + décompte adultes +décompte
 	 *         enfants
 	 */
+	@Override
 	public List<Object> findByFirestationAListPersons(String station) throws Exception {
 		logger.debug("findByFirestationAListPersons " + station);
 		// Liste des personnes dépendant d'un numéro de station
@@ -67,8 +75,7 @@ public class FirestationService {
 			for (MedicalrecordModel medicalrecords : jsonFileReadRepository.getFile().getMedicalrecords()) {
 				if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 						&& (person.getLastName().equals(medicalrecords.getLastName()))) {
-					CalculAgeService calcul = new CalculAgeService();
-					int age = calcul.calculAge(medicalrecords.getBirthdate());
+					int age = calculAge.calculAge(medicalrecords.getBirthdate());
 					if (age > 18) {
 						listPersonsPlus18.add(person);
 					} else {
@@ -96,6 +103,7 @@ public class FirestationService {
 	 * @param station (station d'entrée)
 	 * @return une liste d'objets (Liste de foyers)
 	 */
+	@Override
 	public List<Object> findByFirestationAFoyer(String[] ListStation) throws Exception {
 		logger.debug("findByFirestationAFoyer ");
 		// Liste des foyer dépendant d'un numéro de station
@@ -134,8 +142,8 @@ public class FirestationService {
 						for (MedicalrecordModel medicalrecords : jsonFileReadRepository.getFile().getMedicalrecords()) {
 							if ((person.getFirstName().equals(medicalrecords.getFirstName()))
 									&& (person.getLastName().equals(medicalrecords.getLastName()))) {
-								CalculAgeService calcul = new CalculAgeService();
-								int age = calcul.calculAge(medicalrecords.getBirthdate());
+
+								int age = calculAge.calculAge(medicalrecords.getBirthdate());
 								String sVal = person.getLastName() + " medications:" + medicalrecords.getMedications()
 										+ " allergies:" + medicalrecords.getAllergies();
 								listPersonByFoyer.add(
@@ -164,6 +172,7 @@ public class FirestationService {
 	 * @param station (station d'entrée)
 	 * @return une liste de numéros de téléphone
 	 */
+	@Override
 	public List<String> findByFirestationAPhone(String station) throws Exception {
 		logger.debug("findByFirestationAPhone " + station);
 		// Liste des numéros de telephone dépendant d'un numéro de station
@@ -197,6 +206,7 @@ public class FirestationService {
 	 * @param firestation
 	 * @return un String contenant le résultat du rajout d'une Firestation
 	 */
+	@Override
 	public String addFirestation(FirestationModel firestation) {
 		logger.debug("addFirestation " + firestation);
 		jsonFileReadRepository.getFile().getFirestations().add(firestation);
@@ -209,7 +219,7 @@ public class FirestationService {
 	 * @param firestation
 	 * @return un String contenant le résultat de la modification d'une Firestation
 	 */
-
+	@Override
 	public String updateFirestation(FirestationModel firestation) {
 		logger.debug("updateFirestation " + firestation);
 		boolean firestationModifiee = false;
@@ -232,6 +242,7 @@ public class FirestationService {
 	 * @param station
 	 * @return un String contenant le résultat de la suppression d'une Firestation
 	 */
+	@Override
 	public String deleteFirestationByStation(String station) {
 		logger.debug("deleteFirestationByStation " + station);
 		boolean firestationSupprimee = false;
@@ -255,6 +266,7 @@ public class FirestationService {
 	 * @param Address
 	 * @return un String contenant le résultat de la suppression d'une Firestation
 	 */
+	@Override
 	public String deleteFirestationByAddress(String address) {
 		logger.debug("deleteFirestationByAddress " + address);
 		boolean firestationSupprimee = false;

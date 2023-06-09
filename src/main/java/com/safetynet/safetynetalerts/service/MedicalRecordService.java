@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.safetynetalerts.controller.FirestationController;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
+import com.safetynet.safetynetalerts.service.impl.JsonFileReadServiceImpl;
+import com.safetynet.safetynetalerts.service.impl.MedicalRecordServiceImpl;
 
 /**
  * Cette classe permet de traiter les API concernant Medicalrecord
@@ -15,9 +17,9 @@ import com.safetynet.safetynetalerts.model.MedicalrecordModel;
  *
  */
 @Service
-public class MedicalRecordService {
+public class MedicalRecordService implements MedicalRecordServiceImpl {
 	@Autowired
-	private JsonFileReadService jsonFileReadRepository;
+	private JsonFileReadServiceImpl jsonFileReadRepository;
 
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
@@ -27,6 +29,7 @@ public class MedicalRecordService {
 	 * @param medicalRecord
 	 * @return un String contenant le résultat du rajout d'une medicalrecord
 	 */
+	@Override
 	public String addMedicalRecord(MedicalrecordModel medicalRecord) {
 		logger.debug("addMedicalRecord " + medicalRecord);
 		jsonFileReadRepository.getFile().getMedicalrecords().add(medicalRecord);
@@ -40,6 +43,7 @@ public class MedicalRecordService {
 	 * @return un String contenant le résultat de la modification d'une
 	 *         medicalrecord
 	 */
+	@Override
 	public String updateMedicalRecord(MedicalrecordModel medicalRecord) {
 		logger.debug("updateMedicalRecord " + medicalRecord);
 		boolean medicalRecordModifiee = false;
@@ -65,6 +69,7 @@ public class MedicalRecordService {
 	 * @param firstNameLastName
 	 * @return un String contenant le résultat de la suppression d'une medicalrecord
 	 */
+	@Override
 	public String deleteMedicalRecord(String firstName, String lastName) {
 		logger.debug("deleteMedicalRecord " + firstName + lastName);
 		boolean medicalRecordSupprimee = false;

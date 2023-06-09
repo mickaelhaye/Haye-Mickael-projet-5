@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.safetynetalerts.controller.FirestationController;
+import com.safetynet.safetynetalerts.service.impl.CalculAgeServiceImpl;
 
 /**
  * Classe pour calculer un age
@@ -19,7 +20,7 @@ import com.safetynet.safetynetalerts.controller.FirestationController;
  *
  */
 @Service
-public class CalculAgeService {
+public class CalculAgeService implements CalculAgeServiceImpl {
 
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
@@ -30,6 +31,7 @@ public class CalculAgeService {
 	 * @param birthdate
 	 * @return age
 	 */
+	@Override
 	public int calculAge(String birthdate) {
 		logger.debug("Calcul Age");
 		// calcul de l'age
