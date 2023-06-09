@@ -49,8 +49,7 @@ public class FirestationController {
 	 */
 	@GetMapping("/firestation")
 	public List<Object> afficherUneListePersonne(
-			@RequestParam(required = false, name = "stationNumber", defaultValue = "0") String station_number)
-			throws Exception {
+			@RequestParam(required = false, name = "stationNumber") String station_number) throws Exception {
 		if (!station_number.equals("0")) {
 			List<Object> list = firestationService.findByFirestationAListPersons(station_number);
 			logger.info("Liste des personnes couvertes par la caserne de pompier correspondante " + list);
@@ -74,8 +73,8 @@ public class FirestationController {
 	 *                   personService.findByFirestationAFoyer(station)
 	 */
 	@GetMapping("/flood/stations")
-	public List<Object> afficherUneListeFoyerParFirestation(
-			@RequestParam(name = "stations", defaultValue = "0") String[] ListStation) throws Exception {
+	public List<Object> afficherUneListeFoyerParFirestation(@RequestParam(name = "stations") String[] ListStation)
+			throws Exception {
 		List<Object> list = firestationService.findByFirestationAFoyer(ListStation);
 		logger.info("Liste des personnes en fonction d'une adresse " + list);
 		return list;
@@ -90,8 +89,8 @@ public class FirestationController {
 	 *                   personService.findByFirestationAPhone(station)
 	 */
 	@GetMapping("/phoneAlert")
-	public List<String> afficherUneListeNumTelephone(
-			@RequestParam(name = "firestation", defaultValue = "0") String firestation_number) throws Exception {
+	public List<String> afficherUneListeNumTelephone(@RequestParam(name = "firestation") String firestation_number)
+			throws Exception {
 		List<String> list = firestationService.findByFirestationAPhone(firestation_number);
 		logger.info("Liste des numéros de téléphon,e desservis par une caserne " + list);
 		return list;

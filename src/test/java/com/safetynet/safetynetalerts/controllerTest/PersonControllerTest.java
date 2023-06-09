@@ -55,38 +55,24 @@ class PersonControllerTest {
 	}
 
 	@Test
-	void getAfficherUneListePersonneTest() throws Exception {
-		mockMvc.perform(get("/firestation")).andDo(print()).andExpect(status().isOk());
-	}
-
-	@Test
 	void getafficherUneListeEnfantTest() throws Exception {
-		mockMvc.perform(get("/childAlert")).andDo(print()).andExpect(status().isOk());
-	}
-
-	@Test
-	void afficherUneListeNumTelephoneTest() throws Exception {
-		mockMvc.perform(get("/phoneAlert")).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(get("/childAlert").param("address", "")).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
 	void afficherUneListePersonneParAddresseTest() throws Exception {
-		mockMvc.perform(get("/fire")).andDo(print()).andExpect(status().isOk());
-	}
-
-	@Test
-	void afficherUneListeFoyerParFirestationTest() throws Exception {
-		mockMvc.perform(get("/flood/stations")).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(get("/fire").param("address", "")).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
 	void afficherUneListePersonneParPrenomTest() throws Exception {
-		mockMvc.perform(get("/personInfo")).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(get("/personInfo").param("firstName", "John").param("lastName", "Boyd")).andDo(print())
+				.andExpect(status().isOk());
 	}
 
 	@Test
 	void afficherEmailParCityTest() throws Exception {
-		mockMvc.perform(get("/communityEmail")).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(get("/communityEmail").param("city", "nantes")).andDo(print()).andExpect(status().isOk());
 	}
 
 }

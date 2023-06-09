@@ -60,8 +60,8 @@ public class PersonController {
 	 *                   personService.findByAddressAListChild(address)
 	 */
 	@GetMapping("/childAlert")
-	public List<ChildAlertByAddressModel> afficherUneListeEnfant(
-			@RequestParam(name = "address", defaultValue = "") String address) throws Exception {
+	public List<ChildAlertByAddressModel> afficherUneListeEnfant(@RequestParam(name = "address") String address)
+			throws Exception {
 		List<ChildAlertByAddressModel> list = personService.findByAddressAListChild(address);
 		logger.info("Liste des enfants en fonction d'une adresse " + list);
 		return list;
@@ -75,8 +75,8 @@ public class PersonController {
 	 * @throws Exception mauvais retour personService.findByAddressAPerson(address)
 	 */
 	@GetMapping("/fire")
-	public List<Object> afficherUneListePersonneParAddresse(
-			@RequestParam(name = "address", defaultValue = "") String address) throws Exception {
+	public List<Object> afficherUneListePersonneParAddresse(@RequestParam(name = "address") String address)
+			throws Exception {
 		List<Object> list = personService.findByAddressAPerson(address);
 		logger.info("Liste des personnes en fonction d'une adresse " + list);
 		return list;
@@ -91,9 +91,8 @@ public class PersonController {
 	 *                   personService.findByFirstNameAPerson(firstName)
 	 */
 	@GetMapping("/personInfo")
-	public List<String> afficherUneListePersonneParPrenom(
-			@RequestParam(name = "firstName", defaultValue = "") String firstName,
-			@RequestParam(name = "lastName", defaultValue = "") String lastName) throws Exception {
+	public List<String> afficherUneListePersonneParPrenom(@RequestParam(name = "firstName") String firstName,
+			@RequestParam(name = "lastName") String lastName) throws Exception {
 		List<String> list = personService.findByFirstNameAPerson(firstName, lastName);
 		logger.info("liste des personnes en fonction d'un prénom " + list);
 		return list;
@@ -108,8 +107,7 @@ public class PersonController {
 	 */
 	// Récupération des adresses mail en fonction d'une ville
 	@GetMapping("/communityEmail")
-	public List<String> afficherEmailParCity(@RequestParam(name = "city", defaultValue = "") String city)
-			throws Exception {
+	public List<String> afficherEmailParCity(@RequestParam(name = "city") String city) throws Exception {
 		List<String> list = personService.findByCityAEmail(city);
 		logger.info("Liste des adresses mail en fonction d'une ville " + list);
 		return list;
