@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.safetynetalerts.model.FileEntryModel;
-import com.safetynet.safetynetalerts.service.JsonFileReadService;
+import com.safetynet.safetynetalerts.service.impl.JsonFileReadServiceImpl;
 
 @SpringBootTest
 class JsonFileReadServiceTest {
 
 	@Autowired
-	private JsonFileReadService JsonFileReadRepository;
+	private JsonFileReadServiceImpl JsonFileReadRepository;
 
 	@Test
 	void recupFileTest() {

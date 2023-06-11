@@ -11,13 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.safetynet.safetynetalerts.service.impl.CalculAgeServiceImpl;
+import com.safetynet.safetynetalerts.service.CalculAgeService;
 
 @SpringBootTest
 class CalculAgeServiceTest {
 
 	@Autowired
-	private CalculAgeServiceImpl calculAgeService;
+	private CalculAgeService calculAgeService;
 
 	/**
 	 * Cas où le calcul de l'age est correct

@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.safetynet.safetynetalerts.model.ChildAlertByAddressModel;
 import com.safetynet.safetynetalerts.model.FileEntryModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
-import com.safetynet.safetynetalerts.service.impl.JsonFileReadServiceImpl;
-import com.safetynet.safetynetalerts.service.impl.PersonServiceImpl;
+import com.safetynet.safetynetalerts.service.JsonFileReadService;
+import com.safetynet.safetynetalerts.service.PersonService;
 
 /**
  * Cette classe gère les API au niveau de Person
@@ -32,10 +32,10 @@ public class PersonController {
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
 	@Autowired
-	private JsonFileReadServiceImpl jsonFileReadService;
+	private JsonFileReadService jsonFileReadService;
 
 	@Autowired
-	private PersonServiceImpl personService;
+	private PersonService personService;
 
 	private FileEntryModel file;
 

@@ -12,17 +12,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.safetynetalerts.model.ChildAlertByAddressModel;
 import com.safetynet.safetynetalerts.model.PersonModel;
-import com.safetynet.safetynetalerts.service.impl.JsonFileReadServiceImpl;
-import com.safetynet.safetynetalerts.service.impl.PersonServiceImpl;
+import com.safetynet.safetynetalerts.service.JsonFileReadService;
+import com.safetynet.safetynetalerts.service.PersonService;
 
 @SpringBootTest
 class PersonServiceTest {
 
 	@Autowired
-	private JsonFileReadServiceImpl jsonFileReadRepository;
+	private JsonFileReadService jsonFileReadRepository;
 
 	@Autowired
-	private PersonServiceImpl personService;
+	private PersonService personService;
 
 	@BeforeEach
 	void setUpPerTest() {

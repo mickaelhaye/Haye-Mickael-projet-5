@@ -12,17 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
-import com.safetynet.safetynetalerts.service.impl.JsonFileReadServiceImpl;
-import com.safetynet.safetynetalerts.service.impl.MedicalRecordServiceImpl;
+import com.safetynet.safetynetalerts.service.JsonFileReadService;
+import com.safetynet.safetynetalerts.service.MedicalRecordService;
 
 @SpringBootTest
 class MedicalrecordServiceTest {
 
 	@Autowired
-	private JsonFileReadServiceImpl jsonFileReadRepository;
+	private JsonFileReadService jsonFileReadRepository;
 
 	@Autowired
-	private MedicalRecordServiceImpl medicalRecordService;
+	private MedicalRecordService medicalRecordService;
 
 	@BeforeEach
 	void setUpPerTest() {

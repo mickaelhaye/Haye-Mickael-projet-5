@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetynetalerts.model.FileEntryModel;
 import com.safetynet.safetynetalerts.model.MedicalrecordModel;
-import com.safetynet.safetynetalerts.service.impl.JsonFileReadServiceImpl;
-import com.safetynet.safetynetalerts.service.impl.MedicalRecordServiceImpl;
+import com.safetynet.safetynetalerts.service.JsonFileReadService;
+import com.safetynet.safetynetalerts.service.MedicalRecordService;
 
 /**
  * Cette classe gère les API au niveau de Medicalrecord
@@ -31,10 +31,10 @@ public class MedicalrecordController {
 	private static Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
 	@Autowired
-	private JsonFileReadServiceImpl jsonFileReadService;
+	private JsonFileReadService jsonFileReadService;
 
 	@Autowired
-	private MedicalRecordServiceImpl medicalrecordService;
+	private MedicalRecordService medicalrecordService;
 
 	private FileEntryModel file;
 
